@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Portrait - Kerezel Design</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { primary: '#D4AF37', secondary: '#1A1A1A' }, borderRadius: { 'none': '0px', 'sm': '4px', DEFAULT: '8px', 'md': '12px', 'lg': '16px', 'xl': '20px', '2xl': '24px', '3xl': '32px', 'full': '9999px', 'button': '8px' } } } }</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0F0F0F;
+            color: #F5F5F5;
+        }
+
+        .heading {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #D4AF37;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .portfolio-item {
+            overflow: hidden;
+        }
+
+        .portfolio-item img {
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-black bg-opacity-80 backdrop-blur-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-['Playfair_Display'] font-bold text-white">Kerezel <span class="text-primary">Design</span></a>
+            <a href="index.html" class="text-white hover:text-primary transition-colors">Retour à l'accueil</a>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="pt-32 pb-16 bg-secondary">
+        <div class="container mx-auto px-6">
+            <div class="text-center">
+                <h1 class="heading text-4xl md:text-5xl font-bold text-white mb-4">Portfolio Portrait</h1>
+                <p class="text-gray-400 max-w-2xl mx-auto">Découvrez mes photographies de portrait en studio et en
+                    extérieur, mettant en valeur la personnalité de chaque sujet.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Gallery -->
+    <section class="py-16 bg-black">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Portfolio Item 1 -->
+                <div class="portfolio-item rounded-lg overflow-hidden group">
+                    <div class="relative">
+                        <img src="photo/portrait studio/f5206322-192c-4a1d-95cb-11617805dae6.jpg" alt="Portrait 1"
+                            class="w-full h-80 object-cover">
+                        <div
+                            class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100">
+                            <div class="text-center p-4">
+                                <h3 class="text-white text-xl font-semibold mb-2">Portrait Élégant</h3>
+                                <p class="text-gray-300 mb-4">Studio professionnel</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 2 -->
+                <div class="portfolio-item rounded-lg overflow-hidden group">
+                    <div class="relative">
+                        <img src="photo/portrait studio/567a9230-6bde-4005-a212-54f207f3d15a.jpg" alt="Portrait 2"
+                            class="w-full h-80 object-cover">
+                        <div
+                            class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100">
+                            <div class="text-center p-4">
+                                <h3 class="text-white text-xl font-semibold mb-2">Portrait Artistique</h3>
+                                <p class="text-gray-300 mb-4">Style contemporain</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 3 -->
+                <div class="portfolio-item rounded-lg overflow-hidden group">
+                    <div class="relative">
+                        <img src="photo/portrait studio/12b4be78-5383-4fdd-ad97-76f7e75705f3.jpg" alt="Portrait 3"
+                            class="w-full h-80 object-cover">
+                        <div
+                            class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100">
+                            <div class="text-center p-4">
+                                <h3 class="text-white text-xl font-semibold mb-2">Portrait Expressif</h3>
+                                <p class="text-gray-300 mb-4">Capture d'émotion</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 4 -->
+                <div class="portfolio-item rounded-lg overflow-hidden group">
+                    <div class="relative">
+                        <img src="photo/portrait studio/0dd49657-fdcb-449c-96d4-289f31a20232.jpg" alt="Portrait 4"
+                            class="w-full h-80 object-cover">
+                        <div
+                            class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100">
+                            <div class="text-center p-4">
+                                <h3 class="text-white text-xl font-semibold mb-2">Portrait Professionnel</h3>
+                                <p class="text-gray-300 mb-4">Photo corporate</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 5 -->
+                <div class="portfolio-item rounded-lg overflow-hidden group">
+                    <div class="relative">
+                        <img src="photo/2d2c7e55-2725-42f7-a776-1aa8e1de3e77.jpg" alt="Portrait 5"
+                            class="w-full h-80 object-cover">
+                        <div
+                            class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100">
+                            <div class="text-center p-4">
+                                <h3 class="text-white text-xl font-semibold mb-2">Portrait Créatif</h3>
+                                <p class="text-gray-300 mb-4">Approche artistique</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="index.html#contact"
+                    class="inline-block bg-primary text-black px-8 py-3 rounded-button font-medium hover:bg-opacity-90 transition-all whitespace-nowrap">Réserver
+                    une séance photo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <a href="index.html"
+                        class="text-2xl font-['Playfair_Display'] font-bold text-white mb-4 inline-block">Kerezel <span
+                            class="text-primary">Design</span></a>
+                    <p class="text-gray-400 mb-6 max-w-md">Designer graphiste & photographe professionnel basé à Goma,
+                        spécialisé dans la création d'images et de designs visuels captivants pour particuliers et
+                        entreprises.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/kerezeldesign/" target="_blank"
+                            class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 text-white hover:bg-primary hover:text-black transition-colors">
+                            <i class="ri-instagram-line"></i>
+                        </a>
+                        <a href="https://www.facebook.com/kerezeldesign/" target="_blank"
+                            class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 text-white hover:bg-primary hover:text-black transition-colors">
+                            <i class="ri-facebook-line"></i>
+                        </a>
+                        <a href="https://twitter.com/kerezeldesign" target="_blank"
+                            class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 text-white hover:bg-primary hover:text-black transition-colors">
+                            <i class="ri-twitter-x-line"></i>
+                        </a>
+                        <a href="https://wa.me/243976854161" target="_blank"
+                            class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 text-white hover:bg-primary hover:text-black transition-colors">
+                            <i class="ri-whatsapp-line"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-white font-semibold text-lg mb-4">Liens rapides</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#accueil"
+                                class="text-gray-400 hover:text-primary transition-colors">Accueil</a></li>
+                        <li><a href="index.html#a-propos" class="text-gray-400 hover:text-primary transition-colors">À
+                                propos</a></li>
+                        <li><a href="index.html#portfolio"
+                                class="text-gray-400 hover:text-primary transition-colors">Portfolio</a></li>
+                        <li><a href="index.html#services"
+                                class="text-gray-400 hover:text-primary transition-colors">Services</a></li>
+                        <li><a href="index.html#contact"
+                                class="text-gray-400 hover:text-primary transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-semibold text-lg mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="text-gray-400">Avenue du Lac 123, Goma, RD Congo</li>
+                        <li class="text-gray-400">+243 976854161</li>
+                        <li class="text-gray-400">kerezeldesign@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 mt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 Kerezel Design. Tous droits réservés.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-primary text-sm transition-colors">Politique de
+                        confidentialité</a>
+                    <a href="#" class="text-gray-500 hover:text-primary text-sm transition-colors">Conditions
+                        d'utilisation</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button id="back-to-top"
+        class="fixed bottom-6 right-6 w-12 h-12 bg-primary text-black rounded-full flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-opacity-90 z-50">
+        <i class="ri-arrow-up-line ri-lg"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile menu toggle
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            menuToggle.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Back to top button
+            const backToTopButton = document.getElementById('back-to-top');
+
+            window.addEventListener('scroll', function () {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.remove('opacity-0', 'invisible');
+                    backToTopButton.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTopButton.classList.add('opacity-0', 'invisible');
+                    backToTopButton.classList.remove('opacity-100', 'visible');
+                }
+            });
+
+            backToTopButton.addEventListener('click', function () {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
