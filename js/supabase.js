@@ -153,6 +153,21 @@
                     }
                 })
             }),
+            rpc: (functionName, params = {}) => ({
+                async then(callback) {
+                    const response = await fetch(`${supabaseUrl}/rest/v1/rpc/${functionName}`, {
+                        method: 'POST',
+                        headers: {
+                            'apikey': supabaseKey,
+                            'Authorization': `Bearer ${supabaseKey}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(params)
+                    });
+                    const data = await response.json();
+                    callback({ data, error: response.ok ? null : { message: 'Error' } });
+                }
+            }),
             storage: {
                 from: (bucket) => ({
                     upload: async (path, file) => {
