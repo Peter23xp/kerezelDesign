@@ -1,68 +1,158 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
+// Supabase Client simplifié pour navigateur
+(function() {
+    'use strict';
+
+    function createClient(supabaseUrl, supabaseKey, options = {}) {
+        return {
+            auth: {
+                signUp: async (credentials) => ({ data: null, error: null }),
+                signIn: async (credentials) => ({ data: null, error: null }),
+                signOut: async () => ({ error: null }),
+                getSession: async () => ({ data: { session: null }, error: null }),
+                onAuthStateChange: (callback) => ({ data: { subscription: { unsubscribe: () => {} } } })
+            },
+            from: (table) => ({
+                select: (columns = '*') => ({
+                    eq: (column, value) => ({
+                        single: async () => {
+                            const response = await fetch(`${supabaseUrl}/rest/v1/${table}?${column}=eq.${value}&select=${columns}`, {
+                                headers: {
+                                    'apikey': supabaseKey,
+                                    'Authorization': `Bearer ${supabaseKey}`,
+                                    'Content-Type': 'application/json'
+                                }
+                            });
+                            const data = await response.json();
+                            return { data: data[0] || null, error: response.ok ? null : { message: 'Error' } };
+                        },
+                        limit: (count) => ({
+                            order: (column, options = {}) => ({
+                                async then(callback) {
+                                    const response = await fetch(`${supabaseUrl}/rest/v1/${table}?${column}=eq.${value}&select=${columns}&limit=${count}&order=${column}.${options.ascending ? 'asc' : 'desc'}`, {
+                                        headers: {
+                                            'apikey': supabaseKey,
+                                            'Authorization': `Bearer ${supabaseKey}`,
+                                            'Content-Type': 'application/json'
+                                        }
+                                    });
+                                    const data = await response.json();
+                                    callback({ data, error: response.ok ? null : { message: 'Error' } });
+                                }
+                            })
+                        })
+                    }),
+                    order: (column, options = {}) => ({
+                        async then(callback) {
+                            const response = await fetch(`${supabaseUrl}/rest/v1/${table}?select=${columns}&order=${column}.${options.ascending ? 'asc' : 'desc'}`, {
+                                headers: {
+                                    'apikey': supabaseKey,
+                                    'Authorization': `Bearer ${supabaseKey}`,
+                                    'Content-Type': 'application/json'
+                                }
+                            });
+                            const data = await response.json();
+                            callback({ data, error: response.ok ? null : { message: 'Error' } });
+                        }
+                    }),
+                    async then(callback) {
+                        const response = await fetch(`${supabaseUrl}/rest/v1/${table}?select=${columns}`, {
+                            headers: {
+                                'apikey': supabaseKey,
+                                'Authorization': `Bearer ${supabaseKey}`,
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                        const data = await response.json();
+                        callback({ data, error: response.ok ? null : { message: 'Error' } });
+                    }
+                }),
+                insert: (records) => ({
+                    select: async () => {
+                        const response = await fetch(`${supabaseUrl}/rest/v1/${table}`, {
+                            method: 'POST',
+                            headers: {
+                                'apikey': supabaseKey,
+                                'Authorization': `Bearer ${supabaseKey}`,
+                                'Content-Type': 'application/json',
+                                'Prefer': 'return=representation'
+                            },
+                            body: JSON.stringify(records)
+                        });
+                        const data = await response.json();
+                        return { data, error: response.ok ? null : { message: 'Error' } };
+                    }
+                }),
+                update: (updates) => ({
+                    eq: (column, value) => ({
+                        select: async () => {
+                            const response = await fetch(`${supabaseUrl}/rest/v1/${table}?${column}=eq.${value}`, {
+                                method: 'PATCH',
+                                headers: {
+                                    'apikey': supabaseKey,
+                                    'Authorization': `Bearer ${supabaseKey}`,
+                                    'Content-Type': 'application/json',
+                                    'Prefer': 'return=representation'
+                                },
+                                body: JSON.stringify(updates)
+                            });
+                            const data = await response.json();
+                            return { data, error: response.ok ? null : { message: 'Error' } };
+                        }
+                    })
+                }),
+                delete: () => ({
+                    eq: async (column, value) => {
+                        const response = await fetch(`${supabaseUrl}/rest/v1/${table}?${column}=eq.${value}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'apikey': supabaseKey,
+                                'Authorization': `Bearer ${supabaseKey}`,
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                        return { error: response.ok ? null : { message: 'Error' } };
+                    }
+                })
+            }),
+            storage: {
+                from: (bucket) => ({
+                    upload: async (path, file) => {
+                        const formData = new FormData();
+                        formData.append('file', file);
+                        
+                        const response = await fetch(`${supabaseUrl}/storage/v1/object/${bucket}/${path}`, {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': `Bearer ${supabaseKey}`
+                            },
+                            body: formData
+                        });
+                        
+                        return { data: response.ok ? { path } : null, error: response.ok ? null : { message: 'Upload failed' } };
+                    },
+                    remove: async (paths) => {
+                        const response = await fetch(`${supabaseUrl}/storage/v1/object/${bucket}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Authorization': `Bearer ${supabaseKey}`,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(paths)
+                        });
+                        
+                        return { error: response.ok ? null : { message: 'Delete failed' } };
+                    },
+                    getPublicUrl: (path) => ({
+                        data: { publicUrl: `${supabaseUrl}/storage/v1/object/public/${bucket}/${path}` }
+                    })
+                })
+            }
+        };
     }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.createClient = exports.SupabaseClient = exports.FunctionRegion = exports.FunctionsError = exports.FunctionsRelayError = exports.FunctionsFetchError = exports.FunctionsHttpError = exports.PostgrestError = void 0;
-const SupabaseClient_1 = __importDefault(require("./SupabaseClient"));
-__exportStar(require("@supabase/auth-js"), exports);
-var postgrest_js_1 = require("@supabase/postgrest-js");
-Object.defineProperty(exports, "PostgrestError", { enumerable: true, get: function () { return postgrest_js_1.PostgrestError; } });
-var functions_js_1 = require("@supabase/functions-js");
-Object.defineProperty(exports, "FunctionsHttpError", { enumerable: true, get: function () { return functions_js_1.FunctionsHttpError; } });
-Object.defineProperty(exports, "FunctionsFetchError", { enumerable: true, get: function () { return functions_js_1.FunctionsFetchError; } });
-Object.defineProperty(exports, "FunctionsRelayError", { enumerable: true, get: function () { return functions_js_1.FunctionsRelayError; } });
-Object.defineProperty(exports, "FunctionsError", { enumerable: true, get: function () { return functions_js_1.FunctionsError; } });
-Object.defineProperty(exports, "FunctionRegion", { enumerable: true, get: function () { return functions_js_1.FunctionRegion; } });
-__exportStar(require("@supabase/realtime-js"), exports);
-var SupabaseClient_2 = require("./SupabaseClient");
-Object.defineProperty(exports, "SupabaseClient", { enumerable: true, get: function () { return __importDefault(SupabaseClient_2).default; } });
-/**
- * Creates a new Supabase Client.
- */
-const createClient = (supabaseUrl, supabaseKey, options) => {
-    return new SupabaseClient_1.default(supabaseUrl, supabaseKey, options);
-};
-exports.createClient = createClient;
-// Check for Node.js <= 18 deprecation
-function shouldShowDeprecationWarning() {
-    // Skip in browser environments
+
+    // Exposer createClient globalement
     if (typeof window !== 'undefined') {
-        return false;
+        window.supabase = { createClient };
     }
-    // Skip if process is not available (e.g., Edge Runtime)
-    if (typeof process === 'undefined') {
-        return false;
-    }
-    // Use dynamic property access to avoid Next.js Edge Runtime static analysis warnings
-    const processVersion = process['version'];
-    if (processVersion === undefined || processVersion === null) {
-        return false;
-    }
-    const versionMatch = processVersion.match(/^v(\d+)\./);
-    if (!versionMatch) {
-        return false;
-    }
-    const majorVersion = parseInt(versionMatch[1], 10);
-    return majorVersion <= 18;
-}
-if (shouldShowDeprecationWarning()) {
-    console.warn(`⚠️  Node.js 18 and below are deprecated and will no longer be supported in future versions of @supabase/supabase-js. ` +
-        `Please upgrade to Node.js 20 or later. ` +
-        `For more information, visit: https://github.com/orgs/supabase/discussions/37217`);
-}
-//# sourceMappingURL=index.js.map
+
+})();
