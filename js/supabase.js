@@ -15,54 +15,112 @@
                 select: (columns = '*') => ({
                     eq: (column, value) => ({
                         single: async () => {
-                            const response = await fetch(`${supabaseUrl}/rest/v1/${table}?${column}=eq.${value}&select=${columns}`, {
-                                headers: {
-                                    'apikey': supabaseKey,
-                                    'Authorization': `Bearer ${supabaseKey}`,
-                                    'Content-Type': 'application/json'
-                                }
-                            });
-                            const data = await response.json();
-                            return { data: data[0] || null, error: response.ok ? null : { message: 'Error' } };
-                        },
-                        eq: (column2, value2) => ({
-                            single: async () => {
-                                const response = await fetch(`${supabaseUrl}/rest/v1/${table}?${column}=eq.${value}&${column2}=eq.${value2}&select=${columns}`, {
+                            try {
+                                const response = await fetch(`${supabaseUrl}/rest/v1/${table}?${column}=eq.${value}&select=${columns}`, {
                                     headers: {
                                         'apikey': supabaseKey,
                                         'Authorization': `Bearer ${supabaseKey}`,
                                         'Content-Type': 'application/json'
                                     }
                                 });
-                                const data = await response.json();
-                                return { data: data[0] || null, error: response.ok ? null : { message: 'Error' } };
-                            },
-                            eq: (column3, value3) => ({
-                                single: async () => {
-                                    const response = await fetch(`${supabaseUrl}/rest/v1/${table}?${column}=eq.${value}&${column2}=eq.${value2}&${column3}=eq.${value3}&select=${columns}`, {
+                                
+                                if (!response.ok) {
+                                    return { data: null, error: { message: `HTTP ${response.status}: ${response.statusText}` } };
+                                }
+                                
+                                const text = await response.text();
+                                if (!text.trim()) {
+                                    return { data: null, error: { message: 'Empty response' } };
+                                }
+                                
+                                const data = JSON.parse(text);
+                                return { data: data[0] || null, error: null };
+                            } catch (error) {
+                                return { data: null, error: { message: error.message } };
+                            }
+                        },
+                        eq: (column2, value2) => ({
+                            single: async () => {
+                                try {
+                                    const response = await fetch(`${supabaseUrl}/rest/v1/${table}?${column}=eq.${value}&${column2}=eq.${value2}&select=${columns}`, {
                                         headers: {
                                             'apikey': supabaseKey,
                                             'Authorization': `Bearer ${supabaseKey}`,
                                             'Content-Type': 'application/json'
                                         }
                                     });
-                                    const data = await response.json();
-                                    return { data: data[0] || null, error: response.ok ? null : { message: 'Error' } };
+                                    
+                                    if (!response.ok) {
+                                        return { data: null, error: { message: `HTTP ${response.status}: ${response.statusText}` } };
+                                    }
+                                    
+                                    const text = await response.text();
+                                    if (!text.trim()) {
+                                        return { data: null, error: { message: 'Empty response' } };
+                                    }
+                                    
+                                    const data = JSON.parse(text);
+                                    return { data: data[0] || null, error: null };
+                                } catch (error) {
+                                    return { data: null, error: { message: error.message } };
+                                }
+                            },
+                            eq: (column3, value3) => ({
+                                single: async () => {
+                                    try {
+                                        const response = await fetch(`${supabaseUrl}/rest/v1/${table}?${column}=eq.${value}&${column2}=eq.${value2}&${column3}=eq.${value3}&select=${columns}`, {
+                                            headers: {
+                                                'apikey': supabaseKey,
+                                                'Authorization': `Bearer ${supabaseKey}`,
+                                                'Content-Type': 'application/json'
+                                            }
+                                        });
+                                        
+                                        if (!response.ok) {
+                                            return { data: null, error: { message: `HTTP ${response.status}: ${response.statusText}` } };
+                                        }
+                                        
+                                        const text = await response.text();
+                                        if (!text.trim()) {
+                                            return { data: null, error: { message: 'Empty response' } };
+                                        }
+                                        
+                                        const data = JSON.parse(text);
+                                        return { data: data[0] || null, error: null };
+                                    } catch (error) {
+                                        return { data: null, error: { message: error.message } };
+                                    }
                                 }
                             })
                         }),
                         limit: (count) => ({
                             order: (column, options = {}) => ({
                                 async then(callback) {
-                                    const response = await fetch(`${supabaseUrl}/rest/v1/${table}?${column}=eq.${value}&select=${columns}&limit=${count}&order=${column}.${options.ascending ? 'asc' : 'desc'}`, {
-                                        headers: {
-                                            'apikey': supabaseKey,
-                                            'Authorization': `Bearer ${supabaseKey}`,
-                                            'Content-Type': 'application/json'
+                                    try {
+                                        const response = await fetch(`${supabaseUrl}/rest/v1/${table}?${column}=eq.${value}&select=${columns}&limit=${count}&order=${column}.${options.ascending ? 'asc' : 'desc'}`, {
+                                            headers: {
+                                                'apikey': supabaseKey,
+                                                'Authorization': `Bearer ${supabaseKey}`,
+                                                'Content-Type': 'application/json'
+                                            }
+                                        });
+                                        
+                                        if (!response.ok) {
+                                            callback({ data: null, error: { message: `HTTP ${response.status}: ${response.statusText}` } });
+                                            return;
                                         }
-                                    });
-                                    const data = await response.json();
-                                    callback({ data, error: response.ok ? null : { message: 'Error' } });
+                                        
+                                        const text = await response.text();
+                                        if (!text.trim()) {
+                                            callback({ data: [], error: { message: 'Empty response' } });
+                                            return;
+                                        }
+                                        
+                                        const data = JSON.parse(text);
+                                        callback({ data, error: null });
+                                    } catch (error) {
+                                        callback({ data: null, error: { message: error.message } });
+                                    }
                                 }
                             })
                         })
@@ -82,20 +140,37 @@
                             }
                         }),
                         async then(callback) {
-                            const response = await fetch(`${supabaseUrl}/rest/v1/${table}?select=${columns}&limit=${count}`, {
-                                headers: {
-                                    'apikey': supabaseKey,
-                                    'Authorization': `Bearer ${supabaseKey}`,
-                                    'Content-Type': 'application/json'
+                            try {
+                                const response = await fetch(`${supabaseUrl}/rest/v1/${table}?select=${columns}&limit=${count}`, {
+                                    headers: {
+                                        'apikey': supabaseKey,
+                                        'Authorization': `Bearer ${supabaseKey}`,
+                                        'Content-Type': 'application/json'
+                                    }
+                                });
+                                
+                                if (!response.ok) {
+                                    callback({ data: null, error: { message: `HTTP ${response.status}: ${response.statusText}` } });
+                                    return;
                                 }
-                            });
-                            const data = await response.json();
-                            callback({ data, error: response.ok ? null : { message: 'Error' } });
+                                
+                                const text = await response.text();
+                                if (!text.trim()) {
+                                    callback({ data: [], error: { message: 'Empty response' } });
+                                    return;
+                                }
+                                
+                                const data = JSON.parse(text);
+                                callback({ data, error: null });
+                            } catch (error) {
+                                callback({ data: null, error: { message: error.message } });
+                            }
                         }
                     }),
                     order: (column, options = {}) => ({
                         limit: (count) => ({
-                            async then(callback) {
+                        async then(callback) {
+                            try {
                                 const response = await fetch(`${supabaseUrl}/rest/v1/${table}?select=${columns}&order=${column}.${options.ascending ? 'asc' : 'desc'}&limit=${count}`, {
                                     headers: {
                                         'apikey': supabaseKey,
@@ -103,95 +178,195 @@
                                         'Content-Type': 'application/json'
                                     }
                                 });
-                                const data = await response.json();
-                                callback({ data, error: response.ok ? null : { message: 'Error' } });
+                                
+                                if (!response.ok) {
+                                    callback({ data: null, error: { message: `HTTP ${response.status}: ${response.statusText}` } });
+                                    return;
+                                }
+                                
+                                const text = await response.text();
+                                if (!text.trim()) {
+                                    callback({ data: [], error: { message: 'Empty response' } });
+                                    return;
+                                }
+                                
+                                const data = JSON.parse(text);
+                                callback({ data, error: null });
+                            } catch (error) {
+                                callback({ data: null, error: { message: error.message } });
                             }
+                        }
                         }),
                         async then(callback) {
-                            const response = await fetch(`${supabaseUrl}/rest/v1/${table}?select=${columns}&order=${column}.${options.ascending ? 'asc' : 'desc'}`, {
+                            try {
+                                const response = await fetch(`${supabaseUrl}/rest/v1/${table}?select=${columns}&order=${column}.${options.ascending ? 'asc' : 'desc'}`, {
+                                    headers: {
+                                        'apikey': supabaseKey,
+                                        'Authorization': `Bearer ${supabaseKey}`,
+                                        'Content-Type': 'application/json'
+                                    }
+                                });
+                                
+                                if (!response.ok) {
+                                    callback({ data: null, error: { message: `HTTP ${response.status}: ${response.statusText}` } });
+                                    return;
+                                }
+                                
+                                const text = await response.text();
+                                if (!text.trim()) {
+                                    callback({ data: [], error: { message: 'Empty response' } });
+                                    return;
+                                }
+                                
+                                const data = JSON.parse(text);
+                                callback({ data, error: null });
+                            } catch (error) {
+                                callback({ data: null, error: { message: error.message } });
+                            }
+                        }
+                    }),
+                    async then(callback) {
+                        try {
+                            const response = await fetch(`${supabaseUrl}/rest/v1/${table}?select=${columns}`, {
                                 headers: {
                                     'apikey': supabaseKey,
                                     'Authorization': `Bearer ${supabaseKey}`,
                                     'Content-Type': 'application/json'
                                 }
                             });
-                            const data = await response.json();
-                            callback({ data, error: response.ok ? null : { message: 'Error' } });
-                        }
-                    }),
-                    async then(callback) {
-                        const response = await fetch(`${supabaseUrl}/rest/v1/${table}?select=${columns}`, {
-                            headers: {
-                                'apikey': supabaseKey,
-                                'Authorization': `Bearer ${supabaseKey}`,
-                                'Content-Type': 'application/json'
+                            
+                            if (!response.ok) {
+                                callback({ data: null, error: { message: `HTTP ${response.status}: ${response.statusText}` } });
+                                return;
                             }
-                        });
-                        const data = await response.json();
-                        callback({ data, error: response.ok ? null : { message: 'Error' } });
+                            
+                            const text = await response.text();
+                            if (!text.trim()) {
+                                callback({ data: [], error: { message: 'Empty response' } });
+                                return;
+                            }
+                            
+                            const data = JSON.parse(text);
+                            callback({ data, error: null });
+                        } catch (error) {
+                            callback({ data: null, error: { message: error.message } });
+                        }
                     }
                 }),
                 insert: (records) => ({
                     select: async () => {
-                        const response = await fetch(`${supabaseUrl}/rest/v1/${table}`, {
-                            method: 'POST',
-                            headers: {
-                                'apikey': supabaseKey,
-                                'Authorization': `Bearer ${supabaseKey}`,
-                                'Content-Type': 'application/json',
-                                'Prefer': 'return=representation'
-                            },
-                            body: JSON.stringify(records)
-                        });
-                        const data = await response.json();
-                        return { data, error: response.ok ? null : { message: 'Error' } };
-                    }
-                }),
-                update: (updates) => ({
-                    eq: (column, value) => ({
-                        select: async () => {
-                            const response = await fetch(`${supabaseUrl}/rest/v1/${table}?${column}=eq.${value}`, {
-                                method: 'PATCH',
+                        try {
+                            const response = await fetch(`${supabaseUrl}/rest/v1/${table}`, {
+                                method: 'POST',
                                 headers: {
                                     'apikey': supabaseKey,
                                     'Authorization': `Bearer ${supabaseKey}`,
                                     'Content-Type': 'application/json',
                                     'Prefer': 'return=representation'
                                 },
-                                body: JSON.stringify(updates)
+                                body: JSON.stringify(records)
                             });
-                            const data = await response.json();
-                            return { data, error: response.ok ? null : { message: 'Error' } };
+                            
+                            if (!response.ok) {
+                                return { data: null, error: { message: `HTTP ${response.status}: ${response.statusText}` } };
+                            }
+                            
+                            const text = await response.text();
+                            if (!text.trim()) {
+                                return { data: [], error: { message: 'Empty response' } };
+                            }
+                            
+                            const data = JSON.parse(text);
+                            return { data, error: null };
+                        } catch (error) {
+                            return { data: null, error: { message: error.message } };
+                        }
+                    }
+                }),
+                update: (updates) => ({
+                    eq: (column, value) => ({
+                        select: async () => {
+                            try {
+                                const response = await fetch(`${supabaseUrl}/rest/v1/${table}?${column}=eq.${value}`, {
+                                    method: 'PATCH',
+                                    headers: {
+                                        'apikey': supabaseKey,
+                                        'Authorization': `Bearer ${supabaseKey}`,
+                                        'Content-Type': 'application/json',
+                                        'Prefer': 'return=representation'
+                                    },
+                                    body: JSON.stringify(updates)
+                                });
+                                
+                                if (!response.ok) {
+                                    return { data: null, error: { message: `HTTP ${response.status}: ${response.statusText}` } };
+                                }
+                                
+                                const text = await response.text();
+                                if (!text.trim()) {
+                                    return { data: [], error: { message: 'Empty response' } };
+                                }
+                                
+                                const data = JSON.parse(text);
+                                return { data, error: null };
+                            } catch (error) {
+                                return { data: null, error: { message: error.message } };
+                            }
                         }
                     })
                 }),
                 delete: () => ({
                     eq: async (column, value) => {
-                        const response = await fetch(`${supabaseUrl}/rest/v1/${table}?${column}=eq.${value}`, {
-                            method: 'DELETE',
-                            headers: {
-                                'apikey': supabaseKey,
-                                'Authorization': `Bearer ${supabaseKey}`,
-                                'Content-Type': 'application/json'
+                        try {
+                            const response = await fetch(`${supabaseUrl}/rest/v1/${table}?${column}=eq.${value}`, {
+                                method: 'DELETE',
+                                headers: {
+                                    'apikey': supabaseKey,
+                                    'Authorization': `Bearer ${supabaseKey}`,
+                                    'Content-Type': 'application/json'
+                                }
+                            });
+                            
+                            if (!response.ok) {
+                                return { error: { message: `HTTP ${response.status}: ${response.statusText}` } };
                             }
-                        });
-                        return { error: response.ok ? null : { message: 'Error' } };
+                            
+                            return { error: null };
+                        } catch (error) {
+                            return { error: { message: error.message } };
+                        }
                     }
                 })
             }),
             rpc: (functionName, params = {}) => ({
                 async then(callback) {
-                    const response = await fetch(`${supabaseUrl}/rest/v1/rpc/${functionName}`, {
-                        method: 'POST',
-                        headers: {
-                            'apikey': supabaseKey,
-                            'Authorization': `Bearer ${supabaseKey}`,
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(params)
-                    });
-                    const data = await response.json();
-                    callback({ data, error: response.ok ? null : { message: 'Error' } });
+                    try {
+                        const response = await fetch(`${supabaseUrl}/rest/v1/rpc/${functionName}`, {
+                            method: 'POST',
+                            headers: {
+                                'apikey': supabaseKey,
+                                'Authorization': `Bearer ${supabaseKey}`,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(params)
+                        });
+                        
+                        if (!response.ok) {
+                            callback({ data: null, error: { message: `HTTP ${response.status}: ${response.statusText}` } });
+                            return;
+                        }
+                        
+                        const text = await response.text();
+                        if (!text.trim()) {
+                            callback({ data: null, error: { message: 'Empty response' } });
+                            return;
+                        }
+                        
+                        const data = JSON.parse(text);
+                        callback({ data, error: null });
+                    } catch (error) {
+                        callback({ data: null, error: { message: error.message } });
+                    }
                 }
             }),
             storage: {
