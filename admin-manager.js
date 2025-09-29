@@ -1,6 +1,17 @@
 // Script pour générer les hashs de mots de passe et gérer les admins
 // Utilisez ce script pour créer de nouveaux comptes admin
 
+// Attendre que Supabase soit chargé
+function waitForSupabase() {
+    return new Promise((resolve) => {
+        if (window.supabase && window.supabase.createClient) {
+            resolve();
+        } else {
+            setTimeout(() => waitForSupabase().then(resolve), 100);
+        }
+    });
+}
+
 // Fonction pour générer un hash bcrypt (nécessite une bibliothèque bcrypt)
 async function generatePasswordHash(password) {
     // En production, utilisez une bibliothèque bcrypt côté serveur
@@ -20,6 +31,18 @@ async function generatePasswordHash(password) {
 // Fonction pour créer un nouvel admin
 async function createAdmin(email, password, nom, role = 'admin') {
     try {
+        await waitForSupabase();
+        
+        // Utiliser le client Supabase global
+        const supabaseClient = window.SupabasePortfolio?.client || window.supabase?.createClient?.(
+            'https://tfoyjidkxmtlcbrvupkz.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRmb3lqaWRreG10bGNicnZ1cGt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkxNDU3MTgsImV4cCI6MjA3NDcyMTcxOH0.O21vw7_PesSCp-sUF-Xk2yNNYv215t76fEx5lfib8Zg'
+        );
+        
+        if (!supabaseClient) {
+            throw new Error('Client Supabase non disponible');
+        }
+        
         const passwordHash = await generatePasswordHash(password);
         
         const { data, error } = await supabaseClient
@@ -51,6 +74,17 @@ async function createAdmin(email, password, nom, role = 'admin') {
 // Fonction pour lister tous les admins
 async function listAdmins() {
     try {
+        await waitForSupabase();
+        
+        const supabaseClient = window.SupabasePortfolio?.client || window.supabase?.createClient?.(
+            'https://tfoyjidkxmtlcbrvupkz.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRmb3lqaWRreG10bGNicnZ1cGt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkxNDU3MTgsImV4cCI6MjA3NDcyMTcxOH0.O21vw7_PesSCp-sUF-Xk2yNNYv215t76fEx5lfib8Zg'
+        );
+        
+        if (!supabaseClient) {
+            throw new Error('Client Supabase non disponible');
+        }
+
         const { data, error } = await supabaseClient
             .from('admins')
             .select('id, email, nom, role, actif, derniere_connexion, created_at')
@@ -72,6 +106,17 @@ async function listAdmins() {
 // Fonction pour désactiver un admin
 async function deactivateAdmin(adminId) {
     try {
+        await waitForSupabase();
+        
+        const supabaseClient = window.SupabasePortfolio?.client || window.supabase?.createClient?.(
+            'https://tfoyjidkxmtlcbrvupkz.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRmb3lqaWRreG10bGNicnZ1cGt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkxNDU3MTgsImV4cCI6MjA3NDcyMTcxOH0.O21vw7_PesSCp-sUF-Xk2yNNYv215t76fEx5lfib8Zg'
+        );
+        
+        if (!supabaseClient) {
+            throw new Error('Client Supabase non disponible');
+        }
+
         const { data, error } = await supabaseClient
             .from('admins')
             .update({ actif: false })
@@ -94,6 +139,17 @@ async function deactivateAdmin(adminId) {
 // Fonction pour réinitialiser les tentatives de connexion
 async function resetLoginAttempts(adminId) {
     try {
+        await waitForSupabase();
+        
+        const supabaseClient = window.SupabasePortfolio?.client || window.supabase?.createClient?.(
+            'https://tfoyjidkxmtlcbrvupkz.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRmb3lqaWRreG10bGNicnZ1cGt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkxNDU3MTgsImV4cCI6MjA3NDcyMTcxOH0.O21vw7_PesSCp-sUF-Xk2yNNYv215t76fEx5lfib8Zg'
+        );
+        
+        if (!supabaseClient) {
+            throw new Error('Client Supabase non disponible');
+        }
+
         const { data, error } = await supabaseClient
             .from('admins')
             .update({ 
@@ -144,15 +200,24 @@ AdminManager.createAdmin('admin@kerezeldesign.com', 'MonMotDePasse123!', 'Admin 
 // Test de connexion Supabase
 document.addEventListener('DOMContentLoaded', async function() {
     try {
-        const { data, error } = await supabaseClient
-            .from('admins')
-            .select('count')
-            .limit(1);
-            
-        if (error) {
-            console.error('❌ Erreur connexion Supabase:', error);
-        } else {
-            console.log('✅ Connexion Supabase réussie pour AdminManager');
+        await waitForSupabase();
+        
+        const supabaseClient = window.SupabasePortfolio?.client || window.supabase?.createClient?.(
+            'https://tfoyjidkxmtlcbrvupkz.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRmb3lqaWRreG10bGNicnZ1cGt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkxNDU3MTgsImV4cCI6MjA3NDcyMTcxOH0.O21vw7_PesSCp-sUF-Xk2yNNYv215t76fEx5lfib8Zg'
+        );
+        
+        if (supabaseClient) {
+            const { data, error } = await supabaseClient
+                .from('admins')
+                .select('count')
+                .limit(1);
+                
+            if (error) {
+                console.error('❌ Erreur connexion Supabase:', error);
+            } else {
+                console.log('✅ Connexion Supabase réussie pour AdminManager');
+            }
         }
     } catch (error) {
         console.error('❌ Erreur:', error);
