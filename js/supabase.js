@@ -25,6 +25,32 @@
                             const data = await response.json();
                             return { data: data[0] || null, error: response.ok ? null : { message: 'Error' } };
                         },
+                        eq: (column2, value2) => ({
+                            single: async () => {
+                                const response = await fetch(`${supabaseUrl}/rest/v1/${table}?${column}=eq.${value}&${column2}=eq.${value2}&select=${columns}`, {
+                                    headers: {
+                                        'apikey': supabaseKey,
+                                        'Authorization': `Bearer ${supabaseKey}`,
+                                        'Content-Type': 'application/json'
+                                    }
+                                });
+                                const data = await response.json();
+                                return { data: data[0] || null, error: response.ok ? null : { message: 'Error' } };
+                            },
+                            eq: (column3, value3) => ({
+                                single: async () => {
+                                    const response = await fetch(`${supabaseUrl}/rest/v1/${table}?${column}=eq.${value}&${column2}=eq.${value2}&${column3}=eq.${value3}&select=${columns}`, {
+                                        headers: {
+                                            'apikey': supabaseKey,
+                                            'Authorization': `Bearer ${supabaseKey}`,
+                                            'Content-Type': 'application/json'
+                                        }
+                                    });
+                                    const data = await response.json();
+                                    return { data: data[0] || null, error: response.ok ? null : { message: 'Error' } };
+                                }
+                            })
+                        }),
                         limit: (count) => ({
                             order: (column, options = {}) => ({
                                 async then(callback) {
