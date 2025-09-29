@@ -33,7 +33,7 @@
     <!-- Supabase -->
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <script src="supabase.js"></script>
-    <script src="admin-security.js"></script>
+    <script src="admin-manager.js"></script>
 
     <style>
         body {
@@ -333,13 +333,19 @@
 
     <!-- Scripts -->
     <script>
-        // Configuration admin (en production, utilisez des variables d'environnement)
-        const ADMIN_CONFIG = AdminSecurity.config;
+        // Configuration admin - maintenant stockée dans la base de données
+        const ADMIN_CONFIG = {
+            sessionTimeout: 24 * 60 * 60 * 1000, // 24 heures
+            maxAttempts: 5,
+            lockoutDuration: 15 * 60 * 1000, // 15 minutes
+        };
 
         // État de l'application
         let appState = {
             isAuthenticated: false,
             sessionStart: null,
+            currentAdmin: null,
+            sessionToken: null,
             stats: {
                 totalPhotos: 0,
                 recentPhotos: 0,
@@ -351,14 +357,19 @@
         // AUTHENTIFICATION
         // ==========================================
 
-        function initAuth() {
-            // Vérifier si déjà connecté
+        async function initAuth() {
+            // Vérifier si déjà connecté avec une session valide
             const savedSession = localStorage.getItem('admin_session');
             if (savedSession) {
                 const session = JSON.parse(savedSession);
-                if (Date.now() - session.timestamp < ADMIN_CONFIG.sessionTimeout) {
+                appState.sessionToken = session.token;
+                
+                // Valider la session avec Supabase
+                const validation = await SupabasePortfolio.auth.validateSession(session.token);
+                if (validation.valid) {
                     appState.isAuthenticated = true;
-                    appState.sessionStart = session.timestamp;
+                    appState.currentAdmin = validation.admin;
+                    appState.sessionStart = new Date(session.timestamp);
                     showDashboard();
                     return;
                 } else {
@@ -383,16 +394,34 @@
             
             // Sauvegarder la session
             localStorage.setItem('admin_session', JSON.stringify({
+                token: appState.sessionToken,
                 timestamp: appState.sessionStart
             }));
+
+            // Mettre à jour l'affichage avec les infos admin
+            updateAdminDisplay();
 
             // Charger les données du dashboard
             loadDashboardData();
         }
 
-        function logout() {
-            AdminSecurity.logAdminAction('logout', { sessionDuration: Date.now() - appState.sessionStart });
+        function updateAdminDisplay() {
+            if (appState.currentAdmin) {
+                const adminNameElement = document.querySelector('#dashboard-screen .text-right p');
+                if (adminNameElement) {
+                    adminNameElement.textContent = appState.currentAdmin.nom;
+                }
+            }
+        }
+
+        async function logout() {
+            if (appState.sessionToken) {
+                await SupabasePortfolio.auth.logout(appState.sessionToken);
+            }
+            
             appState.isAuthenticated = false;
+            appState.currentAdmin = null;
+            appState.sessionToken = null;
             localStorage.removeItem('admin_session');
             showLogin();
             showToast('Déconnexion réussie', 'info');
@@ -437,23 +466,21 @@
             loginBtn.disabled = true;
 
             try {
-                // Simuler un délai de connexion
-                await new Promise(resolve => setTimeout(resolve, 1500));
-
-            // Vérification des identifiants avec sécurité
-            const validation = AdminSecurity.validateCredentials(email, password);
-            
-            if (validation.valid) {
-                AdminSecurity.logAdminAction('login_success', { email, role: validation.role });
-                showToast('Connexion réussie !', 'success');
-                setTimeout(() => {
-                    showDashboard();
-                }, 500);
-            } else {
-                AdminSecurity.logAdminAction('login_failed', { email, reason: 'invalid_credentials' });
-                showToast('Identifiants incorrects', 'error');
-            }
+                // Authentification avec Supabase
+                const authResult = await SupabasePortfolio.auth.login(email, password);
+                
+                if (authResult.success) {
+                    appState.currentAdmin = authResult.data.admin;
+                    appState.sessionToken = authResult.data.session.token;
+                    showToast('Connexion réussie !', 'success');
+                    setTimeout(() => {
+                        showDashboard();
+                    }, 500);
+                } else {
+                    showToast(authResult.error, 'error');
+                }
             } catch (error) {
+                console.error('Erreur de connexion:', error);
                 showToast('Erreur de connexion', 'error');
             } finally {
                 loginText.classList.remove('hidden');
@@ -613,16 +640,11 @@
             initQuickActions();
             
             // Vérifier la session toutes les 5 minutes
-            setInterval(() => {
-                if (appState.isAuthenticated) {
-                    const savedSession = localStorage.getItem('admin_session');
-                    if (!savedSession) {
+            setInterval(async () => {
+                if (appState.isAuthenticated && appState.sessionToken) {
+                    const validation = await SupabasePortfolio.auth.validateSession(appState.sessionToken);
+                    if (!validation.valid) {
                         logout();
-                    } else {
-                        const session = JSON.parse(savedSession);
-                        if (Date.now() - session.timestamp > ADMIN_CONFIG.sessionTimeout) {
-                            logout();
-                        }
                     }
                 }
             }, 5 * 60 * 1000);

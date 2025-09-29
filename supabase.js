@@ -369,6 +369,248 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 });
 
+// ==========================================
+// AUTHENTIFICATION ADMIN
+// ==========================================
+
+// Fonction pour vérifier les identifiants admin
+async function authenticateAdmin(email, password) {
+    try {
+        // Vérifier d'abord si le compte peut se connecter (pas bloqué)
+        const { data: checkData, error: checkError } = await supabaseClient
+            .rpc('check_login_attempts', { p_email: email });
+
+        if (checkError) {
+            console.error('Erreur vérification tentatives:', checkError);
+            return { success: false, error: 'Erreur de vérification' };
+        }
+
+        if (!checkData) {
+            return { success: false, error: 'Compte temporairement bloqué. Réessayez plus tard.' };
+        }
+
+        // Récupérer l'admin par email
+        const { data: adminData, error: adminError } = await supabaseClient
+            .from('admins')
+            .select('*')
+            .eq('email', email)
+            .eq('actif', true)
+            .single();
+
+        if (adminError || !adminData) {
+            // Incrémenter les tentatives d'échec
+            await supabaseClient.rpc('increment_failed_attempts', { p_email: email });
+            return { success: false, error: 'Identifiants incorrects' };
+        }
+
+        // Vérifier le mot de passe (simulation - en production, utilisez bcrypt)
+        const passwordValid = await verifyPassword(password, adminData.password_hash);
+        
+        if (!passwordValid) {
+            // Incrémenter les tentatives d'échec
+            await supabaseClient.rpc('increment_failed_attempts', { p_email: email });
+            return { success: false, error: 'Identifiants incorrects' };
+        }
+
+        // Connexion réussie - réinitialiser les tentatives
+        await supabaseClient.rpc('reset_login_attempts', { p_admin_id: adminData.id });
+
+        // Créer une session
+        const sessionToken = generateSessionToken();
+        const expiresAt = new Date();
+        expiresAt.setHours(expiresAt.getHours() + 24); // Session de 24h
+
+        const { data: sessionData, error: sessionError } = await supabaseClient
+            .from('admin_sessions')
+            .insert([
+                {
+                    admin_id: adminData.id,
+                    token: sessionToken,
+                    expires_at: expiresAt.toISOString(),
+                    ip_address: await getClientIP(),
+                    user_agent: navigator.userAgent
+                }
+            ])
+            .select();
+
+        if (sessionError) {
+            console.error('Erreur création session:', sessionError);
+            return { success: false, error: 'Erreur de session' };
+        }
+
+        // Logger la connexion réussie
+        await logAdminAction(adminData.id, 'login_success', {
+            email: email,
+            ip: await getClientIP(),
+            user_agent: navigator.userAgent
+        });
+
+        return {
+            success: true,
+            data: {
+                admin: {
+                    id: adminData.id,
+                    email: adminData.email,
+                    nom: adminData.nom,
+                    role: adminData.role
+                },
+                session: {
+                    token: sessionToken,
+                    expires_at: expiresAt.toISOString()
+                }
+            }
+        };
+
+    } catch (error) {
+        console.error('Erreur authentification:', error);
+        return { success: false, error: 'Erreur de connexion' };
+    }
+}
+
+// Fonction pour vérifier le mot de passe (simulation)
+async function verifyPassword(password, hash) {
+    // En production, utilisez une vraie vérification bcrypt
+    // Pour le développement, nous simulons avec le hash par défaut
+    const defaultHash = '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj4J4Kz8Kz8K';
+    const defaultPassword = 'AdminKerezel2025!';
+    
+    if (hash === defaultHash && password === defaultPassword) {
+        return true;
+    }
+    
+    // Simulation d'autres vérifications
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password + 'salt_kerezel_2025');
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    const simulatedHash = `$2b$12$${hashHex.substring(0, 53)}`;
+    
+    return hash === simulatedHash;
+}
+
+// Fonction pour générer un token de session
+function generateSessionToken() {
+    const array = new Uint8Array(32);
+    crypto.getRandomValues(array);
+    return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+}
+
+// Fonction pour obtenir l'IP du client (simulation)
+async function getClientIP() {
+    try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        return data.ip;
+    } catch (error) {
+        return '127.0.0.1'; // IP locale par défaut
+    }
+}
+
+// Fonction pour vérifier la validité d'une session
+async function validateSession(sessionToken) {
+    try {
+        const { data, error } = await supabaseClient
+            .from('admin_sessions')
+            .select(`
+                *,
+                admins (
+                    id,
+                    email,
+                    nom,
+                    role,
+                    actif
+                )
+            `)
+            .eq('token', sessionToken)
+            .gt('expires_at', new Date().toISOString())
+            .single();
+
+        if (error || !data || !data.admins.actif) {
+            return { valid: false };
+        }
+
+        return {
+            valid: true,
+            admin: data.admins,
+            session: data
+        };
+    } catch (error) {
+        console.error('Erreur validation session:', error);
+        return { valid: false };
+    }
+}
+
+// Fonction pour déconnecter un admin
+async function logoutAdmin(sessionToken) {
+    try {
+        // Logger la déconnexion
+        const sessionData = await validateSession(sessionToken);
+        if (sessionData.valid) {
+            await logAdminAction(sessionData.admin.id, 'logout', {
+                session_token: sessionToken
+            });
+        }
+
+        // Supprimer la session
+        const { error } = await supabaseClient
+            .from('admin_sessions')
+            .delete()
+            .eq('token', sessionToken);
+
+        if (error) {
+            console.error('Erreur déconnexion:', error);
+            return { success: false, error: error.message };
+        }
+
+        return { success: true };
+    } catch (error) {
+        console.error('Erreur déconnexion:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// Fonction pour logger les actions admin
+async function logAdminAction(adminId, action, details = {}) {
+    try {
+        const { error } = await supabaseClient
+            .from('admin_audit_logs')
+            .insert([
+                {
+                    admin_id: adminId,
+                    action: action,
+                    details: details,
+                    ip_address: await getClientIP(),
+                    user_agent: navigator.userAgent
+                }
+            ]);
+
+        if (error) {
+            console.error('Erreur log audit:', error);
+        }
+    } catch (error) {
+        console.error('Erreur log audit:', error);
+    }
+}
+
+// Fonction pour obtenir les statistiques admin
+async function getAdminStats() {
+    try {
+        const { data, error } = await supabaseClient
+            .rpc('get_admin_stats');
+
+        if (error) {
+            console.error('Erreur stats admin:', error);
+            return { success: false, error: error.message };
+        }
+
+        return { success: true, data: data[0] };
+    } catch (error) {
+        console.error('Erreur stats admin:', error);
+        return { success: false, error: error.message };
+    }
+}
+
 // Export pour utilisation globale
 window.SupabasePortfolio = {
     client: supabaseClient,
@@ -383,6 +625,13 @@ window.SupabasePortfolio = {
     temoignages: {
         get: getTemoignages,
         add: addTemoignage
+    },
+    auth: {
+        login: authenticateAdmin,
+        validateSession: validateSession,
+        logout: logoutAdmin,
+        logAction: logAdminAction,
+        getStats: getAdminStats
     },
     utils: {
         showToast,
