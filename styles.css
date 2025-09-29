@@ -14,31 +14,114 @@
 }
 
 @layer components {
-  /* Boutons personnalisés */
+  /* Boutons premium */
   .btn-primary {
-    @apply bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg;
+    @apply bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-black font-semibold py-4 px-8 rounded-button transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl hover:shadow-primary-500/25 relative overflow-hidden;
+  }
+  
+  .btn-primary::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 transition-opacity duration-300;
+  }
+  
+  .btn-primary:hover::before {
+    @apply opacity-100;
   }
   
   .btn-secondary {
-    @apply bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition-colors;
+    @apply bg-secondary-800 hover:bg-secondary-700 text-white font-medium py-3 px-6 rounded-button transition-all duration-300 border border-secondary-600 hover:border-primary-500;
   }
   
-  .btn-danger {
-    @apply bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors;
+  .btn-outline {
+    @apply border-2 border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-black font-semibold py-3 px-6 rounded-button transition-all duration-300 transform hover:scale-105;
   }
   
-  /* Cartes */
+  .btn-ghost {
+    @apply bg-transparent hover:bg-primary-500/10 text-primary-500 hover:text-primary-400 font-medium py-3 px-6 rounded-button transition-all duration-300;
+  }
+  
+  /* Cartes premium */
   .card {
-    @apply bg-gray-800 bg-opacity-80 backdrop-blur-sm border border-gray-700 rounded-xl p-6 shadow-xl;
+    @apply bg-secondary-800/90 backdrop-blur-sm border border-secondary-700 rounded-card p-8 shadow-2xl transition-all duration-300 hover:border-primary-500/50 hover:shadow-primary-500/10;
   }
   
   .card-hover {
-    @apply card transition-all duration-300 hover:border-yellow-500 hover:transform hover:-translate-y-1;
+    @apply card hover:transform hover:-translate-y-2 hover:shadow-xl hover:shadow-primary-500/20;
   }
   
-  /* Inputs */
+  .card-service {
+    @apply bg-gradient-to-br from-secondary-800/80 to-secondary-900/80 backdrop-blur-sm border border-secondary-600 rounded-card p-8 shadow-xl transition-all duration-300 hover:border-primary-500 hover:transform hover:-translate-y-1 hover:shadow-primary-500/20;
+  }
+  
+  .card-testimonial {
+    @apply bg-secondary-800/90 backdrop-blur-sm border border-secondary-700 rounded-card p-8 shadow-xl transition-all duration-300 hover:border-primary-500/50 hover:shadow-primary-500/10;
+  }
+  
+  /* Inputs premium */
   .input-field {
-    @apply w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-20 transition-all duration-300;
+    @apply w-full px-6 py-4 bg-secondary-800/50 border border-secondary-600 rounded-button text-white placeholder-neutral-400 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 backdrop-blur-sm;
+  }
+  
+  .input-field:focus {
+    @apply bg-secondary-800/80 shadow-lg shadow-primary-500/10;
+  }
+  
+  /* Portfolio Grid */
+  .portfolio-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
+  }
+  
+  .portfolio-item {
+    @apply relative overflow-hidden rounded-card cursor-pointer;
+  }
+  
+  .portfolio-item img {
+    @apply w-full h-80 object-cover transition-transform duration-500;
+  }
+  
+  .portfolio-item:hover img {
+    @apply scale-110;
+  }
+  
+  .portfolio-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 transition-all duration-300 flex items-end p-6;
+  }
+  
+  .portfolio-item:hover .portfolio-overlay {
+    @apply opacity-100;
+  }
+  
+  .portfolio-content {
+    @apply text-white transform translate-y-4 transition-transform duration-300;
+  }
+  
+  .portfolio-item:hover .portfolio-content {
+    @apply translate-y-0;
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    @apply relative min-h-screen flex items-center justify-center overflow-hidden;
+  }
+  
+  .hero-overlay {
+    @apply absolute inset-0 bg-gradient-to-br from-accent-900/80 via-accent-900/60 to-accent-900/80;
+  }
+  
+  .hero-content {
+    @apply relative z-10 text-center max-w-4xl mx-auto px-6;
+  }
+  
+  .hero-title {
+    @apply text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight;
+  }
+  
+  .hero-subtitle {
+    @apply text-xl md:text-2xl lg:text-3xl text-neutral-300 mb-8 leading-relaxed;
+  }
+  
+  .hero-description {
+    @apply text-lg md:text-xl text-neutral-400 mb-12 max-w-2xl mx-auto leading-relaxed;
   }
   
   /* Toast notifications */
@@ -67,6 +150,49 @@
     @apply border-4 border-gray-300 border-t-yellow-500 rounded-full animate-spin;
   }
   
+  /* Navigation premium */
+  .nav-link {
+    @apply relative text-white hover:text-primary-400 transition-colors duration-300 font-medium;
+  }
+  
+  .nav-link::after {
+    @apply content-[''] absolute w-0 h-0.5 bottom-0 left-0 bg-primary-500 transition-all duration-300;
+  }
+  
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+  
+  .nav-link.active::after {
+    @apply w-full;
+  }
+  
+  /* Testimonials carousel */
+  .testimonial-slide {
+    @apply card-testimonial transform transition-all duration-500;
+  }
+  
+  .testimonial-slide.active {
+    @apply scale-105 shadow-primary-500/20;
+  }
+  
+  /* FAQ */
+  .faq-item {
+    @apply border-b border-secondary-700 py-6;
+  }
+  
+  .faq-question {
+    @apply text-white font-semibold text-lg mb-3 cursor-pointer flex items-center justify-between;
+  }
+  
+  .faq-answer {
+    @apply text-neutral-400 leading-relaxed max-h-0 overflow-hidden transition-all duration-300;
+  }
+  
+  .faq-answer.open {
+    @apply max-h-96 mt-4;
+  }
+  
   /* Mobile optimizations */
   @media (max-width: 640px) {
     .mobile-full {
@@ -91,6 +217,18 @@
     
     .mobile-block {
       @apply block;
+    }
+    
+    .hero-title {
+      @apply text-4xl;
+    }
+    
+    .hero-subtitle {
+      @apply text-lg;
+    }
+    
+    .portfolio-grid {
+      @apply grid-cols-1 gap-4;
     }
   }
 }
