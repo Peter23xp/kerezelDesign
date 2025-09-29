@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - Kerezel Design</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#D4AF37',
+                        secondary: '#1A1A1A'
+                    },
+                    borderRadius: {
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- Supabase -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0F0F0F;
+            color: #F5F5F5;
+        }
+
+        .heading {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Styles pour le drag & drop */
+        .dropzone {
+            border: 2px dashed #D4AF37;
+            transition: all 0.3s ease;
+        }
+
+        .dropzone.dragover {
+            border-color: #B8941F;
+            background-color: rgba(212, 175, 55, 0.1);
+        }
+
+        /* Styles pour le preview d'image */
+        .image-preview {
+            max-width: 300px;
+            max-height: 200px;
+            object-fit: cover;
+        }
+
+        /* Animation de loading */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            border-top-color: #D4AF37;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Styles pour les onglets */
+        .tab-button.active {
+            background-color: #D4AF37;
+            color: #000;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Styles pour la galerie admin */
+        .photo-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #1A1A1A;
+        }
+
+        .photo-actions {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .photo-card:hover .photo-actions {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-black bg-opacity-80 backdrop-blur-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-['Playfair_Display'] font-bold text-white">
+                Kerezel <span class="text-primary">Design</span>
+            </a>
+            
+            <div class="flex items-center space-x-4">
+                <span class="text-gray-300">Administration</span>
+                <a href="index.html" class="bg-primary text-black px-4 py-2 rounded-button font-medium hover:bg-opacity-90 transition-colors">
+                    Retour au site
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-20 min-h-screen bg-black">
+        <div class="container mx-auto px-6 py-8">
+            <!-- En-tête -->
+            <div class="text-center mb-12">
+                <h1 class="heading text-4xl font-bold text-white mb-4">Administration du Portfolio</h1>
+                <p class="text-gray-400 max-w-2xl mx-auto">Gérez vos photos, témoignages et contenus du site.</p>
+            </div>
+
+            <!-- Onglets -->
+            <div class="mb-8">
+                <div class="flex justify-center space-x-2 mb-8">
+                    <button class="tab-button active px-6 py-3 rounded-button font-medium transition-colors" data-tab="photos">
+                        <i class="ri-image-line mr-2"></i>Photos
+                    </button>
+                    <button class="tab-button px-6 py-3 rounded-button font-medium transition-colors bg-gray-800 text-white hover:bg-gray-700" data-tab="temoignages">
+                        <i class="ri-chat-quote-line mr-2"></i>Témoignages
+                    </button>
+                    <button class="tab-button px-6 py-3 rounded-button font-medium transition-colors bg-gray-800 text-white hover:bg-gray-700" data-tab="galerie">
+                        <i class="ri-gallery-line mr-2"></i>Galerie
+                    </button>
+                </div>
+            </div>
+
+            <!-- Contenu des onglets -->
+            
+            <!-- Onglet Photos -->
+            <div id="photos-tab" class="tab-content active">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Formulaire d'ajout de photos -->
+                    <div class="bg-gray-900 p-8 rounded-lg">
+                        <h2 class="text-2xl font-semibold text-white mb-6">Ajouter une Photo</h2>
+                        
+                        <form id="photo-form" class="space-y-6">
+                            <!-- Upload d'image -->
+                            <div>
+                                <label class="block text-white mb-2">Image *</label>
+                                <div id="dropzone" class="dropzone p-8 rounded-lg text-center cursor-pointer">
+                                    <div id="drop-content">
+                                        <i class="ri-upload-cloud-line text-4xl text-primary mb-4 block"></i>
+                                        <p class="text-gray-300 mb-2">Glissez-déposez votre image ici</p>
+                                        <p class="text-gray-500 text-sm mb-4">ou cliquez pour choisir un fichier</p>
+                                        <p class="text-gray-500 text-xs">Formats acceptés: JPG, PNG, WebP (max 50MB)</p>
+                                    </div>
+                                    <input type="file" id="image-input" class="hidden" accept="image/*" required>
+                                </div>
+                                
+                                <!-- Preview -->
+                                <div id="image-preview" class="hidden mt-4">
+                                    <img id="preview-img" class="image-preview rounded-lg mx-auto" alt="Aperçu">
+                                    <div class="text-center mt-2">
+                                        <button type="button" id="remove-image" class="text-red-400 hover:text-red-300 text-sm">
+                                            <i class="ri-delete-bin-line mr-1"></i>Supprimer
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Titre -->
+                            <div>
+                                <label for="titre" class="block text-white mb-2">Titre *</label>
+                                <input type="text" id="titre" name="titre" required
+                                    class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    placeholder="Titre de la photo">
+                            </div>
+
+                            <!-- Description -->
+                            <div>
+                                <label for="description" class="block text-white mb-2">Description</label>
+                                <textarea id="description" name="description" rows="3"
+                                    class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    placeholder="Description de la photo (optionnel)"></textarea>
+                            </div>
+
+                            <!-- Catégorie -->
+                            <div>
+                                <label for="categorie" class="block text-white mb-2">Catégorie *</label>
+                                <select id="categorie" name="categorie" required
+                                    class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="">Sélectionner une catégorie</option>
+                                    <option value="portfolio">Portfolio</option>
+                                    <option value="blog">Blog</option>
+                                    <option value="design">Design</option>
+                                    <option value="evenement">Événement</option>
+                                    <option value="portrait">Portrait</option>
+                                    <option value="produit">Produit</option>
+                                    <option value="branding">Branding</option>
+                                </select>
+                            </div>
+
+                            <!-- Options avancées -->
+                            <div class="border-t border-gray-700 pt-6">
+                                <h3 class="text-lg font-medium text-white mb-4">Options avancées</h3>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label for="alt-text" class="block text-white mb-2">Texte alternatif</label>
+                                        <input type="text" id="alt-text" name="alt-text"
+                                            class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:ring-2 focus:ring-primary focus:border-transparent"
+                                            placeholder="Description pour l'accessibilité">
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="ordre" class="block text-white mb-2">Ordre d'affichage</label>
+                                        <input type="number" id="ordre" name="ordre" value="0"
+                                            class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    </div>
+                                </div>
+
+                                <div class="mt-4">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" id="is-featured" name="is-featured" class="mr-3 rounded">
+                                        <span class="text-white">Photo mise en avant (affichée en priorité)</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Boutons -->
+                            <div class="flex space-x-4">
+                                <button type="submit" id="submit-btn"
+                                    class="bg-primary text-black font-medium py-3 px-8 rounded-button hover:bg-opacity-90 transition-all flex items-center">
+                                    <span id="submit-text">Ajouter la photo</span>
+                                    <div id="submit-loading" class="loading ml-2 hidden"></div>
+                                </button>
+                                
+                                <button type="reset"
+                                    class="bg-gray-700 text-white font-medium py-3 px-8 rounded-button hover:bg-gray-600 transition-colors">
+                                    Réinitialiser
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Statistiques -->
+                    <div class="space-y-6">
+                        <!-- Carte de statut de connexion -->
+                        <div id="connection-status" class="bg-gray-900 p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-white mb-3">Statut de la connexion</h3>
+                            <div id="connection-indicator" class="flex items-center">
+                                <div class="loading"></div>
+                                <span class="ml-2 text-gray-300">Vérification...</span>
+                            </div>
+                        </div>
+
+                        <!-- Statistiques -->
+                        <div id="stats-card" class="bg-gray-900 p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-white mb-4">Statistiques</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-300">Photos totales</span>
+                                    <span id="total-photos" class="text-primary font-semibold">-</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-300">Photos mises en avant</span>
+                                    <span id="featured-photos" class="text-primary font-semibold">-</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-300">Témoignages</span>
+                                    <span id="total-testimonials" class="text-primary font-semibold">-</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-300">Photos récentes (30j)</span>
+                                    <span id="recent-photos" class="text-primary font-semibold">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Guide rapide -->
+                        <div class="bg-gray-900 p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-white mb-3">Guide rapide</h3>
+                            <ul class="text-gray-300 text-sm space-y-2">
+                                <li class="flex items-start">
+                                    <i class="ri-check-line text-primary mr-2 mt-0.5"></i>
+                                    Formats supportés: JPG, PNG, WebP
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="ri-check-line text-primary mr-2 mt-0.5"></i>
+                                    Taille maximale: 50MB par fichier
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="ri-check-line text-primary mr-2 mt-0.5"></i>
+                                    Les images sont automatiquement optimisées
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="ri-check-line text-primary mr-2 mt-0.5"></i>
+                                    Le texte alternatif améliore l'accessibilité
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Onglet Témoignages -->
+            <div id="temoignages-tab" class="tab-content">
+                <div class="max-w-4xl mx-auto">
+                    <div class="bg-gray-900 p-8 rounded-lg">
+                        <h2 class="text-2xl font-semibold text-white mb-6">Ajouter un Témoignage</h2>
+                        
+                        <form id="testimonial-form" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- Auteur -->
+                                <div>
+                                    <label for="auteur" class="block text-white mb-2">Nom de l'auteur *</label>
+                                    <input type="text" id="auteur" name="auteur" required
+                                        class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:ring-2 focus:ring-primary focus:border-transparent"
+                                        placeholder="Nom complet">
+                                </div>
+
+                                <!-- Entreprise -->
+                                <div>
+                                    <label for="entreprise" class="block text-white mb-2">Entreprise</label>
+                                    <input type="text" id="entreprise" name="entreprise"
+                                        class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:ring-2 focus:ring-primary focus:border-transparent"
+                                        placeholder="Nom de l'entreprise (optionnel)">
+                                </div>
+
+                                <!-- Poste -->
+                                <div>
+                                    <label for="poste" class="block text-white mb-2">Poste/Fonction</label>
+                                    <input type="text" id="poste" name="poste"
+                                        class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:ring-2 focus:ring-primary focus:border-transparent"
+                                        placeholder="Directeur, Responsable...">
+                                </div>
+
+                                <!-- Note -->
+                                <div>
+                                    <label for="note" class="block text-white mb-2">Note *</label>
+                                    <select id="note" name="note" required
+                                        class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        <option value="5">⭐⭐⭐⭐⭐ (5 étoiles)</option>
+                                        <option value="4">⭐⭐⭐⭐ (4 étoiles)</option>
+                                        <option value="3">⭐⭐⭐ (3 étoiles)</option>
+                                        <option value="2">⭐⭐ (2 étoiles)</option>
+                                        <option value="1">⭐ (1 étoile)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Message -->
+                            <div>
+                                <label for="message" class="block text-white mb-2">Message *</label>
+                                <textarea id="message" name="message" rows="4" required
+                                    class="w-full bg-gray-800 border border-gray-700 rounded p-3 text-white focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    placeholder="Le témoignage complet..."></textarea>
+                            </div>
+
+                            <!-- Options -->
+                            <div class="flex items-center justify-between">
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="temoignage-visible" name="visible" checked class="mr-3 rounded">
+                                    <span class="text-white">Visible sur le site</span>
+                                </label>
+
+                                <div class="flex space-x-4">
+                                    <button type="reset"
+                                        class="bg-gray-700 text-white font-medium py-3 px-6 rounded-button hover:bg-gray-600 transition-colors">
+                                        Annuler
+                                    </button>
+                                    <button type="submit" id="testimonial-submit"
+                                        class="bg-primary text-black font-medium py-3 px-6 rounded-button hover:bg-opacity-90 transition-all flex items-center">
+                                        <span>Ajouter le témoignage</span>
+                                        <div class="loading ml-2 hidden"></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Onglet Galerie -->
+            <div id="galerie-tab" class="tab-content">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-semibold text-white mb-4">Galerie des Photos</h2>
+                    
+                    <!-- Filtres -->
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <button class="filter-btn active bg-primary text-black px-4 py-2 rounded-button" data-filter="all">
+                            Toutes
+                        </button>
+                        <button class="filter-btn bg-gray-700 text-white px-4 py-2 rounded-button hover:bg-gray-600" data-filter="portfolio">
+                            Portfolio
+                        </button>
+                        <button class="filter-btn bg-gray-700 text-white px-4 py-2 rounded-button hover:bg-gray-600" data-filter="design">
+                            Design
+                        </button>
+                        <button class="filter-btn bg-gray-700 text-white px-4 py-2 rounded-button hover:bg-gray-600" data-filter="evenement">
+                            Événement
+                        </button>
+                        <button class="filter-btn bg-gray-700 text-white px-4 py-2 rounded-button hover:bg-gray-600" data-filter="portrait">
+                            Portrait
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Grille de photos -->
+                <div id="photos-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Les photos seront chargées dynamiquement ici -->
+                </div>
+
+                <!-- Message de chargement -->
+                <div id="loading-gallery" class="text-center py-12">
+                    <div class="loading mx-auto mb-4"></div>
+                    <p class="text-gray-400">Chargement de la galerie...</p>
+                </div>
+
+                <!-- Message vide -->
+                <div id="empty-gallery" class="text-center py-12 hidden">
+                    <i class="ri-image-line text-6xl text-gray-500 mb-4 block"></i>
+                    <p class="text-gray-400">Aucune photo trouvée</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // État global de l'application
+        let appState = {
+            currentTab: 'photos',
+            photos: [],
+            categories: [],
+            isConnected: false
+        };
+
+        // ==========================================
+        // GESTION DES ONGLETS
+        // ==========================================
+
+        function initTabs() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.getAttribute('data-tab');
+                    
+                    // Mettre à jour les boutons
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('active', 'bg-primary', 'text-black');
+                        btn.classList.add('bg-gray-800', 'text-white', 'hover:bg-gray-700');
+                    });
+                    button.classList.add('active', 'bg-primary', 'text-black');
+                    button.classList.remove('bg-gray-800', 'text-white', 'hover:bg-gray-700');
+
+                    // Mettre à jour le contenu
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(targetTab + '-tab').classList.add('active');
+
+                    appState.currentTab = targetTab;
+
+                    // Charger les données si nécessaire
+                    if (targetTab === 'galerie') {
+                        loadPhotosGallery();
+                    }
+                });
+            });
+        }
+
+        // ==========================================
+        // GESTION DU DRAG & DROP
+        // ==========================================
+
+        function initDragDrop() {
+            const dropzone = document.getElementById('dropzone');
+            const imageInput = document.getElementById('image-input');
+            const imagePreview = document.getElementById('image-preview');
+            const previewImg = document.getElementById('preview-img');
+            const removeImageBtn = document.getElementById('remove-image');
+
+            // Clic sur la dropzone
+            dropzone.addEventListener('click', () => {
+                imageInput.click();
+            });
+
+            // Changement de fichier
+            imageInput.addEventListener('change', handleImageSelect);
+
+            // Drag & Drop
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropzone.addEventListener(eventName, preventDefaults);
+            });
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropzone.addEventListener(eventName, () => dropzone.classList.add('dragover'));
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropzone.addEventListener(eventName, () => dropzone.classList.remove('dragover'));
+            });
+
+            dropzone.addEventListener('drop', handleDrop);
+
+            // Suppression de l'image
+            removeImageBtn.addEventListener('click', clearImagePreview);
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            function handleDrop(e) {
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleImageFile(files[0]);
+                }
+            }
+
+            function handleImageSelect(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    handleImageFile(file);
+                }
+            }
+
+            function handleImageFile(file) {
+                // Vérification du type de fichier
+                if (!file.type.startsWith('image/')) {
+                    SupabasePortfolio.utils.showToast('Veuillez sélectionner une image valide.', 'error');
+                    return;
+                }
+
+                // Vérification de la taille (50MB)
+                if (file.size > 50 * 1024 * 1024) {
+                    SupabasePortfolio.utils.showToast('L\'image est trop volumineuse (max 50MB).', 'error');
+                    return;
+                }
+
+                // Afficher l'aperçu
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewImg.src = e.target.result;
+                    imagePreview.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+
+                // Générer un nom par défaut si pas de titre
+                const titleInput = document.getElementById('titre');
+                if (!titleInput.value) {
+                    titleInput.value = file.name.replace(/\.[^/.]+$/, "");
+                }
+            }
+
+            function clearImagePreview() {
+                imagePreview.classList.add('hidden');
+                imageInput.value = '';
+                previewImg.src = '';
+            }
+        }
+
+        // ==========================================
+        // GESTION DU FORMULAIRE DE PHOTOS
+        // ==========================================
+
+        function initPhotoForm() {
+            const form = document.getElementById('photo-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const submitText = document.getElementById('submit-text');
+            const submitLoading = document.getElementById('submit-loading');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const imageFile = document.getElementById('image-input').files[0];
+                if (!imageFile) {
+                    SupabasePortfolio.utils.showToast('Veuillez sélectionner une image.', 'error');
+                    return;
+                }
+
+                // Désactiver le formulaire
+                submitBtn.disabled = true;
+                submitText.textContent = 'Ajout en cours...';
+                submitLoading.classList.remove('hidden');
+
+                try {
+                    // Préparer les données
+                    const formData = new FormData(form);
+                    const photoData = {
+                        titre: formData.get('titre'),
+                        description: formData.get('description') || '',
+                        categorie: formData.get('categorie'),
+                        alt_text: formData.get('alt-text') || formData.get('titre'),
+                        ordre_affichage: parseInt(formData.get('ordre')) || 0,
+                        is_featured: formData.has('is-featured')
+                    };
+
+                    // Optimiser l'image si nécessaire
+                    let optimizedFile = imageFile;
+                    if (imageFile.size > 2 * 1024 * 1024) { // > 2MB
+                        optimizedFile = await SupabasePortfolio.utils.resizeImage(imageFile);
+                        SupabasePortfolio.utils.showToast('Image optimisée pour améliorer les performances.', 'info');
+                    }
+
+                    // Ajouter la photo
+                    const result = await SupabasePortfolio.photos.add(photoData, optimizedFile);
+
+                    if (result.success) {
+                        form.reset();
+                        document.getElementById('image-preview').classList.add('hidden');
+                        loadStats(); // Recharger les statistiques
+                        
+                        if (appState.currentTab === 'galerie') {
+                            loadPhotosGallery(); // Recharger la galerie si elle est active
+                        }
+                    }
+
+                } catch (error) {
+                    console.error('Erreur lors de l\'ajout:', error);
+                    SupabasePortfolio.utils.showToast('Erreur lors de l\'ajout de la photo.', 'error');
+                } finally {
+                    // Réactiver le formulaire
+                    submitBtn.disabled = false;
+                    submitText.textContent = 'Ajouter la photo';
+                    submitLoading.classList.add('hidden');
+                }
+            });
+        }
+
+        // ==========================================
+        // GESTION DU FORMULAIRE DE TÉMOIGNAGES
+        // ==========================================
+
+        function initTestimonialForm() {
+            const form = document.getElementById('testimonial-form');
+            const submitBtn = document.getElementById('testimonial-submit');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                submitBtn.disabled = true;
+                const loading = submitBtn.querySelector('.loading');
+                loading.classList.remove('hidden');
+
+                try {
+                    const formData = new FormData(form);
+                    const temoignageData = {
+                        auteur: formData.get('auteur'),
+                        entreprise: formData.get('entreprise') || null,
+                        poste: formData.get('poste') || null,
+                        message: formData.get('message'),
+                        note: parseInt(formData.get('note')),
+                        is_visible: formData.has('visible')
+                    };
+
+                    const result = await SupabasePortfolio.temoignages.add(temoignageData);
+
+                    if (result.success) {
+                        form.reset();
+                        document.getElementById('temoignage-visible').checked = true; // Réinitialiser la checkbox
+                        loadStats(); // Recharger les statistiques
+                    }
+
+                } catch (error) {
+                    console.error('Erreur lors de l\'ajout du témoignage:', error);
+                    SupabasePortfolio.utils.showToast('Erreur lors de l\'ajout du témoignage.', 'error');
+                } finally {
+                    submitBtn.disabled = false;
+                    loading.classList.add('hidden');
+                }
+            });
+        }
+
+        // ==========================================
+        // GALERIE D'ADMINISTRATION
+        // ==========================================
+
+        async function loadPhotosGallery(filter = 'all') {
+            const photosGrid = document.getElementById('photos-grid');
+            const loadingGallery = document.getElementById('loading-gallery');
+            const emptyGallery = document.getElementById('empty-gallery');
+
+            loadingGallery.classList.remove('hidden');
+            emptyGallery.classList.add('hidden');
+            photosGrid.innerHTML = '';
+
+            try {
+                const photos = await SupabasePortfolio.photos.get(filter === 'all' ? null : filter);
+                appState.photos = photos;
+
+                if (photos.length === 0) {
+                    loadingGallery.classList.add('hidden');
+                    emptyGallery.classList.remove('hidden');
+                    return;
+                }
+
+                photosGrid.innerHTML = photos.map(photo => `
+                    <div class="photo-card">
+                        <img src="${photo.url_image}" alt="${photo.alt_text || photo.titre}" 
+                             class="w-full h-48 object-cover" loading="lazy">
+                        <div class="photo-actions">
+                            <button onclick="deletePhotoAdmin('${photo.id}', '${photo.url_image}')" 
+                                    class="bg-red-600 text-white p-2 rounded-full hover:bg-red-700 transition-colors">
+                                <i class="ri-delete-bin-line"></i>
+                            </button>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-white font-medium mb-1">${photo.titre}</h3>
+                            <p class="text-gray-400 text-sm mb-2">${photo.categorie}</p>
+                            ${photo.is_featured ? '<span class="inline-block bg-primary text-black text-xs px-2 py-1 rounded">Mise en avant</span>' : ''}
+                        </div>
+                    </div>
+                `).join('');
+
+                loadingGallery.classList.add('hidden');
+
+            } catch (error) {
+                console.error('Erreur lors du chargement de la galerie:', error);
+                loadingGallery.classList.add('hidden');
+                emptyGallery.classList.remove('hidden');
+            }
+        }
+
+        // Fonction globale pour supprimer une photo
+        window.deletePhotoAdmin = async function(photoId, imageUrl) {
+            if (!confirm('Êtes-vous sûr de vouloir supprimer cette photo ? Cette action est irréversible.')) {
+                return;
+            }
+
+            try {
+                const result = await SupabasePortfolio.photos.delete(photoId, imageUrl);
+                
+                if (result.success) {
+                    loadPhotosGallery(); // Recharger la galerie
+                    loadStats(); // Recharger les statistiques
+                }
+            } catch (error) {
+                console.error('Erreur lors de la suppression:', error);
+                SupabasePortfolio.utils.showToast('Erreur lors de la suppression.', 'error');
+            }
+        };
+
+        // Filtres de la galerie
+        function initGalleryFilters() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const filter = btn.getAttribute('data-filter');
+                    
+                    // Mettre à jour les boutons
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-primary', 'text-black');
+                        b.classList.add('bg-gray-700', 'text-white');
+                    });
+                    btn.classList.add('active', 'bg-primary', 'text-black');
+                    btn.classList.remove('bg-gray-700', 'text-white');
+
+                    // Charger les photos filtrées
+                    loadPhotosGallery(filter);
+                });
+            });
+        }
+
+        // ==========================================
+        // STATISTIQUES ET STATUT
+        // ==========================================
+
+        async function checkConnectionStatus() {
+            const indicator = document.getElementById('connection-indicator');
+            
+            try {
+                const isConnected = await SupabasePortfolio.checkConnection();
+                appState.isConnected = isConnected;
+
+                if (isConnected) {
+                    indicator.innerHTML = `
+                        <div class="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+                        <span class="text-green-400">Connexion établie</span>
+                    `;
+                    loadStats();
+                } else {
+                    indicator.innerHTML = `
+                        <div class="w-3 h-3 bg-red-500 rounded-full mr-3"></div>
+                        <span class="text-red-400">Erreur de connexion</span>
+                    `;
+                }
+            } catch (error) {
+                indicator.innerHTML = `
+                    <div class="w-3 h-3 bg-red-500 rounded-full mr-3"></div>
+                    <span class="text-red-400">Erreur de connexion</span>
+                `;
+            }
+        }
+
+        async function loadStats() {
+            if (!appState.isConnected) return;
+
+            try {
+                const [photos, temoignages] = await Promise.all([
+                    SupabasePortfolio.photos.get(),
+                    SupabasePortfolio.temoignages.get()
+                ]);
+
+                const featuredPhotos = photos.filter(p => p.is_featured).length;
+                const recentPhotos = photos.filter(p => {
+                    const photoDate = new Date(p.created_at);
+                    const thirtyDaysAgo = new Date();
+                    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+                    return photoDate > thirtyDaysAgo;
+                }).length;
+
+                document.getElementById('total-photos').textContent = photos.length;
+                document.getElementById('featured-photos').textContent = featuredPhotos;
+                document.getElementById('total-testimonials').textContent = temoignages.length;
+                document.getElementById('recent-photos').textContent = recentPhotos;
+
+            } catch (error) {
+                console.error('Erreur lors du chargement des statistiques:', error);
+            }
+        }
+
+        // ==========================================
+        // INITIALISATION
+        // ==========================================
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('🚀 Initialisation de l\'interface d\'administration...');
+
+            // Initialiser les composants
+            initTabs();
+            initDragDrop();
+            initPhotoForm();
+            initTestimonialForm();
+            initGalleryFilters();
+
+            // Vérifier la connexion et charger les données
+            await checkConnectionStatus();
+            
+            console.log('✅ Interface d\'administration prête !');
+        });
+    </script>
+</body>
+
+</html>

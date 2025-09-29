@@ -1,0 +1,93 @@
+[build]
+  # Pas de build process nécessaire pour ce site statique
+  publish = "."
+
+[build.environment]
+  # Variables d'environnement pour la production
+  NODE_VERSION = "18"
+
+# Redirections et règles
+[[redirects]]
+  # SPA fallback pour les routes côté client (si nécessaire)
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# Headers de sécurité et performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Sécurité
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Performance
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache spécifique pour les images
+[[headers]]
+  for = "/photo/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Vary = "Accept-Encoding"
+
+# Cache pour les assets dynamiques
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Pas de cache pour index.html et admin.html
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Configuration des formulaires Netlify
+[build.environment]
+  FORM_HANDLING = "true"
+
+# Variables d'environnement de production (remplacez par vos vraies valeurs)
+# Ces variables peuvent être définies dans l'interface Netlify
+[context.production.environment]
+  EXPO_PUBLIC_SUPABASE_URL = "https://votre-projet.supabase.co"
+  EXPO_PUBLIC_SUPABASE_ANON_KEY = "votre-cle-publique-anonyme"
+
+# Configuration de développement
+[context.deploy-preview.environment]
+  EXPO_PUBLIC_SUPABASE_URL = "https://votre-projet-dev.supabase.co"
+  EXPO_PUBLIC_SUPABASE_ANON_KEY = "votre-cle-dev"
+
+# Plugin pour optimiser les images automatiquement
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+  
+  # Optimisation des images avec Netlify Image CDN (si disponible)
+  [plugins.inputs]
+    audit_url = "/"
+
+# Plugin pour la compression
+[[plugins]]
+  package = "netlify-plugin-minify-html"
+  [plugins.inputs]
+    contexts = ["production"]
+
+# Fonction serverless simple (optionnel)
+[[redirects]]
+  from = "/api/health"
+  to = "/.netlify/functions/health"
+  status = 200
+  force = true
+
+# Configuration des messages de commit pour les déploiements
+[template.environment]
+  HUGO_VERSION = "0.111.3"
+  GO_VERSION = "1.19"
+  TZ = "UTC"

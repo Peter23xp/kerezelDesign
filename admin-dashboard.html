@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - Kerezel Design</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#D4AF37',
+                        secondary: '#1A1A1A',
+                        danger: '#DC2626',
+                        success: '#059669'
+                    },
+                    borderRadius: {
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- Supabase -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+    <script src="admin-security.js"></script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0F0F0F 0%, #1A1A1A 100%);
+            color: #F5F5F5;
+            min-height: 100vh;
+        }
+
+        .heading {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Login form styles */
+        .login-container {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .input-field {
+            background: rgba(15, 15, 15, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            border-color: #D4AF37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Dashboard styles */
+        .dashboard-card {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Stats cards */
+        .stat-card {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(26, 26, 26, 0.8) 100%);
+        }
+
+        /* Loading animation */
+        .loading-spinner {
+            border: 3px solid rgba(212, 175, 55, 0.3);
+            border-top: 3px solid #D4AF37;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Toast notifications */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 16px 24px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        }
+
+        .toast.info {
+            background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .login-container {
+                margin: 20px;
+                padding: 24px;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="min-h-screen flex items-center justify-center p-6">
+        <div class="login-container w-full max-w-md p-8 rounded-2xl shadow-2xl">
+            <!-- Logo -->
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-4">
+                    <i class="ri-shield-user-line text-2xl text-black"></i>
+                </div>
+                <h1 class="heading text-3xl font-bold text-white mb-2">Administration</h1>
+                <p class="text-gray-400">Kerezel Design</p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="space-y-6">
+                <div>
+                    <label for="admin-email" class="block text-white mb-2 font-medium">Email administrateur</label>
+                    <input type="email" id="admin-email" required
+                        class="input-field w-full px-4 py-3 rounded-lg text-white placeholder-gray-400"
+                        placeholder="admin@kerezeldesign.com">
+                </div>
+
+                <div>
+                    <label for="admin-password" class="block text-white mb-2 font-medium">Mot de passe</label>
+                    <div class="relative">
+                        <input type="password" id="admin-password" required
+                            class="input-field w-full px-4 py-3 pr-12 rounded-lg text-white placeholder-gray-400"
+                            placeholder="••••••••">
+                        <button type="button" id="toggle-password" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white">
+                            <i class="ri-eye-line"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center">
+                        <input type="checkbox" id="remember-me" class="mr-2 rounded">
+                        <span class="text-gray-400 text-sm">Se souvenir de moi</span>
+                    </label>
+                    <a href="#" class="text-primary hover:text-yellow-300 text-sm">Mot de passe oublié ?</a>
+                </div>
+
+                <button type="submit" class="btn-primary w-full py-3 px-6 rounded-lg font-semibold text-black">
+                    <span id="login-text">Se connecter</span>
+                    <div id="login-loading" class="loading-spinner w-5 h-5 mx-auto hidden"></div>
+                </button>
+            </form>
+
+            <!-- Security Notice -->
+            <div class="mt-8 p-4 bg-yellow-900 bg-opacity-20 border border-yellow-600 border-opacity-30 rounded-lg">
+                <div class="flex items-start">
+                    <i class="ri-shield-check-line text-yellow-400 mr-3 mt-0.5"></i>
+                    <div>
+                        <h4 class="text-yellow-400 font-medium text-sm">Accès sécurisé</h4>
+                        <p class="text-gray-400 text-xs mt-1">Cette interface est réservée aux administrateurs autorisés.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Screen -->
+    <div id="dashboard-screen" class="hidden min-h-screen">
+        <!-- Header -->
+        <header class="bg-black bg-opacity-80 backdrop-blur-sm border-b border-gray-800">
+            <div class="container mx-auto px-6 py-4">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                            <i class="ri-shield-user-line text-black"></i>
+                        </div>
+                        <div>
+                            <h1 class="heading text-xl font-bold text-white">Administration</h1>
+                            <p class="text-gray-400 text-sm">Kerezel Design</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="text-right">
+                            <p class="text-white text-sm font-medium">Administrateur</p>
+                            <p class="text-gray-400 text-xs">Connecté</p>
+                        </div>
+                        <button id="logout-btn" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors">
+                            <i class="ri-logout-box-line mr-2"></i>Déconnexion
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container mx-auto px-6 py-8">
+            <!-- Stats Overview -->
+            <div class="dashboard-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="stat-card dashboard-card p-6 rounded-xl">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-400 text-sm">Photos totales</p>
+                            <p id="total-photos" class="text-2xl font-bold text-white">-</p>
+                        </div>
+                        <div class="w-12 h-12 bg-primary bg-opacity-20 rounded-full flex items-center justify-center">
+                            <i class="ri-image-line text-primary text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card dashboard-card p-6 rounded-xl">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-400 text-sm">Photos récentes</p>
+                            <p id="recent-photos" class="text-2xl font-bold text-white">-</p>
+                        </div>
+                        <div class="w-12 h-12 bg-green-500 bg-opacity-20 rounded-full flex items-center justify-center">
+                            <i class="ri-time-line text-green-500 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card dashboard-card p-6 rounded-xl">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-400 text-sm">Témoignages</p>
+                            <p id="total-testimonials" class="text-2xl font-bold text-white">-</p>
+                        </div>
+                        <div class="w-12 h-12 bg-blue-500 bg-opacity-20 rounded-full flex items-center justify-center">
+                            <i class="ri-chat-quote-line text-blue-500 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card dashboard-card p-6 rounded-xl">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-400 text-sm">Statut</p>
+                            <p id="connection-status" class="text-sm font-medium text-green-400">En ligne</p>
+                        </div>
+                        <div class="w-12 h-12 bg-green-500 bg-opacity-20 rounded-full flex items-center justify-center">
+                            <i class="ri-wifi-line text-green-500 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="dashboard-card p-6 rounded-xl mb-8">
+                <h2 class="heading text-xl font-bold text-white mb-6">Actions rapides</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <button id="add-photo-btn" class="bg-primary hover:bg-opacity-90 text-black font-medium py-3 px-6 rounded-lg transition-colors">
+                        <i class="ri-add-line mr-2"></i>Ajouter une photo
+                    </button>
+                    <button id="add-testimonial-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                        <i class="ri-chat-add-line mr-2"></i>Ajouter un témoignage
+                    </button>
+                    <button id="view-gallery-btn" class="bg-gray-700 hover:bg-gray-600 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                        <i class="ri-gallery-line mr-2"></i>Voir la galerie
+                    </button>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="dashboard-card p-6 rounded-xl">
+                <h2 class="heading text-xl font-bold text-white mb-6">Activité récente</h2>
+                <div id="recent-activity" class="space-y-4">
+                    <div class="flex items-center p-4 bg-gray-800 bg-opacity-50 rounded-lg">
+                        <div class="w-10 h-10 bg-primary bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                            <i class="ri-image-line text-primary"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-white font-medium">Aucune activité récente</p>
+                            <p class="text-gray-400 text-sm">Les actions apparaîtront ici</p>
+                        </div>
+                        <span class="text-gray-500 text-sm">-</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <!-- Scripts -->
+    <script>
+        // Configuration admin (en production, utilisez des variables d'environnement)
+        const ADMIN_CONFIG = AdminSecurity.config;
+
+        // État de l'application
+        let appState = {
+            isAuthenticated: false,
+            sessionStart: null,
+            stats: {
+                totalPhotos: 0,
+                recentPhotos: 0,
+                totalTestimonials: 0
+            }
+        };
+
+        // ==========================================
+        // AUTHENTIFICATION
+        // ==========================================
+
+        function initAuth() {
+            // Vérifier si déjà connecté
+            const savedSession = localStorage.getItem('admin_session');
+            if (savedSession) {
+                const session = JSON.parse(savedSession);
+                if (Date.now() - session.timestamp < ADMIN_CONFIG.sessionTimeout) {
+                    appState.isAuthenticated = true;
+                    appState.sessionStart = session.timestamp;
+                    showDashboard();
+                    return;
+                } else {
+                    localStorage.removeItem('admin_session');
+                }
+            }
+
+            showLogin();
+        }
+
+        function showLogin() {
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('dashboard-screen').classList.add('hidden');
+            appState.isAuthenticated = false;
+        }
+
+        function showDashboard() {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('dashboard-screen').classList.remove('hidden');
+            appState.isAuthenticated = true;
+            appState.sessionStart = Date.now();
+            
+            // Sauvegarder la session
+            localStorage.setItem('admin_session', JSON.stringify({
+                timestamp: appState.sessionStart
+            }));
+
+            // Charger les données du dashboard
+            loadDashboardData();
+        }
+
+        function logout() {
+            AdminSecurity.logAdminAction('logout', { sessionDuration: Date.now() - appState.sessionStart });
+            appState.isAuthenticated = false;
+            localStorage.removeItem('admin_session');
+            showLogin();
+            showToast('Déconnexion réussie', 'info');
+        }
+
+        // ==========================================
+        // GESTION DU FORMULAIRE DE CONNEXION
+        // ==========================================
+
+        function initLoginForm() {
+            const loginForm = document.getElementById('login-form');
+            const togglePassword = document.getElementById('toggle-password');
+            const passwordInput = document.getElementById('admin-password');
+
+            loginForm.addEventListener('submit', handleLogin);
+            
+            togglePassword.addEventListener('click', () => {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                togglePassword.innerHTML = type === 'password' ? '<i class="ri-eye-line"></i>' : '<i class="ri-eye-off-line"></i>';
+            });
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('admin-email').value;
+            const password = document.getElementById('admin-password').value;
+            const loginBtn = document.querySelector('#login-form button[type="submit"]');
+            const loginText = document.getElementById('login-text');
+            const loginLoading = document.getElementById('login-loading');
+
+            // Validation basique
+            if (!email || !password) {
+                showToast('Veuillez remplir tous les champs', 'error');
+                return;
+            }
+
+            // Simulation d'authentification (en production, utilisez Supabase Auth)
+            loginText.classList.add('hidden');
+            loginLoading.classList.remove('hidden');
+            loginBtn.disabled = true;
+
+            try {
+                // Simuler un délai de connexion
+                await new Promise(resolve => setTimeout(resolve, 1500));
+
+            // Vérification des identifiants avec sécurité
+            const validation = AdminSecurity.validateCredentials(email, password);
+            
+            if (validation.valid) {
+                AdminSecurity.logAdminAction('login_success', { email, role: validation.role });
+                showToast('Connexion réussie !', 'success');
+                setTimeout(() => {
+                    showDashboard();
+                }, 500);
+            } else {
+                AdminSecurity.logAdminAction('login_failed', { email, reason: 'invalid_credentials' });
+                showToast('Identifiants incorrects', 'error');
+            }
+            } catch (error) {
+                showToast('Erreur de connexion', 'error');
+            } finally {
+                loginText.classList.remove('hidden');
+                loginLoading.classList.add('hidden');
+                loginBtn.disabled = false;
+            }
+        }
+
+        // ==========================================
+        // DASHBOARD
+        // ==========================================
+
+        async function loadDashboardData() {
+            try {
+                // Charger les statistiques
+                const [photos, testimonials] = await Promise.all([
+                    SupabasePortfolio.photos.get(),
+                    SupabasePortfolio.temoignages.get()
+                ]);
+
+                appState.stats.totalPhotos = photos.length;
+                appState.stats.totalTestimonials = testimonials.length;
+                
+                // Photos récentes (30 derniers jours)
+                const thirtyDaysAgo = new Date();
+                thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+                appState.stats.recentPhotos = photos.filter(photo => 
+                    new Date(photo.created_at) > thirtyDaysAgo
+                ).length;
+
+                updateStatsDisplay();
+                updateRecentActivity(photos.slice(0, 5));
+
+            } catch (error) {
+                console.error('Erreur lors du chargement des données:', error);
+                showToast('Erreur lors du chargement des données', 'error');
+            }
+        }
+
+        function updateStatsDisplay() {
+            document.getElementById('total-photos').textContent = appState.stats.totalPhotos;
+            document.getElementById('recent-photos').textContent = appState.stats.recentPhotos;
+            document.getElementById('total-testimonials').textContent = appState.stats.totalTestimonials;
+        }
+
+        function updateRecentActivity(recentPhotos) {
+            const container = document.getElementById('recent-activity');
+            
+            if (recentPhotos.length === 0) {
+                container.innerHTML = `
+                    <div class="flex items-center p-4 bg-gray-800 bg-opacity-50 rounded-lg">
+                        <div class="w-10 h-10 bg-gray-600 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                            <i class="ri-image-line text-gray-500"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-white font-medium">Aucune activité récente</p>
+                            <p class="text-gray-400 text-sm">Les actions apparaîtront ici</p>
+                        </div>
+                        <span class="text-gray-500 text-sm">-</span>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = recentPhotos.map(photo => `
+                <div class="flex items-center p-4 bg-gray-800 bg-opacity-50 rounded-lg">
+                    <div class="w-10 h-10 bg-primary bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                        <i class="ri-image-line text-primary"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-white font-medium">${photo.titre}</p>
+                        <p class="text-gray-400 text-sm">${photo.categorie} • ${formatDate(photo.created_at)}</p>
+                    </div>
+                    <span class="text-gray-500 text-sm">${formatTimeAgo(photo.created_at)}</span>
+                </div>
+            `).join('');
+        }
+
+        // ==========================================
+        // ACTIONS RAPIDES
+        // ==========================================
+
+        function initQuickActions() {
+            document.getElementById('add-photo-btn').addEventListener('click', () => {
+                window.open('admin.html', '_blank');
+            });
+
+            document.getElementById('add-testimonial-btn').addEventListener('click', () => {
+                window.open('admin.html#temoignages', '_blank');
+            });
+
+            document.getElementById('view-gallery-btn').addEventListener('click', () => {
+                window.open('admin.html#galerie', '_blank');
+            });
+
+            document.getElementById('logout-btn').addEventListener('click', logout);
+        }
+
+        // ==========================================
+        // UTILITAIRES
+        // ==========================================
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <div class="flex items-center">
+                    <i class="ri-${type === 'success' ? 'check' : type === 'error' ? 'error-warning' : 'information'}-line mr-2"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+
+            container.appendChild(toast);
+
+            // Animation d'entrée
+            setTimeout(() => toast.classList.add('show'), 10);
+
+            // Suppression automatique
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.remove();
+                    }
+                }, 300);
+            }, 4000);
+        }
+
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleDateString('fr-FR');
+        }
+
+        function formatTimeAgo(dateString) {
+            const now = new Date();
+            const date = new Date(dateString);
+            const diffInMinutes = Math.floor((now - date) / (1000 * 60));
+
+            if (diffInMinutes < 60) {
+                return `Il y a ${diffInMinutes}min`;
+            } else if (diffInMinutes < 1440) {
+                return `Il y a ${Math.floor(diffInMinutes / 60)}h`;
+            } else {
+                return `Il y a ${Math.floor(diffInMinutes / 1440)}j`;
+            }
+        }
+
+        // ==========================================
+        // INITIALISATION
+        // ==========================================
+
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Initialisation de l\'interface admin professionnelle...');
+            
+            initAuth();
+            initLoginForm();
+            initQuickActions();
+            
+            // Vérifier la session toutes les 5 minutes
+            setInterval(() => {
+                if (appState.isAuthenticated) {
+                    const savedSession = localStorage.getItem('admin_session');
+                    if (!savedSession) {
+                        logout();
+                    } else {
+                        const session = JSON.parse(savedSession);
+                        if (Date.now() - session.timestamp > ADMIN_CONFIG.sessionTimeout) {
+                            logout();
+                        }
+                    }
+                }
+            }, 5 * 60 * 1000);
+
+            console.log('✅ Interface admin prête !');
+        });
+    </script>
+</body>
+
+</html>

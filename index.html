@@ -4,7 +4,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kerezel Design – Visual Artist</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Kerezel Design – Photographe & Designer Graphique Professionnel à Goma</title>
+    <meta name="description" content="Photographe et designer graphique professionnel à Goma. Services de photographie d'événements, portraits studio, design graphique et identité visuelle. Plus de 10 ans d'expérience.">
+    <meta name="keywords" content="photographe Goma, designer graphique Goma, photographie mariage, portrait studio, design graphique RDC, événementiel Goma, branding">
+    <meta name="author" content="Kerezel Design">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="French">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kerezeldesign.netlify.app/">
+    <meta property="og:title" content="Kerezel Design – Photographe & Designer Graphique Professionnel">
+    <meta property="og:description" content="Photographe et designer graphique professionnel à Goma. Services de photographie d'événements, portraits studio, design graphique et identité visuelle.">
+    <meta property="og:image" content="https://kerezeldesign.netlify.app/photo/hero.jpg">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:site_name" content="Kerezel Design">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://kerezeldesign.netlify.app/">
+    <meta property="twitter:title" content="Kerezel Design – Photographe & Designer Graphique Professionnel">
+    <meta property="twitter:description" content="Photographe et designer graphique professionnel à Goma. Services de photographie d'événements, portraits studio, design graphique et identité visuelle.">
+    <meta property="twitter:image" content="https://kerezeldesign.netlify.app/photo/hero.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📸</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📸</text></svg>">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://kerezeldesign.netlify.app/">
+    
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Kerezel Design",
+        "jobTitle": "Photographe et Designer Graphique",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Avenue du Lac 123",
+            "addressLocality": "Goma",
+            "addressCountry": "CD"
+        },
+        "telephone": "+243976854161",
+        "email": "kerezeldesign@gmail.com",
+        "url": "https://kerezeldesign.netlify.app/",
+        "sameAs": [
+            "https://www.instagram.com/kerezeldesign/",
+            "https://www.facebook.com/kerezeldesign/",
+            "https://twitter.com/kerezeldesign"
+        ],
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Services de Photographie et Design",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Photographie d'événement"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Portrait Studio"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Design Graphique"
+                    }
+                }
+            ]
+        }
+    }
+    </script>
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     <script>
         tailwind.config = {
@@ -30,15 +111,25 @@
             }
         }
     </script>
+    <!-- Performance optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    
+    <!-- Critical fonts with display=swap for better performance -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- Preload critical images -->
+    <link rel="preload" as="image" href="photo/dfa1aef3-f3e5-49af-8837-7b2a9c9d08e4.jpg">
+    <link rel="preload" as="image" href="photo/hero.jpg">
     <!-- AOS CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Supabase -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <style>
         :where([class^="ri-"])::before {
             content: "\f3c2";
@@ -121,10 +212,119 @@
             border-width: 0 2px 2px 0;
             transform: rotate(45deg);
         }
+
+        /* Améliorations responsive */
+        @media (max-width: 768px) {
+            .portfolio-item img {
+                height: 250px;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+                line-height: 1.1;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.25rem;
+            }
+            
+            /* Menu mobile amélioré */
+            #mobile-menu {
+                backdrop-filter: blur(10px);
+                background-color: rgba(0, 0, 0, 0.95);
+            }
+            
+            /* Boutons mobiles */
+            .mobile-cta {
+                width: 100%;
+                justify-content: center;
+                padding: 1rem 2rem;
+            }
+            
+            /* Grille responsive */
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            /* Témoignages mobile */
+            .testimonials-mobile {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            /* Formulaires mobile */
+            .contact-form {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Améliorations accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #D4AF37;
+            color: #000;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+            border-radius: 4px;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Focus visible amélioré */
+        button:focus-visible,
+        a:focus-visible {
+            outline: 2px solid #D4AF37;
+            outline-offset: 2px;
+        }
+
+        /* Loading skeletons */
+        .skeleton {
+            background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+            border-radius: 8px;
+        }
+
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Animations améliorées */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.6s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .slide-up {
+            transform: translateY(30px);
+            opacity: 0;
+            animation: slideUp 0.6s ease-out forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <!-- Lien d'accessibilité -->
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+    
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 w-full z-50 bg-black bg-opacity-80 backdrop-blur-sm">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -163,20 +363,24 @@
     </nav>
 
     <!-- Hero Section -->
+    <main id="main-content">
     <section id="accueil" class="relative h-screen w-full flex items-center justify-center overflow-hidden"
         style="background-image: url('photo/dfa1aef3-f3e5-49af-8837-7b2a9c9d08e4.jpg'); background-size: cover; background-position: center;">
         <div class="absolute inset-0 bg-black bg-opacity-60"></div>
         <div class="container mx-auto px-6 z-10 w-full">
             <div class="max-w-3xl" data-aos="fade-up" data-aos-duration="1000">
-                <h1 class="heading text-5xl md:text-7xl font-bold text-white mb-4">Kerezel Design</h1>
-                <p class="text-xl md:text-2xl text-gray-200 mb-8">Visual Artist</p>
-                <p class="text-xl md:text-2xl text-gray-200 mb-12">Créons ensemble vos plus belles images</p>
+                <h1 class="heading hero-title text-5xl md:text-7xl font-bold text-white mb-4">Kerezel Design</h1>
+                <p class="hero-subtitle text-xl md:text-2xl text-gray-200 mb-8">Visual Artist</p>
+                <p class="hero-subtitle text-xl md:text-2xl text-gray-200 mb-12">Créons ensemble vos plus belles images</p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#portfolio"
-                        class="bg-primary text-black font-medium py-3 px-8 rounded-button hover:bg-opacity-90 transition-all whitespace-nowrap">Voir
-                        le portfolio</a>
-                    <a href="#contact"
-                        class="border-2 border-white text-white font-medium py-3 px-8 rounded-button hover:bg-white hover:bg-opacity-10 transition-all whitespace-nowrap">Contactez-moi</a>
+                    <a href="#portfolio" aria-label="Découvrir le portfolio de Kerezel Design"
+                        class="mobile-cta bg-primary text-black font-medium py-3 px-8 rounded-button hover:bg-opacity-90 transition-all whitespace-nowrap shadow-lg hover:shadow-xl transform hover:scale-105">
+                        <i class="ri-image-line mr-2"></i>Voir le portfolio
+                    </a>
+                    <a href="#contact" aria-label="Contacter Kerezel Design pour vos projets"
+                        class="mobile-cta border-2 border-white text-white font-medium py-3 px-8 rounded-button hover:bg-white hover:bg-opacity-10 transition-all whitespace-nowrap">
+                        <i class="ri-mail-line mr-2"></i>Réserver une séance
+                    </a>
                 </div>
             </div>
         </div>
@@ -187,7 +391,7 @@
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row items-center gap-12">
                 <div class="md:w-1/2" data-aos="fade-right" data-aos-duration="1000">
-                    <img src="photo/hero.jpg" alt="me" srcset="">
+                    <img src="photo/hero.jpg" alt="Portrait professionnel de Kerezel, photographe et designer graphique à Goma" loading="eager">
                 </div>
                 <div class="md:w-1/2" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
                     <h2 class="heading text-3xl md:text-4xl font-bold text-white mb-6">À propos</h2>
@@ -244,118 +448,47 @@
             <div class="flex justify-center mb-12" data-aos="fade-up" data-aos-delay="200">
                 <div class="flex flex-wrap justify-center gap-2 md:inline-flex md:bg-gray-900 md:p-1 md:rounded-full">
                     <button
-                        class="portfolio-filter-btn active px-4 md:px-6 py-2 rounded-full bg-primary text-black font-medium whitespace-nowrap text-sm md:text-base">Tous</button>
+                        class="portfolio-filter-btn active px-4 md:px-6 py-2 rounded-full bg-primary text-black font-medium whitespace-nowrap text-sm md:text-base"
+                        data-filter="all">Tous</button>
                     <button
-                        class="portfolio-filter-btn px-4 md:px-6 py-2 rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-colors whitespace-nowrap text-sm md:text-base">Photographie</button>
+                        class="portfolio-filter-btn px-4 md:px-6 py-2 rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-colors whitespace-nowrap text-sm md:text-base"
+                        data-filter="portfolio">Portfolio</button>
                     <button
-                        class="portfolio-filter-btn px-4 md:px-6 py-2 rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-colors whitespace-nowrap text-sm md:text-base">Design</button>
+                        class="portfolio-filter-btn px-4 md:px-6 py-2 rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-colors whitespace-nowrap text-sm md:text-base"
+                        data-filter="design">Design</button>
                     <button
-                        class="portfolio-filter-btn px-4 md:px-6 py-2 rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-colors whitespace-nowrap text-sm md:text-base">Événements</button>
+                        class="portfolio-filter-btn px-4 md:px-6 py-2 rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-colors whitespace-nowrap text-sm md:text-base"
+                        data-filter="evenement">Événements</button>
+                    <button
+                        class="portfolio-filter-btn px-4 md:px-6 py-2 rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-colors whitespace-nowrap text-sm md:text-base"
+                        data-filter="portrait">Portrait</button>
+                    <button
+                        class="portfolio-filter-btn px-4 md:px-6 py-2 rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-colors whitespace-nowrap text-sm md:text-base"
+                        data-filter="branding">Branding</button>
                 </div>
             </div>
 
             <!-- Portfolio Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Portfolio Item 1 -->
-                <div class="portfolio-item rounded-lg overflow-hidden group" data-category="photographie evenement"
-                    data-aos="zoom-in" data-aos-delay="100">
-                    <div class="relative">
-                        <img src="photo/mariage/f4fd81ea-cf93-4e6c-825b-0942b5875275.jpg" alt="Mariage"
-                            class="w-full h-72 object-cover object-top">
-                        <div
-                            class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100">
-                            <div class="text-center p-4">
-                                <h3 class="text-white text-xl font-semibold mb-2">Couverture médiatique des cérémonies
-                                </h3>
-                                <p class="text-gray-300 mb-4">Photographie d'événement</p>
-                                <a href="portfolio-mariage.html"
-                                    class="inline-block bg-primary text-black px-4 py-2 rounded-button font-medium hover:bg-opacity-90 transition-colors whitespace-nowrap">Voir
-                                    plus</a>
-                            </div>
-                        </div>
-                    </div>
+            <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Les photos seront chargées dynamiquement depuis Supabase -->
                 </div>
 
-                <!-- Portfolio Item 2 -->
-                <div class="portfolio-item rounded-lg overflow-hidden group" data-category="design" data-aos="zoom-in"
-                    data-aos-delay="200">
-                    <div class="relative">
-                        <img src="photo/Affiche/4dd7f94f-9430-45ce-abc1-5a26c2c0bfbb.jpg" alt="Branding"
-                            class="w-full h-72 object-cover object-top">
-                        <div
-                            class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100">
-                            <div class="text-center p-4">
-                                <h3 class="text-white text-xl font-semibold mb-2">Identité Visuelle</h3>
-                                <p class="text-gray-300 mb-4">Design graphique</p>
-                                <a href="portfolio-design.html"
-                                    class="inline-block bg-primary text-black px-4 py-2 rounded-button font-medium hover:bg-opacity-90 transition-colors whitespace-nowrap">Voir
-                                    plus</a>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Loading indicator -->
+            <div id="portfolio-loading" class="text-center py-12">
+                <div class="inline-block w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4"></div>
+                <p class="text-gray-400">Chargement du portfolio...</p>
                 </div>
 
-                <!-- Portfolio Item 3 -->
-                <div class="portfolio-item rounded-lg overflow-hidden group" data-category="photographie"
-                    data-aos="zoom-in" data-aos-delay="300">
-                    <div class="relative">
-                        <img src="photo/portrait studio/f5206322-192c-4a1d-95cb-11617805dae6.jpg" alt="Portrait"
-                            class="w-full h-72 object-cover object-top">
-                        <div
-                            class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100">
-                            <div class="text-center p-4">
-                                <h3 class="text-white text-xl font-semibold mb-2">Portrait Studio</h3>
-                                <p class="text-gray-300 mb-4">Photographie</p>
-                                <a href="portfolio-portrait.html"
-                                    class="inline-block bg-primary text-black px-4 py-2 rounded-button font-medium hover:bg-opacity-90 transition-colors whitespace-nowrap">Voir
-                                    plus</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Portfolio Item 4 -->
-                <div class="portfolio-item rounded-lg overflow-hidden group" data-category="design" data-aos="zoom-in"
-                    data-aos-delay="200">
-                    <div class="relative">
-                        <img src="photo/Affiche/c59a6303-ec2c-40ab-ad6f-571f00fba249.jpg" alt="Affiche"
-                            class="w-full h-72 object-cover object-top">
-                        <div
-                            class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100">
-                            <div class="text-center p-4">
-                                <h3 class="text-white text-xl font-semibold mb-2">Affiche Festival</h3>
-                                <p class="text-gray-300 mb-4">Design graphique</p>
-                                <a href="portfolio-design.html"
-                                    class="inline-block bg-primary text-black px-4 py-2 rounded-button font-medium hover:bg-opacity-90 transition-colors whitespace-nowrap">Voir
-                                    plus</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Portfolio Item 5 -->
-                <div class="portfolio-item rounded-lg overflow-hidden group" data-category="design" data-aos="zoom-in"
-                    data-aos-delay="300">
-                    <div class="relative">
-                        <img src="photo/produit/151f9d1c-a464-4cca-b872-2ab4bb34285c.jpg" alt="Création de Marque"
-                            class="w-full h-72 object-cover object-top">
-                        <div
-                            class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100">
-                            <div class="text-center p-4">
-                                <h3 class="text-white text-xl font-semibold mb-2">Création de Marque</h3>
-                                <p class="text-gray-300 mb-4">Branding</p>
-                                <a href="portfolio-branding.html"
-                                    class="inline-block bg-primary text-black px-4 py-2 rounded-button font-medium hover:bg-opacity-90 transition-colors whitespace-nowrap">Voir
-                                    plus</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <!-- Message pour portfolio vide -->
+            <div id="portfolio-empty" class="text-center py-12 hidden">
+                <i class="ri-image-line text-6xl text-gray-500 mb-4 block"></i>
+                <p class="text-gray-400">Aucune photo trouvée pour cette catégorie</p>
             </div>
             <div class="text-center mt-12">
-                <a href="portfolio-design.html"
-                    class="inline-block border-2 border-primary text-primary px-8 py-3 rounded-button font-medium hover:bg-primary hover:text-black transition-all whitespace-nowrap">Voir
-                    tous les projets</a>
+                <a href="#contact" aria-label="Contactez-nous pour voir tous nos projets et discuter de votre besoin"
+                    class="inline-block border-2 border-primary text-primary px-8 py-3 rounded-button font-medium hover:bg-primary hover:text-black transition-all whitespace-nowrap shadow-lg hover:shadow-xl transform hover:scale-105">
+                    <i class="ri-arrow-right-line mr-2"></i>Discutons de votre projet
+                </a>
             </div>
         </div>
     </section>
@@ -497,84 +630,14 @@
                     services.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Testimonial 1 -->
-                <div class="bg-gray-900 p-8 rounded-lg" data-aos="fade-up" data-aos-delay="100">
-                    <div class="flex items-center mb-6">
-                        <div class="text-primary">
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                        </div>
-                    </div>
-                    <p class="text-gray-300 mb-6">« Kerezel a photographié notre mariage et nous sommes absolument ravis
-                        du résultat. Les photos sont magnifiques et capturent parfaitement l'émotion de cette journée
-                        spéciale. Un vrai professionnel ! »</p>
-                    <div class="flex items-center">
-                        <div
-                            class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-black font-bold mr-4">
-                            MB
-                        </div>
-                        <div>
-                            <h4 class="text-white font-medium">Marie Bisengimana</h4>
-                            <p class="text-gray-400 text-sm">Mariée, Goma</p>
-                        </div>
-                    </div>
+            <div id="testimonials-container">
+                <!-- Les témoignages seront chargés dynamiquement depuis Supabase -->
                 </div>
 
-                <!-- Testimonial 2 -->
-                <div class="bg-gray-900 p-8 rounded-lg" data-aos="fade-up" data-aos-delay="200">
-                    <div class="flex items-center mb-6">
-                        <div class="text-primary">
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                        </div>
-                    </div>
-                    <p class="text-gray-300 mb-6">« J'ai fait appel à Kerezel pour la création du logo et de l'identité
-                        visuelle de mon entreprise. Le résultat est au-delà de mes attentes. Un travail créatif,
-                        professionnel et livré dans les délais. »</p>
-                    <div class="flex items-center">
-                        <div
-                            class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-black font-bold mr-4">
-                            JK
-                        </div>
-                        <div>
-                            <h4 class="text-white font-medium">Jean Kabeya</h4>
-                            <p class="text-gray-400 text-sm">Directeur, Kabeya Solutions</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Testimonial 3 -->
-                <div class="bg-gray-900 p-8 rounded-lg" data-aos="fade-up" data-aos-delay="300">
-                    <div class="flex items-center mb-6">
-                        <div class="text-primary">
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                        </div>
-                    </div>
-                    <p class="text-gray-300 mb-6">« Nous avons engagé Kerezel pour photographier notre conférence
-                        annuelle. Les photos sont superbes et ont parfaitement capturé l'essence de notre événement.
-                        Très professionnel et facile à travailler avec. »</p>
-                    <div class="flex items-center">
-                        <div
-                            class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-black font-bold mr-4">
-                            CM
-                        </div>
-                        <div>
-                            <h4 class="text-white font-medium">Claire Mukeshimana</h4>
-                            <p class="text-gray-400 text-sm">Responsable événementiel, GomaTech</p>
-                        </div>
-                    </div>
-                </div>
+            <!-- Loading indicator pour les témoignages -->
+            <div id="testimonials-loading" class="text-center py-12">
+                <div class="inline-block w-6 h-6 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4"></div>
+                <p class="text-gray-400">Chargement des témoignages...</p>
             </div>
         </div>
     </section>
@@ -586,12 +649,14 @@
             <p class="text-black text-opacity-80 max-w-2xl mx-auto mb-8 text-lg">Que vous ayez besoin de photographies
                 professionnelles ou d'un design graphique sur mesure, je suis là pour vous accompagner.</p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#contact"
-                    class="bg-black text-white font-medium py-3 px-8 rounded-button hover:bg-opacity-90 transition-all whitespace-nowrap">Contactez-moi
-                    dès aujourd'hui</a>
-                <a href="#services"
-                    class="bg-transparent border-2 border-black text-black font-medium py-3 px-8 rounded-button hover:bg-black hover:bg-opacity-10 transition-all whitespace-nowrap">Découvrir
-                    mes services</a>
+                <a href="#contact" aria-label="Contacter Kerezel Design pour démarrer votre projet"
+                    class="bg-black text-white font-medium py-4 px-8 rounded-button hover:bg-opacity-90 transition-all whitespace-nowrap shadow-lg hover:shadow-xl transform hover:scale-105">
+                    <i class="ri-phone-line mr-2"></i>Réserver une séance
+                </a>
+                <a href="#portfolio" aria-label="Découvrir tous les projets de Kerezel Design"
+                    class="bg-transparent border-2 border-black text-black font-medium py-4 px-8 rounded-button hover:bg-black hover:bg-opacity-10 transition-all whitespace-nowrap">
+                    <i class="ri-eye-line mr-2"></i>Voir mes projets
+                </a>
             </div>
         </div>
     </section>
@@ -719,6 +784,8 @@
         </div>
     </section>
 
+    </main>
+
     <!-- Footer -->
     <footer class="bg-secondary py-12">
         <div class="container mx-auto px-6">
@@ -806,63 +873,278 @@
 
     <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Supabase Configuration -->
+    <script src="supabase.js"></script>
     <script>
-        // Initialize AOS
-        document.addEventListener('DOMContentLoaded', function () {
+        // ==========================================
+        // ÉTAT GLOBAL DE L'APPLICATION
+        // ==========================================
+        
+        let appState = {
+            currentFilter: 'all',
+            photos: [],
+            testimonials: [],
+            isLoading: false
+        };
+
+        // ==========================================
+        // INITIALISATION AOS
+        // ==========================================
+
+        function initAOS() {
             AOS.init({
-                once: true, // Animation se joue une seule fois
-                offset: 120, // Décalage en pixels par rapport au bas de la fenêtre
-                duration: 800, // Durée de l'animation en ms
-                easing: 'ease-out-cubic', // Type d'accélération
+                once: true,
+                offset: 120,
+                duration: 800,
+                easing: 'ease-out-cubic',
             });
-        });
+        }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            // Mobile menu toggle
-            const menuToggle = document.getElementById('menu-toggle');
-            const mobileMenu = document.getElementById('mobile-menu');
+        // ==========================================
+        // GESTION DU PORTFOLIO DYNAMIQUE
+        // ==========================================
 
-            menuToggle.addEventListener('click', function () {
-                mobileMenu.classList.toggle('hidden');
-            });
+        async function loadPortfolio(filter = 'all') {
+            const portfolioGrid = document.getElementById('portfolio-grid');
+            const loadingIndicator = document.getElementById('portfolio-loading');
+            const emptyMessage = document.getElementById('portfolio-empty');
 
-            // Portfolio filtering
+            // Afficher le loading
+            loadingIndicator.classList.remove('hidden');
+            emptyMessage.classList.add('hidden');
+            portfolioGrid.innerHTML = '';
+
+            try {
+                // Charger les photos depuis Supabase
+                const photos = await SupabasePortfolio.photos.get(filter === 'all' ? null : filter);
+                appState.photos = photos;
+
+                loadingIndicator.classList.add('hidden');
+
+                if (photos.length === 0) {
+                    emptyMessage.classList.remove('hidden');
+                    return;
+                }
+
+                // Générer les éléments portfolio
+                const portfolioHTML = photos.map((photo, index) => {
+                    const categoryLabel = getCategoryLabel(photo.categorie);
+                    return `
+                        <div class="portfolio-item rounded-lg overflow-hidden group" data-category="${photo.categorie}" 
+                             data-aos="zoom-in" data-aos-delay="${100 + (index % 3) * 100}">
+                            <div class="relative">
+                                <img src="${photo.url_image}" 
+                                     alt="${photo.alt_text || photo.titre}"
+                                     class="w-full h-72 object-cover object-center lazy"
+                                     loading="lazy">
+                                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100">
+                                    <div class="text-center p-4">
+                                        <h3 class="text-white text-xl font-semibold mb-2">${photo.titre}</h3>
+                                        <p class="text-gray-300 mb-4">${categoryLabel}</p>
+                                        ${photo.description ? `<p class="text-gray-400 text-sm mb-4">${photo.description.substring(0, 100)}${photo.description.length > 100 ? '...' : ''}</p>` : ''}
+                                        <button onclick="openPhotoModal('${photo.id}')" 
+                                                class="inline-block bg-primary text-black px-4 py-2 rounded-button font-medium hover:bg-opacity-90 transition-colors whitespace-nowrap">
+                                            Voir plus
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                portfolioGrid.innerHTML = portfolioHTML;
+
+                // Réinitialiser les animations AOS pour les nouveaux éléments
+                AOS.refresh();
+
+            } catch (error) {
+                console.error('Erreur lors du chargement du portfolio:', error);
+                loadingIndicator.classList.add('hidden');
+                portfolioGrid.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <i class="ri-error-warning-line text-6xl text-red-500 mb-4 block"></i>
+                        <p class="text-gray-400">Erreur lors du chargement du portfolio</p>
+                        <button onclick="loadPortfolio('${filter}')" class="mt-4 bg-primary text-black px-6 py-2 rounded-button">
+                            Réessayer
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        function getCategoryLabel(category) {
+            const labels = {
+                'portfolio': 'Portfolio',
+                'design': 'Design graphique',
+                'evenement': 'Photographie d\'événement',
+                'portrait': 'Portrait studio',
+                'produit': 'Photographie produit',
+                'branding': 'Branding',
+                'blog': 'Blog'
+            };
+            return labels[category] || category;
+        }
+
+        // Modal pour afficher les photos en grand
+        function openPhotoModal(photoId) {
+            const photo = appState.photos.find(p => p.id === photoId);
+            if (!photo) return;
+
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50';
+            modal.innerHTML = `
+                <div class="relative max-w-4xl max-h-full p-4">
+                    <button onclick="closePhotoModal()" 
+                            class="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition-colors z-10">
+                        <i class="ri-close-line ri-lg"></i>
+                    </button>
+                    <img src="${photo.url_image}" alt="${photo.alt_text || photo.titre}" 
+                         class="max-w-full max-h-full object-contain">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6 text-white">
+                        <h3 class="text-2xl font-bold mb-2">${photo.titre}</h3>
+                        <p class="text-gray-300">${photo.description || ''}</p>
+                        <span class="inline-block bg-primary text-black px-3 py-1 rounded-full text-sm mt-2">
+                            ${getCategoryLabel(photo.categorie)}
+                        </span>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+        }
+
+        function closePhotoModal() {
+            const modal = document.querySelector('.fixed.inset-0.bg-black.bg-opacity-90');
+            if (modal) modal.remove();
+        }
+
+        // Gestion des filtres portfolio
+        function initPortfolioFilters() {
             const filterBtns = document.querySelectorAll('.portfolio-filter-btn');
-            const portfolioItems = document.querySelectorAll('.portfolio-item');
 
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', function () {
-                    // Remove active class from all buttons
-                    filterBtns.forEach(btn => btn.classList.remove('active', 'bg-primary', 'text-black'));
-                    filterBtns.forEach(btn => btn.classList.add('text-white', 'hover:bg-gray-800'));
+                    const filter = this.getAttribute('data-filter');
 
-                    // Add active class to clicked button
+                    // Mettre à jour les boutons actifs
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-primary', 'text-black');
+                        b.classList.add('text-white', 'hover:bg-gray-800');
+                    });
                     this.classList.add('active', 'bg-primary', 'text-black');
                     this.classList.remove('text-white', 'hover:bg-gray-800');
 
-                    const filterValue = this.textContent.trim().toLowerCase();
-
-                    portfolioItems.forEach(item => {
-                        const categories = item.dataset.category ? item.dataset.category.split(' ') : [];
-
-                        if (filterValue === 'tous') {
-                            item.style.display = 'block';
-                        } else if (filterValue === 'photographie' && categories.includes('photographie')) {
-                            item.style.display = 'block';
-                        } else if (filterValue === 'design' && categories.includes('design')) {
-                            item.style.display = 'block';
-                        } else if (filterValue === 'événements' && categories.includes('evenement')) {
-                            item.style.display = 'block';
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    });
+                    // Charger les photos filtrées
+                    appState.currentFilter = filter;
+                    loadPortfolio(filter);
                 });
             });
+        }
 
-            // Back to top button
+        // ==========================================
+        // GESTION DES TÉMOIGNAGES DYNAMIQUES
+        // ==========================================
+
+        async function loadTestimonials() {
+            const container = document.getElementById('testimonials-container');
+            const loadingIndicator = document.getElementById('testimonials-loading');
+
+            loadingIndicator.classList.remove('hidden');
+            container.innerHTML = '';
+
+            try {
+                const testimonials = await SupabasePortfolio.temoignages.get();
+                appState.testimonials = testimonials;
+
+                loadingIndicator.classList.add('hidden');
+
+                if (testimonials.length === 0) {
+                    container.innerHTML = `
+                        <div class="text-center py-12">
+                            <p class="text-gray-400">Aucun témoignage disponible pour le moment.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Générer les éléments témoignages
+                const testimonialsHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-${Math.min(testimonials.length, 3)} gap-8">
+                        ${testimonials.slice(0, 6).map((testimonial, index) => `
+                            <div class="bg-gray-900 p-8 rounded-lg" data-aos="fade-up" data-aos-delay="${100 + index * 100}">
+                                <div class="flex items-center mb-6">
+                                    <div class="text-primary">
+                                        ${generateStars(testimonial.note)}
+                                    </div>
+                                </div>
+                                <p class="text-gray-300 mb-6">« ${testimonial.message} »</p>
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-black font-bold mr-4">
+                                        ${getInitials(testimonial.auteur)}
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-medium">${testimonial.auteur}</h4>
+                                        <p class="text-gray-400 text-sm">
+                                            ${testimonial.poste ? testimonial.poste + (testimonial.entreprise ? ', ' + testimonial.entreprise : '') : (testimonial.entreprise || '')}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+
+                container.innerHTML = testimonialsHTML;
+                AOS.refresh(); // Réactiver les animations
+
+            } catch (error) {
+                console.error('Erreur lors du chargement des témoignages:', error);
+                loadingIndicator.classList.add('hidden');
+                container.innerHTML = `
+                    <div class="text-center py-12">
+                        <i class="ri-error-warning-line text-4xl text-red-500 mb-4 block"></i>
+                        <p class="text-gray-400">Erreur lors du chargement des témoignages</p>
+                        <button onclick="loadTestimonials()" class="mt-4 bg-primary text-black px-6 py-2 rounded-button">
+                            Réessayer
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        function generateStars(rating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                stars += `<i class="ri-star-${i <= rating ? 'fill' : 'line'}"></i>`;
+            }
+            return stars;
+        }
+
+        function getInitials(name) {
+            return name.split(' ').map(word => word[0]).join('').toUpperCase().substring(0, 2);
+        }
+
+        // ==========================================
+        // FONCTIONNALITÉS GÉNÉRALES
+        // ==========================================
+
+        function initMobileMenu() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (menuToggle && mobileMenu) {
+                menuToggle.addEventListener('click', function () {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        }
+
+        function initBackToTop() {
             const backToTopButton = document.getElementById('back-to-top');
 
+            if (backToTopButton) {
             window.addEventListener('scroll', function () {
                 if (window.pageYOffset > 300) {
                     backToTopButton.classList.remove('opacity-0', 'invisible');
@@ -879,10 +1161,10 @@
                     behavior: 'smooth'
                 });
             });
-        });
+            }
+        }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            // Smooth scrolling for anchor links
+        function initSmoothScrolling() {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -898,13 +1180,134 @@
 
                         // Close mobile menu if open
                         const mobileMenu = document.getElementById('mobile-menu');
-                        if (!mobileMenu.classList.contains('hidden')) {
+                        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
                             mobileMenu.classList.add('hidden');
                         }
                     }
                 });
             });
+        }
+
+        // ==========================================
+        // OPTIMISATIONS PERFORMANCE
+        // ==========================================
+
+        // Lazy loading pour les images
+        function initLazyLoading() {
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            if (img.dataset.src) {
+                                img.src = img.dataset.src;
+                                img.classList.remove('lazy');
+                                imageObserver.unobserve(img);
+                            }
+                        }
+                    });
+                });
+
+                // Observer toutes les images lazy
+                document.querySelectorAll('img[data-src]').forEach(img => {
+                    imageObserver.observe(img);
+                });
+
+                // Observer les nouvelles images ajoutées dynamiquement
+                const mutationObserver = new MutationObserver(mutations => {
+                    mutations.forEach(mutation => {
+                        mutation.addedNodes.forEach(node => {
+                            if (node.nodeType === 1) { // Element node
+                                const lazyImages = node.querySelectorAll ? node.querySelectorAll('img[data-src]') : [];
+                                lazyImages.forEach(img => imageObserver.observe(img));
+                            }
+                        });
+                    });
+                });
+
+                mutationObserver.observe(document.body, {
+                    childList: true,
+                    subtree: true
+                });
+            }
+        }
+
+        // ==========================================
+        // INITIALISATION PRINCIPALE
+        // ==========================================
+
+        document.addEventListener('DOMContentLoaded', async function () {
+            console.log('🚀 Initialisation du site Kerezel Design...');
+
+            // Initialiser AOS
+            initAOS();
+
+            // Initialiser les fonctionnalités de base
+            initMobileMenu();
+            initBackToTop();
+            initSmoothScrolling();
+            initPortfolioFilters();
+            initLazyLoading();
+
+            // Attendre que Supabase soit prêt
+            if (window.SupabasePortfolio) {
+                try {
+                    // Vérifier la connexion
+                    const isConnected = await SupabasePortfolio.checkConnection();
+                    
+                    if (isConnected) {
+                        console.log('✅ Connexion Supabase établie');
+                        
+                        // Charger les données dynamiquement
+                        await Promise.all([
+                            loadPortfolio('all'),
+                            loadTestimonials()
+                        ]);
+                        
+                        console.log('✅ Contenu dynamique chargé');
+                    } else {
+                        console.warn('⚠️ Supabase non connecté - Affichage du contenu de secours');
+                        showFallbackContent();
+                    }
+                } catch (error) {
+                    console.error('❌ Erreur lors de l\'initialisation Supabase:', error);
+                    showFallbackContent();
+                }
+            } else {
+                console.warn('⚠️ SupabasePortfolio non disponible - Mode hors ligne');
+                showFallbackContent();
+            }
+
+            console.log('✅ Site initialisé avec succès !');
         });
+
+        // Contenu de secours en cas d'erreur Supabase
+        function showFallbackContent() {
+            // Masquer les indicateurs de chargement
+            document.getElementById('portfolio-loading').classList.add('hidden');
+            document.getElementById('testimonials-loading').classList.add('hidden');
+
+            // Afficher un message d'erreur temporaire ou du contenu statique de secours
+            document.getElementById('portfolio-grid').innerHTML = `
+                <div class="col-span-full text-center py-12">
+                    <i class="ri-wifi-off-line text-6xl text-gray-500 mb-4 block"></i>
+                    <p class="text-gray-400">Contenu en cours de chargement...</p>
+                    <p class="text-gray-500 text-sm mt-2">Vérifiez votre connexion internet</p>
+                </div>
+            `;
+
+            document.getElementById('testimonials-container').innerHTML = `
+                <div class="text-center py-12">
+                    <p class="text-gray-400">Témoignages en cours de chargement...</p>
+                </div>
+            `;
+        }
+
+        // Fonctions globales accessibles
+        window.openPhotoModal = openPhotoModal;
+        window.closePhotoModal = closePhotoModal;
+        window.loadPortfolio = loadPortfolio;
+        window.loadTestimonials = loadTestimonials;
     </script>
 </body>
 
