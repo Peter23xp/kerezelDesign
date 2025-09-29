@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Services - Kerezel Design | Photographe & Designer Graphique à Goma</title>
+    <meta name="description" content="Découvrez nos services de photographie professionnelle et design graphique à Goma. Mariages, portraits studio, design d'identité visuelle et communication. Tarifs transparents et devis gratuit.">
+    <meta name="keywords" content="services photographie Goma, design graphique Goma, mariage Goma, portrait studio, identité visuelle, tarifs photographe">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Services - Kerezel Design | Photographe & Designer Graphique">
+    <meta property="og:description" content="Services professionnels de photographie et design graphique à Goma. Mariages, portraits, identité visuelle.">
+    <meta property="og:image" content="https://kerezeldesign.netlify.app/photo/hero.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📸</text></svg>">
+    
+    <!-- Tailwind CSS -->
+    <link href="dist/output.css" rel="stylesheet">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0F0F0F;
+            color: #F5F5F5;
+        }
+        .heading {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-black bg-opacity-80 backdrop-blur-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-['Playfair_Display'] font-bold text-white">
+                Kerezel <span class="text-primary-500">Design</span>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-neutral-400 hover:text-primary-400 transition-colors">Accueil</a>
+                <a href="index.html#a-propos" class="text-neutral-400 hover:text-primary-400 transition-colors">À propos</a>
+                <a href="index.html#portfolio" class="text-neutral-400 hover:text-primary-400 transition-colors">Portfolio</a>
+                <a href="services.html" class="text-primary-400 font-medium">Services</a>
+                <a href="index.html#contact" class="text-neutral-400 hover:text-primary-400 transition-colors">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-white focus:outline-none">
+                    <i class="ri-menu-line ri-lg"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section Services -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-accent-900 via-secondary-900 to-accent-900">
+        <div class="absolute inset-0 bg-black/40"></div>
+        <div class="container mx-auto px-6 z-10 text-center">
+            <div class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-duration="1000">
+                <div class="inline-flex items-center px-4 py-2 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full text-primary-300 text-sm font-medium mb-8">
+                    <i class="ri-service-line mr-2"></i>
+                    Nos Services Premium
+                </div>
+                <h1 class="heading text-5xl md:text-7xl font-bold text-white mb-6">
+                    Services <span class="text-primary-500">Professionnels</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-neutral-300 mb-8 max-w-3xl mx-auto">
+                    Des solutions créatives sur mesure pour transformer vos idées en réalité visuelle exceptionnelle
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#contact" class="btn-primary">
+                        <i class="ri-calendar-line mr-2"></i>
+                        Demander un devis gratuit
+                    </a>
+                    <a href="index.html#portfolio" class="btn-outline">
+                        <i class="ri-image-line mr-2"></i>
+                        Voir nos réalisations
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="py-24 bg-secondary-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="heading text-4xl md:text-5xl font-bold text-white mb-6" data-aos="fade-up">
+                    Nos <span class="text-primary-500">Expertises</span>
+                </h2>
+                <p class="text-neutral-400 max-w-3xl mx-auto text-lg" data-aos="fade-up" data-aos-delay="200">
+                    Chaque projet est unique. Découvrez notre gamme complète de services professionnels 
+                    adaptés à vos besoins spécifiques.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1: Photographie d'événement -->
+                <div class="card-service group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary-500 group-hover:text-black transition-all duration-300">
+                        <i class="ri-camera-line ri-2x text-primary-300 group-hover:text-black"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Photographie d'événement</h3>
+                    <p class="text-neutral-400 mb-6 leading-relaxed">
+                        Immortalisez vos moments précieux avec un service professionnel pour mariages, 
+                        conférences, galas et cérémonies. Captures authentiques et émotionnelles.
+                    </p>
+                    <ul class="text-neutral-400 space-y-2 mb-6">
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Mariages & cérémonies</li>
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Événements corporatifs</li>
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Galas & soirées</li>
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Livraison rapide</li>
+                    </ul>
+                    <div class="text-primary-400 font-semibold mb-4">À partir de 150$</div>
+                    <a href="#contact" class="btn-primary w-full text-center">
+                        <i class="ri-calendar-line mr-2"></i>
+                        Réserver
+                    </a>
+                </div>
+
+                <!-- Service 2: Portrait Studio -->
+                <div class="card-service group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary-500 group-hover:text-black transition-all duration-300">
+                        <i class="ri-user-smile-line ri-2x text-primary-300 group-hover:text-black"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Portrait Studio</h3>
+                    <p class="text-neutral-400 mb-6 leading-relaxed">
+                        Des séances photo personnalisées en studio ou en extérieur pour particuliers, 
+                        couples, familles ou professionnels. Mise en valeur de votre personnalité.
+                    </p>
+                    <ul class="text-neutral-400 space-y-2 mb-6">
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Portraits individuels</li>
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Séances couple/famille</li>
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Photos professionnelles</li>
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Retouches incluses</li>
+                    </ul>
+                    <div class="text-primary-400 font-semibold mb-4">À partir de 80$</div>
+                    <a href="#contact" class="btn-primary w-full text-center">
+                        <i class="ri-calendar-line mr-2"></i>
+                        Réserver
+                    </a>
+                </div>
+
+                <!-- Service 3: Design Graphique -->
+                <div class="card-service group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary-500 group-hover:text-black transition-all duration-300">
+                        <i class="ri-palette-line ri-2x text-primary-300 group-hover:text-black"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Design Graphique</h3>
+                    <p class="text-neutral-400 mb-6 leading-relaxed">
+                        Création de logos, affiches, flyers, cartes de visite et autres supports visuels 
+                        pour votre communication. Design moderne et impactant.
+                    </p>
+                    <ul class="text-neutral-400 space-y-2 mb-6">
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Logos & identité</li>
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Affiches & flyers</li>
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Cartes de visite</li>
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Fichiers print & web</li>
+                    </ul>
+                    <div class="text-primary-400 font-semibold mb-4">À partir de 50$</div>
+                    <a href="#contact" class="btn-primary w-full text-center">
+                        <i class="ri-calendar-line mr-2"></i>
+                        Réserver
+                    </a>
+                </div>
+
+                <!-- Service 4: Communication Visuelle -->
+                <div class="card-service group" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-16 h-16 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary-500 group-hover:text-black transition-all duration-300">
+                        <i class="ri-building-line ri-2x text-primary-300 group-hover:text-black"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Communication Visuelle</h3>
+                    <p class="text-neutral-400 mb-6 leading-relaxed">
+                        Stratégie et identité visuelle complète pour entreprises, incluant charte graphique 
+                        et supports de communication cohérents.
+                    </p>
+                    <ul class="text-neutral-400 space-y-2 mb-6">
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Charte graphique</li>
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Stratégie branding</li>
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Supports marketing</li>
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Accompagnement</li>
+                    </ul>
+                    <div class="text-primary-400 font-semibold mb-4">À partir de 200$</div>
+                    <a href="#contact" class="btn-primary w-full text-center">
+                        <i class="ri-calendar-line mr-2"></i>
+                        Réserver
+                    </a>
+                </div>
+
+                <!-- Service 5: Retouche Photo -->
+                <div class="card-service group" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-16 h-16 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary-500 group-hover:text-black transition-all duration-300">
+                        <i class="ri-image-edit-line ri-2x text-primary-300 group-hover:text-black"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Retouche Photo</h3>
+                    <p class="text-neutral-400 mb-6 leading-relaxed">
+                        Perfectionnez vos images avec un service de retouche professionnelle. 
+                        Correction de couleurs, luminosité, retouche beauté ou montage créatif.
+                    </p>
+                    <ul class="text-neutral-400 space-y-2 mb-6">
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Correction couleurs</li>
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Retouche beauté</li>
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Montage créatif</li>
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Livraison HD</li>
+                    </ul>
+                    <div class="text-primary-400 font-semibold mb-4">À partir de 30$</div>
+                    <a href="#contact" class="btn-primary w-full text-center">
+                        <i class="ri-calendar-line mr-2"></i>
+                        Réserver
+                    </a>
+                </div>
+
+                <!-- Service 6: Formation -->
+                <div class="card-service group" data-aos="fade-up" data-aos-delay="600">
+                    <div class="w-16 h-16 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary-500 group-hover:text-black transition-all duration-300">
+                        <i class="ri-graduation-cap-line ri-2x text-primary-300 group-hover:text-black"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Formation Photo</h3>
+                    <p class="text-neutral-400 mb-6 leading-relaxed">
+                        Apprenez les techniques de photographie professionnelle avec des cours 
+                        personnalisés adaptés à votre niveau et vos objectifs.
+                    </p>
+                    <ul class="text-neutral-400 space-y-2 mb-6">
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Cours individuels</li>
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Ateliers groupe</li>
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Pratique terrain</li>
+                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Certificat</li>
+                    </ul>
+                    <div class="text-primary-400 font-semibold mb-4">À partir de 100$</div>
+                    <a href="#contact" class="btn-primary w-full text-center">
+                        <i class="ri-calendar-line mr-2"></i>
+                        Réserver
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 bg-accent-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="heading text-4xl md:text-5xl font-bold text-white mb-6" data-aos="fade-up">
+                    Questions <span class="text-primary-500">Fréquentes</span>
+                </h2>
+                <p class="text-neutral-400 max-w-3xl mx-auto text-lg" data-aos="fade-up" data-aos-delay="200">
+                    Trouvez les réponses aux questions les plus courantes sur nos services et processus.
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-6">
+                    <!-- FAQ 1 -->
+                    <div class="faq-item bg-secondary-800/50 backdrop-blur-sm border border-secondary-700 rounded-card p-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Combien de temps faut-il pour recevoir mes photos ?</span>
+                            <i class="ri-add-line text-primary-500 transition-transform duration-300"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Le délai de livraison dépend du type de service :</p>
+                            <ul class="mt-3 space-y-2">
+                                <li>• <strong>Portraits studio :</strong> 3-5 jours ouvrés</li>
+                                <li>• <strong>Événements :</strong> 7-10 jours ouvrés</li>
+                                <li>• <strong>Design graphique :</strong> 2-5 jours ouvrés selon la complexité</li>
+                                <li>• <strong>Retouche photo :</strong> 1-3 jours ouvrés</li>
+                            </ul>
+                            <p class="mt-3 text-primary-400">Des livraisons express sont possibles avec un supplément.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="faq-item bg-secondary-800/50 backdrop-blur-sm border border-secondary-700 rounded-card p-6" data-aos="fade-up" data-aos-delay="200">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Quels formats de fichiers recevrai-je ?</span>
+                            <i class="ri-add-line text-primary-500 transition-transform duration-300"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Vous recevrez vos fichiers dans plusieurs formats selon vos besoins :</p>
+                            <ul class="mt-3 space-y-2">
+                                <li>• <strong>Photos :</strong> JPEG haute résolution + RAW si demandé</li>
+                                <li>• <strong>Design :</strong> PDF print + PNG/JPEG web + fichiers sources (AI/PSD)</li>
+                                <li>• <strong>Livraison :</strong> Via WeTransfer ou Google Drive</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="faq-item bg-secondary-800/50 backdrop-blur-sm border border-secondary-700 rounded-card p-6" data-aos="fade-up" data-aos-delay="300">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Proposez-vous des forfaits pour les mariages ?</span>
+                            <i class="ri-add-line text-primary-500 transition-transform duration-300"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Oui, nous proposons plusieurs forfaits mariage adaptés à vos besoins :</p>
+                            <ul class="mt-3 space-y-2">
+                                <li>• <strong>Essentiel :</strong> 4h de shooting + 200 photos retouchées (300$)</li>
+                                <li>• <strong>Complet :</strong> 8h de shooting + 400 photos + livre photo (500$)</li>
+                                <li>• <strong>Premium :</strong> 12h + 600 photos + livre + vidéo highlights (800$)</li>
+                            </ul>
+                            <p class="mt-3 text-primary-400">Tous les forfaits incluent une séance de repérage gratuite.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 4 -->
+                    <div class="faq-item bg-secondary-800/50 backdrop-blur-sm border border-secondary-700 rounded-card p-6" data-aos="fade-up" data-aos-delay="400">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Comment se déroule une séance photo ?</span>
+                            <i class="ri-add-line text-primary-500 transition-transform duration-300"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Voici le processus typique d'une séance photo :</p>
+                            <ol class="mt-3 space-y-2 list-decimal list-inside">
+                                <li><strong>Consultation :</strong> Discussion de vos attentes et objectifs</li>
+                                <li><strong>Préparation :</strong> Conseils pour les tenues et accessoires</li>
+                                <li><strong>Séance :</strong> Shooting dans une ambiance détendue et professionnelle</li>
+                                <li><strong>Retouches :</strong> Sélection et traitement des meilleures photos</li>
+                                <li><strong>Livraison :</strong> Remise des fichiers finaux</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 5 -->
+                    <div class="faq-item bg-secondary-800/50 backdrop-blur-sm border border-secondary-700 rounded-card p-6" data-aos="fade-up" data-aos-delay="500">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Acceptez-vous les paiements échelonnés ?</span>
+                            <i class="ri-add-line text-primary-500 transition-transform duration-300"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Oui, nous proposons des solutions de paiement flexibles :</p>
+                            <ul class="mt-3 space-y-2">
+                                <li>• <strong>Acompte :</strong> 30% à la réservation</li>
+                                <li>• <strong>Solde :</strong> À la livraison des photos</li>
+                                <li>• <strong>Échelonnement :</strong> 2-3 versements pour les gros projets</li>
+                                <li>• <strong>Moyens :</strong> Espèces, virement, mobile money</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 bg-gradient-to-r from-primary-500 to-primary-600">
+        <div class="container mx-auto px-6 text-center">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="heading text-4xl md:text-5xl font-bold text-black mb-6" data-aos="fade-up">
+                    Prêt à donner vie à votre projet ?
+                </h2>
+                <p class="text-black/80 text-xl mb-8" data-aos="fade-up" data-aos-delay="200">
+                    Contactez-nous dès aujourd'hui pour discuter de vos besoins et recevoir un devis personnalisé gratuit.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="400">
+                    <a href="index.html#contact" class="bg-black text-white font-semibold py-4 px-8 rounded-button hover:bg-black/90 transition-all">
+                        <i class="ri-calendar-line mr-2"></i>
+                        Demander un devis gratuit
+                    </a>
+                    <a href="https://wa.me/243976854161" target="_blank" class="bg-white text-black font-semibold py-4 px-8 rounded-button hover:bg-white/90 transition-all">
+                        <i class="ri-whatsapp-line mr-2"></i>
+                        WhatsApp direct
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary-900 py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <a href="index.html" class="text-2xl font-['Playfair_Display'] font-bold text-white mb-4 inline-block">
+                        Kerezel <span class="text-primary-500">Design</span>
+                    </a>
+                    <p class="text-neutral-400 mb-6 max-w-md">
+                        Photographe et designer graphique professionnel basé à Goma, 
+                        spécialisé dans la création d'images et de designs visuels captivants.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/kerezeldesign/" target="_blank"
+                            class="w-10 h-10 bg-secondary-800 text-white hover:bg-primary-500 hover:text-black transition-colors rounded-full flex items-center justify-center">
+                            <i class="ri-instagram-line"></i>
+                        </a>
+                        <a href="https://www.facebook.com/kerezeldesign/" target="_blank"
+                            class="w-10 h-10 bg-secondary-800 text-white hover:bg-primary-500 hover:text-black transition-colors rounded-full flex items-center justify-center">
+                            <i class="ri-facebook-line"></i>
+                        </a>
+                        <a href="https://wa.me/243976854161" target="_blank"
+                            class="w-10 h-10 bg-secondary-800 text-white hover:bg-primary-500 hover:text-black transition-colors rounded-full flex items-center justify-center">
+                            <i class="ri-whatsapp-line"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-white font-semibold text-lg mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#photographie-evenement" class="text-neutral-400 hover:text-primary-400 transition-colors">Photographie d'événement</a></li>
+                        <li><a href="#portrait-studio" class="text-neutral-400 hover:text-primary-400 transition-colors">Portrait Studio</a></li>
+                        <li><a href="#design-graphique" class="text-neutral-400 hover:text-primary-400 transition-colors">Design Graphique</a></li>
+                        <li><a href="#communication-visuelle" class="text-neutral-400 hover:text-primary-400 transition-colors">Communication Visuelle</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-semibold text-lg mb-4">Contact</h3>
+                    <ul class="space-y-2 text-neutral-400">
+                        <li>+243 976854161</li>
+                        <li>kerezeldesign@gmail.com</li>
+                        <li>Avenue du Lac 123, Goma</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-secondary-700 pt-8 text-center">
+                <p class="text-neutral-500">© 2025 Kerezel Design. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialisation AOS
+        AOS.init({
+            once: true,
+            offset: 120,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
+
+        // FAQ Toggle
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('i');
+            
+            if (answer.classList.contains('open')) {
+                answer.classList.remove('open');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                // Fermer toutes les autres FAQ
+                document.querySelectorAll('.faq-answer.open').forEach(openAnswer => {
+                    openAnswer.classList.remove('open');
+                    openAnswer.previousElementSibling.querySelector('i').style.transform = 'rotate(0deg)';
+                });
+                
+                // Ouvrir la FAQ sélectionnée
+                answer.classList.add('open');
+                icon.style.transform = 'rotate(45deg)';
+            }
+        }
+
+        // Mobile menu
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            // Simple toggle pour mobile menu si nécessaire
+        });
+    </script>
+</body>
+
+</html>

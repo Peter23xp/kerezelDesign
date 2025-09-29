@@ -309,11 +309,12 @@
 
             <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-8">
-                <a href="#accueil" class="nav-link text-white hover:text-primary transition-colors">Accueil</a>
-                <a href="#a-propos" class="nav-link text-white hover:text-primary transition-colors">À propos</a>
-                <a href="#portfolio" class="nav-link text-white hover:text-primary transition-colors">Portfolio</a>
-                <a href="#services" class="nav-link text-white hover:text-primary transition-colors">Services</a>
-                <a href="#contact" class="nav-link text-white hover:text-primary transition-colors">Contact</a>
+                <a href="#accueil" class="nav-link text-white hover:text-primary-400 transition-colors">Accueil</a>
+                <a href="#a-propos" class="nav-link text-white hover:text-primary-400 transition-colors">À propos</a>
+                <a href="#portfolio" class="nav-link text-white hover:text-primary-400 transition-colors">Portfolio</a>
+                <a href="services.html" class="nav-link text-white hover:text-primary-400 transition-colors">Services</a>
+                <a href="blog.html" class="nav-link text-white hover:text-primary-400 transition-colors">Blog</a>
+                <a href="#contact" class="nav-link text-white hover:text-primary-400 transition-colors">Contact</a>
             </div>
 
             <!-- Mobile Menu Button -->
@@ -329,34 +330,94 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-black bg-opacity-95 w-full">
             <div class="container mx-auto px-6 py-4 flex flex-col space-y-4">
-                <a href="#accueil" class="text-white hover:text-primary py-2 transition-colors">Accueil</a>
-                <a href="#a-propos" class="text-white hover:text-primary py-2 transition-colors">À propos</a>
-                <a href="#portfolio" class="text-white hover:text-primary py-2 transition-colors">Portfolio</a>
-                <a href="#services" class="text-white hover:text-primary py-2 transition-colors">Services</a>
-                <a href="#contact" class="text-white hover:text-primary py-2 transition-colors">Contact</a>
+                <a href="#accueil" class="text-white hover:text-primary-400 py-2 transition-colors">Accueil</a>
+                <a href="#a-propos" class="text-white hover:text-primary-400 py-2 transition-colors">À propos</a>
+                <a href="#portfolio" class="text-white hover:text-primary-400 py-2 transition-colors">Portfolio</a>
+                <a href="services.html" class="text-white hover:text-primary-400 py-2 transition-colors">Services</a>
+                <a href="blog.html" class="text-white hover:text-primary-400 py-2 transition-colors">Blog</a>
+                <a href="#contact" class="text-white hover:text-primary-400 py-2 transition-colors">Contact</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section Premium -->
     <main id="main-content">
-    <section id="accueil" class="relative h-screen w-full flex items-center justify-center overflow-hidden"
-        style="background-image: url('photo/dfa1aef3-f3e5-49af-8837-7b2a9c9d08e4.jpg'); background-size: cover; background-position: center;">
-        <div class="absolute inset-0 bg-black bg-opacity-60"></div>
-        <div class="container mx-auto px-6 z-10 w-full">
-            <div class="max-w-3xl" data-aos="fade-up" data-aos-duration="1000">
-                <h1 class="heading hero-title text-5xl md:text-7xl font-bold text-white mb-4">Kerezel Design</h1>
-                <p class="hero-subtitle text-xl md:text-2xl text-gray-200 mb-8">Visual Artist</p>
-                <p class="hero-subtitle text-xl md:text-2xl text-gray-200 mb-12">Créons ensemble vos plus belles images</p>
-                <div class="flex flex-col sm:flex-row gap-4">
+    <section id="accueil" class="hero-section"
+        style="background-image: url('photo/dfa1aef3-f3e5-49af-8837-7b2a9c9d08e4.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
+        <div class="hero-overlay"></div>
+        
+        <!-- Particules flottantes -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-primary-500/30 rounded-full animate-float"></div>
+            <div class="absolute top-1/3 right-1/3 w-1 h-1 bg-primary-400/40 rounded-full animate-float" style="animation-delay: 1s;"></div>
+            <div class="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-primary-300/20 rounded-full animate-float" style="animation-delay: 2s;"></div>
+            <div class="absolute top-1/2 right-1/4 w-1 h-1 bg-primary-500/25 rounded-full animate-float" style="animation-delay: 0.5s;"></div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="animate-fade-in" data-aos="fade-up" data-aos-duration="1200">
+                <!-- Badge de crédibilité -->
+                <div class="inline-flex items-center px-4 py-2 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full text-primary-300 text-sm font-medium mb-8 animate-slide-down" data-aos="slide-down" data-aos-delay="200">
+                    <i class="ri-award-line mr-2"></i>
+                    Photographe Professionnel • 10+ ans d'expérience
+                </div>
+                
+                <!-- Titre principal avec effet de typographie -->
+                <h1 class="heading hero-title animate-slide-up" data-aos="slide-up" data-aos-delay="400">
+                    <span class="block">Kerezel</span>
+                    <span class="block text-primary-500">Design</span>
+                </h1>
+                
+                <!-- Sous-titre avec storytelling -->
+                <p class="hero-subtitle animate-slide-up" data-aos="slide-up" data-aos-delay="600">
+                    <span class="text-white font-semibold">Visual Artist</span>
+                    <span class="text-neutral-300"> & Créateur d'émotions</span>
+                </p>
+                
+                <!-- Description avec valeur ajoutée -->
+                <p class="hero-description animate-slide-up" data-aos="slide-up" data-aos-delay="800">
+                    Transformez vos moments précieux en œuvres d'art intemporelles. 
+                    <span class="text-primary-400 font-medium">Photographie d'événements, portraits studio, design graphique</span> 
+                    et identité visuelle sur mesure à Goma.
+                </p>
+                
+                <!-- Statistiques de crédibilité -->
+                <div class="grid grid-cols-3 gap-8 max-w-2xl mx-auto mb-12 animate-scale-in" data-aos="scale-in" data-aos-delay="1000">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-primary-500 mb-2">500+</div>
+                        <div class="text-neutral-400 text-sm">Projets réalisés</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-primary-500 mb-2">10+</div>
+                        <div class="text-neutral-400 text-sm">Années d'expérience</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-primary-500 mb-2">100%</div>
+                        <div class="text-neutral-400 text-sm">Clients satisfaits</div>
+                    </div>
+                </div>
+                
+                <!-- CTA Premium -->
+                <div class="flex flex-col sm:flex-row gap-6 justify-center animate-slide-up" data-aos="slide-up" data-aos-delay="1200">
                     <a href="#portfolio" aria-label="Découvrir le portfolio de Kerezel Design"
-                        class="mobile-cta bg-primary text-black font-medium py-3 px-8 rounded-button hover:bg-opacity-90 transition-all whitespace-nowrap shadow-lg hover:shadow-xl transform hover:scale-105">
-                        <i class="ri-image-line mr-2"></i>Voir le portfolio
+                        class="btn-primary group">
+                        <i class="ri-image-line mr-2 group-hover:animate-pulse"></i>
+                        Découvrir mon univers
+                        <i class="ri-arrow-right-line ml-2 group-hover:translate-x-1 transition-transform"></i>
                     </a>
-                    <a href="#contact" aria-label="Contacter Kerezel Design pour vos projets"
-                        class="mobile-cta border-2 border-white text-white font-medium py-3 px-8 rounded-button hover:bg-white hover:bg-opacity-10 transition-all whitespace-nowrap">
-                        <i class="ri-mail-line mr-2"></i>Réserver une séance
+                    <a href="#contact" aria-label="Réserver une séance avec Kerezel Design"
+                        class="btn-outline group">
+                        <i class="ri-calendar-line mr-2"></i>
+                        Réserver une séance
+                        <i class="ri-arrow-right-line ml-2 group-hover:translate-x-1 transition-transform"></i>
                     </a>
+                </div>
+                
+                <!-- Indicateur de scroll -->
+                <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+                    <div class="w-6 h-10 border-2 border-primary-500/50 rounded-full flex justify-center">
+                        <div class="w-1 h-3 bg-primary-500 rounded-full mt-2 animate-pulse"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -410,61 +471,100 @@
             </div>
         </div>
     </section>
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="py-20 bg-black">
+    <!-- Portfolio Section Premium -->
+    <section id="portfolio" class="py-24 bg-accent-900">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="heading text-4xl font-bold text-white mb-4" data-aos="fade-up">Portfolio</h2>
-                <p class="text-gray-400 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">Découvrez une
-                    sélection de mes travaux récents en
-                    photographie et design graphique.</p>
+            <!-- Header avec storytelling -->
+            <div class="text-center mb-20">
+                <div class="inline-flex items-center px-4 py-2 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full text-primary-300 text-sm font-medium mb-6" data-aos="fade-up">
+                    <i class="ri-gallery-line mr-2"></i>
+                    Portfolio Premium
+                </div>
+                <h2 class="heading text-5xl md:text-6xl font-bold text-white mb-6" data-aos="fade-up" data-aos-delay="200">
+                    Mes <span class="text-primary-500">Créations</span>
+                </h2>
+                <p class="text-neutral-400 max-w-3xl mx-auto text-lg leading-relaxed" data-aos="fade-up" data-aos-delay="400">
+                    Chaque image raconte une histoire unique. Découvrez une sélection soigneusement 
+                    <span class="text-primary-400 font-medium">curée de mes travaux récents</span> 
+                    en photographie et design graphique.
+                </p>
             </div>
 
-            <!-- Portfolio Filter -->
-            <div class="flex justify-center mb-12" data-aos="fade-up" data-aos-delay="200">
-                <div class="flex flex-wrap justify-center gap-2 md:inline-flex md:bg-gray-900 md:p-1 md:rounded-full">
+            <!-- Portfolio Filter Premium -->
+            <div class="flex justify-center mb-16" data-aos="fade-up" data-aos-delay="600">
+                <div class="flex flex-wrap justify-center gap-3 md:inline-flex md:bg-secondary-800/50 md:p-2 md:rounded-full md:backdrop-blur-sm">
                     <button
-                        class="portfolio-filter-btn active px-4 md:px-6 py-2 rounded-full bg-primary text-black font-medium whitespace-nowrap text-sm md:text-base"
-                        data-filter="all">Tous</button>
+                        class="portfolio-filter-btn active px-6 py-3 rounded-full bg-primary-500 text-black font-semibold whitespace-nowrap text-sm md:text-base transition-all duration-300 transform hover:scale-105"
+                        data-filter="all">
+                        <i class="ri-grid-line mr-2"></i>Tous
+                    </button>
                     <button
-                        class="portfolio-filter-btn px-4 md:px-6 py-2 rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-colors whitespace-nowrap text-sm md:text-base"
-                        data-filter="portfolio">Portfolio</button>
+                        class="portfolio-filter-btn px-6 py-3 rounded-full bg-secondary-700/50 text-white hover:bg-primary-500/20 hover:text-primary-300 transition-all duration-300 whitespace-nowrap text-sm md:text-base backdrop-blur-sm"
+                        data-filter="portfolio">
+                        <i class="ri-image-line mr-2"></i>Portfolio
+                    </button>
                     <button
-                        class="portfolio-filter-btn px-4 md:px-6 py-2 rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-colors whitespace-nowrap text-sm md:text-base"
-                        data-filter="design">Design</button>
+                        class="portfolio-filter-btn px-6 py-3 rounded-full bg-secondary-700/50 text-white hover:bg-primary-500/20 hover:text-primary-300 transition-all duration-300 whitespace-nowrap text-sm md:text-base backdrop-blur-sm"
+                        data-filter="design">
+                        <i class="ri-palette-line mr-2"></i>Design
+                    </button>
                     <button
-                        class="portfolio-filter-btn px-4 md:px-6 py-2 rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-colors whitespace-nowrap text-sm md:text-base"
-                        data-filter="evenement">Événements</button>
+                        class="portfolio-filter-btn px-6 py-3 rounded-full bg-secondary-700/50 text-white hover:bg-primary-500/20 hover:text-primary-300 transition-all duration-300 whitespace-nowrap text-sm md:text-base backdrop-blur-sm"
+                        data-filter="evenement">
+                        <i class="ri-calendar-event-line mr-2"></i>Événements
+                    </button>
                     <button
-                        class="portfolio-filter-btn px-4 md:px-6 py-2 rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-colors whitespace-nowrap text-sm md:text-base"
-                        data-filter="portrait">Portrait</button>
+                        class="portfolio-filter-btn px-6 py-3 rounded-full bg-secondary-700/50 text-white hover:bg-primary-500/20 hover:text-primary-300 transition-all duration-300 whitespace-nowrap text-sm md:text-base backdrop-blur-sm"
+                        data-filter="portrait">
+                        <i class="ri-user-smile-line mr-2"></i>Portrait
+                    </button>
                     <button
-                        class="portfolio-filter-btn px-4 md:px-6 py-2 rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-colors whitespace-nowrap text-sm md:text-base"
-                        data-filter="branding">Branding</button>
+                        class="portfolio-filter-btn px-6 py-3 rounded-full bg-secondary-700/50 text-white hover:bg-primary-500/20 hover:text-primary-300 transition-all duration-300 whitespace-nowrap text-sm md:text-base backdrop-blur-sm"
+                        data-filter="branding">
+                        <i class="ri-layout-line mr-2"></i>Branding
+                    </button>
                 </div>
             </div>
 
-            <!-- Portfolio Grid -->
-            <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Portfolio Grid Masonry -->
+            <div id="portfolio-grid" class="portfolio-grid">
                 <!-- Les photos seront chargées dynamiquement depuis Supabase -->
-                </div>
+            </div>
 
-            <!-- Loading indicator -->
-            <div id="portfolio-loading" class="text-center py-12">
-                <div class="inline-block w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4"></div>
-                <p class="text-gray-400">Chargement du portfolio...</p>
+            <!-- Loading indicator premium -->
+            <div id="portfolio-loading" class="text-center py-16">
+                <div class="inline-flex flex-col items-center">
+                    <div class="w-12 h-12 border-4 border-primary-500/30 border-t-primary-500 rounded-full animate-spin mb-6"></div>
+                    <p class="text-neutral-400 text-lg">Chargement de mes créations...</p>
+                    <div class="flex space-x-1 mt-4">
+                        <div class="w-2 h-2 bg-primary-500 rounded-full animate-bounce"></div>
+                        <div class="w-2 h-2 bg-primary-500 rounded-full animate-bounce" style="animation-delay: 0.1s;"></div>
+                        <div class="w-2 h-2 bg-primary-500 rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+                    </div>
                 </div>
+            </div>
 
             <!-- Message pour portfolio vide -->
-            <div id="portfolio-empty" class="text-center py-12 hidden">
-                <i class="ri-image-line text-6xl text-gray-500 mb-4 block"></i>
-                <p class="text-gray-400">Aucune photo trouvée pour cette catégorie</p>
+            <div id="portfolio-empty" class="text-center py-16 hidden">
+                <div class="inline-flex flex-col items-center">
+                    <i class="ri-image-line text-8xl text-neutral-600 mb-6"></i>
+                    <h3 class="text-xl font-semibold text-white mb-2">Aucune création trouvée</h3>
+                    <p class="text-neutral-400">Cette catégorie sera bientôt enrichie de nouvelles créations.</p>
+                </div>
             </div>
-            <div class="text-center mt-12">
-                <a href="#contact" aria-label="Contactez-nous pour voir tous nos projets et discuter de votre besoin"
-                    class="inline-block border-2 border-primary text-primary px-8 py-3 rounded-button font-medium hover:bg-primary hover:text-black transition-all whitespace-nowrap shadow-lg hover:shadow-xl transform hover:scale-105">
-                    <i class="ri-arrow-right-line mr-2"></i>Discutons de votre projet
-                </a>
+
+            <!-- CTA Portfolio -->
+            <div class="text-center mt-16" data-aos="fade-up" data-aos-delay="800">
+                <div class="bg-gradient-to-r from-primary-500/10 to-primary-600/10 backdrop-blur-sm border border-primary-500/20 rounded-card p-8 max-w-2xl mx-auto">
+                    <h3 class="text-2xl font-bold text-white mb-4">Vous avez un projet en tête ?</h3>
+                    <p class="text-neutral-400 mb-6">Discutons de votre vision créative et créons ensemble quelque chose d'exceptionnel.</p>
+                    <a href="#contact" aria-label="Contactez-nous pour discuter de votre projet créatif"
+                        class="btn-primary group">
+                        <i class="ri-chat-3-line mr-2"></i>
+                        Discutons de votre projet
+                        <i class="ri-arrow-right-line ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -596,24 +696,67 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="py-20 bg-black">
+    <!-- Testimonials Section Premium -->
+    <section class="py-24 bg-secondary-900">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="heading text-4xl font-bold text-white mb-4" data-aos="fade-up">Ce que disent mes clients</h2>
-                <p class="text-gray-400 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">Découvrez les
-                    témoignages de clients satisfaits par mes
-                    services.</p>
+            <div class="text-center mb-20">
+                <div class="inline-flex items-center px-4 py-2 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full text-primary-300 text-sm font-medium mb-6" data-aos="fade-up">
+                    <i class="ri-customer-service-2-line mr-2"></i>
+                    Témoignages Clients
+                </div>
+                <h2 class="heading text-5xl md:text-6xl font-bold text-white mb-6" data-aos="fade-up" data-aos-delay="200">
+                    Ce que disent <span class="text-primary-500">mes clients</span>
+                </h2>
+                <p class="text-neutral-400 max-w-3xl mx-auto text-lg leading-relaxed" data-aos="fade-up" data-aos-delay="400">
+                    La satisfaction de mes clients est ma plus grande récompense. 
+                    Découvrez leurs témoignages authentiques et leurs expériences.
+                </p>
             </div>
 
-            <div id="testimonials-container">
-                <!-- Les témoignages seront chargés dynamiquement depuis Supabase -->
+            <!-- Carrousel de témoignages -->
+            <div class="relative max-w-6xl mx-auto">
+                <div id="testimonials-carousel" class="overflow-hidden">
+                    <div id="testimonials-track" class="flex transition-transform duration-500 ease-in-out">
+                        <!-- Les témoignages seront chargés dynamiquement -->
+                    </div>
                 </div>
 
-            <!-- Loading indicator pour les témoignages -->
-            <div id="testimonials-loading" class="text-center py-12">
-                <div class="inline-block w-6 h-6 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4"></div>
-                <p class="text-gray-400">Chargement des témoignages...</p>
+                <!-- Contrôles du carrousel -->
+                <div class="flex justify-center items-center mt-12 space-x-4">
+                    <button id="prev-testimonial" class="w-12 h-12 bg-secondary-800 hover:bg-primary-500 hover:text-black text-white rounded-full flex items-center justify-center transition-all duration-300">
+                        <i class="ri-arrow-left-line"></i>
+                    </button>
+                    
+                    <div id="testimonial-dots" class="flex space-x-2">
+                        <!-- Les points seront générés dynamiquement -->
+                    </div>
+                    
+                    <button id="next-testimonial" class="w-12 h-12 bg-secondary-800 hover:bg-primary-500 hover:text-black text-white rounded-full flex items-center justify-center transition-all duration-300">
+                        <i class="ri-arrow-right-line"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Loading indicator premium -->
+            <div id="testimonials-loading" class="text-center py-16">
+                <div class="inline-flex flex-col items-center">
+                    <div class="w-12 h-12 border-4 border-primary-500/30 border-t-primary-500 rounded-full animate-spin mb-6"></div>
+                    <p class="text-neutral-400 text-lg">Chargement des témoignages...</p>
+                    <div class="flex space-x-1 mt-4">
+                        <div class="w-2 h-2 bg-primary-500 rounded-full animate-bounce"></div>
+                        <div class="w-2 h-2 bg-primary-500 rounded-full animate-bounce" style="animation-delay: 0.1s;"></div>
+                        <div class="w-2 h-2 bg-primary-500 rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Message pour témoignages vides -->
+            <div id="testimonials-empty" class="text-center py-16 hidden">
+                <div class="inline-flex flex-col items-center">
+                    <i class="ri-customer-service-2-line text-8xl text-neutral-600 mb-6"></i>
+                    <h3 class="text-xl font-semibold text-white mb-2">Témoignages en cours</h3>
+                    <p class="text-neutral-400">Les témoignages de nos clients seront bientôt disponibles.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -851,7 +994,11 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <!-- Supabase Configuration -->
-    <script src="supabase.js"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/supabase-portfolio.js"></script>
+    
+    <!-- Performance Optimizations -->
+    <script src="js/performance.js"></script>
     <script>
         // ==========================================
         // ÉTAT GLOBAL DE L'APPLICATION
@@ -903,26 +1050,33 @@
                     return;
                 }
 
-                // Générer les éléments portfolio
+                // Générer les éléments portfolio avec masonry layout
                 const portfolioHTML = photos.map((photo, index) => {
                     const categoryLabel = getCategoryLabel(photo.categorie);
+                    const randomHeight = Math.floor(Math.random() * 200) + 300; // Hauteur aléatoire pour masonry
                     return `
-                        <div class="portfolio-item rounded-lg overflow-hidden group" data-category="${photo.categorie}" 
+                        <div class="portfolio-item group" data-category="${photo.categorie}" 
                              data-aos="zoom-in" data-aos-delay="${100 + (index % 3) * 100}">
-                            <div class="relative">
+                            <div class="relative overflow-hidden rounded-card">
                                 <img src="${photo.url_image}" 
                                      alt="${photo.alt_text || photo.titre}"
-                                     class="w-full h-72 object-cover object-center lazy"
+                                     class="w-full object-cover object-center lazy transition-transform duration-700 group-hover:scale-110"
+                                     style="height: ${randomHeight}px;"
                                      loading="lazy">
-                                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100">
-                                    <div class="text-center p-4">
-                                        <h3 class="text-white text-xl font-semibold mb-2">${photo.titre}</h3>
-                                        <p class="text-gray-300 mb-4">${categoryLabel}</p>
-                                        ${photo.description ? `<p class="text-gray-400 text-sm mb-4">${photo.description.substring(0, 100)}${photo.description.length > 100 ? '...' : ''}</p>` : ''}
-                                        <button onclick="openPhotoModal('${photo.id}')" 
-                                                class="inline-block bg-primary text-black px-4 py-2 rounded-button font-medium hover:bg-opacity-90 transition-colors whitespace-nowrap">
-                                            Voir plus
-                                        </button>
+                                <div class="portfolio-overlay">
+                                    <div class="portfolio-content">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="inline-flex items-center px-3 py-1 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full text-primary-300 text-xs font-medium">
+                                                <i class="ri-${getCategoryIcon(photo.categorie)} mr-1"></i>
+                                                ${categoryLabel}
+                                            </span>
+                                            <button onclick="openPhotoModal('${photo.id}')" 
+                                                    class="w-10 h-10 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full flex items-center justify-center text-primary-300 hover:bg-primary-500 hover:text-black transition-all duration-300">
+                                                <i class="ri-zoom-in-line"></i>
+                                            </button>
+                                        </div>
+                                        <h3 class="text-white text-xl font-bold mb-2">${photo.titre}</h3>
+                                        ${photo.description ? `<p class="text-neutral-300 text-sm leading-relaxed">${photo.description.substring(0, 120)}${photo.description.length > 120 ? '...' : ''}</p>` : ''}
                                     </div>
                                 </div>
                             </div>
@@ -963,40 +1117,156 @@
             return labels[category] || category;
         }
 
-        // Modal pour afficher les photos en grand
+        function getCategoryIcon(category) {
+            const icons = {
+                'portfolio': 'image-line',
+                'design': 'palette-line',
+                'evenement': 'calendar-event-line',
+                'portrait': 'user-smile-line',
+                'produit': 'shopping-bag-line',
+                'branding': 'layout-line',
+                'blog': 'article-line'
+            };
+            return icons[category] || 'image-line';
+        }
+
+        // Modal premium pour afficher les photos en grand
         function openPhotoModal(photoId) {
             const photo = appState.photos.find(p => p.id === photoId);
             if (!photo) return;
 
             const modal = document.createElement('div');
-            modal.className = 'fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50';
+            modal.className = 'fixed inset-0 bg-accent-900/95 backdrop-blur-sm flex items-center justify-center z-50 p-4';
             modal.innerHTML = `
-                <div class="relative max-w-4xl max-h-full p-4">
-                    <button onclick="closePhotoModal()" 
-                            class="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition-colors z-10">
-                        <i class="ri-close-line ri-lg"></i>
-                    </button>
-                    <img src="${photo.url_image}" alt="${photo.alt_text || photo.titre}" 
-                         class="max-w-full max-h-full object-contain">
-                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6 text-white">
-                        <h3 class="text-2xl font-bold mb-2">${photo.titre}</h3>
-                        <p class="text-gray-300">${photo.description || ''}</p>
-                        <span class="inline-block bg-primary text-black px-3 py-1 rounded-full text-sm mt-2">
-                            ${getCategoryLabel(photo.categorie)}
-                        </span>
+                <div class="relative max-w-6xl max-h-full bg-secondary-800/90 backdrop-blur-sm border border-secondary-700 rounded-modal overflow-hidden">
+                    <!-- Header du modal -->
+                    <div class="flex items-center justify-between p-6 border-b border-secondary-700">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full flex items-center justify-center">
+                                <i class="ri-${getCategoryIcon(photo.categorie)} text-primary-300"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">${photo.titre}</h3>
+                                <p class="text-neutral-400 text-sm">${getCategoryLabel(photo.categorie)}</p>
+                            </div>
+                        </div>
+                        <button onclick="closePhotoModal()" 
+                                class="w-10 h-10 bg-secondary-700 hover:bg-secondary-600 rounded-full flex items-center justify-center text-neutral-400 hover:text-white transition-colors">
+                            <i class="ri-close-line ri-lg"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Contenu du modal -->
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <!-- Image principale -->
+                            <div class="lg:col-span-2">
+                                <img src="${photo.url_image}" 
+                                     alt="${photo.alt_text || photo.titre}" 
+                                     class="w-full h-auto max-h-96 lg:max-h-full object-contain rounded-card">
+                            </div>
+                            
+                            <!-- Informations -->
+                            <div class="space-y-6">
+                                ${photo.description ? `
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-white mb-3">Description</h4>
+                                        <p class="text-neutral-400 leading-relaxed">${photo.description}</p>
+                                    </div>
+                                ` : ''}
+                                
+                                <div>
+                                    <h4 class="text-lg font-semibold text-white mb-3">Détails</h4>
+                                    <div class="space-y-3">
+                                        <div class="flex items-center justify-between py-2 border-b border-secondary-700">
+                                            <span class="text-neutral-400">Catégorie</span>
+                                            <span class="text-white font-medium">${getCategoryLabel(photo.categorie)}</span>
+                                        </div>
+                                        <div class="flex items-center justify-between py-2 border-b border-secondary-700">
+                                            <span class="text-neutral-400">Date</span>
+                                            <span class="text-white font-medium">${photo.date_creation ? new Date(photo.date_creation).toLocaleDateString('fr-FR') : 'Récent'}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Actions -->
+                                <div class="space-y-3">
+                                    <button onclick="sharePhoto('${photo.id}')" 
+                                            class="w-full btn-secondary">
+                                        <i class="ri-share-line mr-2"></i>
+                                        Partager
+                                    </button>
+                                    <a href="#contact" onclick="closePhotoModal()" 
+                                       class="w-full btn-primary">
+                                        <i class="ri-calendar-line mr-2"></i>
+                                        Réserver une séance
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             `;
 
             document.body.appendChild(modal);
+            
+            // Animation d'entrée
+            modal.style.opacity = '0';
+            modal.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                modal.style.transition = 'all 0.3s ease-out';
+                modal.style.opacity = '1';
+                modal.style.transform = 'scale(1)';
+            }, 10);
         }
 
         function closePhotoModal() {
-            const modal = document.querySelector('.fixed.inset-0.bg-black.bg-opacity-90');
-            if (modal) modal.remove();
+            const modal = document.querySelector('.fixed.inset-0.bg-accent-900\\/95');
+            if (modal) {
+                modal.style.transition = 'all 0.3s ease-out';
+                modal.style.opacity = '0';
+                modal.style.transform = 'scale(0.9)';
+                setTimeout(() => modal.remove(), 300);
+            }
         }
 
-        // Gestion des filtres portfolio
+        function sharePhoto(photoId) {
+            const photo = appState.photos.find(p => p.id === photoId);
+            if (!photo) return;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: photo.titre,
+                    text: photo.description || 'Découvrez cette création de Kerezel Design',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback: copier le lien
+                navigator.clipboard.writeText(window.location.href);
+                showToast('Lien copié dans le presse-papiers !', 'success');
+            }
+        }
+
+        // Fonction pour afficher les notifications toast
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type} show`;
+            toast.innerHTML = `
+                <div class="flex items-center">
+                    <i class="ri-${type === 'success' ? 'check-line' : type === 'error' ? 'error-warning-line' : 'information-line'} mr-2"></i>
+                    ${message}
+                </div>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Gestion des filtres portfolio premium
         function initPortfolioFilters() {
             const filterBtns = document.querySelectorAll('.portfolio-filter-btn');
 
@@ -1004,31 +1274,46 @@
                 btn.addEventListener('click', function () {
                     const filter = this.getAttribute('data-filter');
 
-                    // Mettre à jour les boutons actifs
-                    filterBtns.forEach(b => {
-                        b.classList.remove('active', 'bg-primary', 'text-black');
-                        b.classList.add('text-white', 'hover:bg-gray-800');
-                    });
-                    this.classList.add('active', 'bg-primary', 'text-black');
-                    this.classList.remove('text-white', 'hover:bg-gray-800');
+                    // Animation de transition
+                    const portfolioGrid = document.getElementById('portfolio-grid');
+                    portfolioGrid.style.opacity = '0.5';
+                    portfolioGrid.style.transform = 'scale(0.98)';
 
-                    // Charger les photos filtrées
+                    // Mettre à jour les boutons actifs avec animation
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-primary-500', 'text-black');
+                        b.classList.add('bg-secondary-700/50', 'text-white', 'hover:bg-primary-500/20', 'hover:text-primary-300');
+                    });
+                    this.classList.add('active', 'bg-primary-500', 'text-black');
+                    this.classList.remove('bg-secondary-700/50', 'text-white', 'hover:bg-primary-500/20', 'hover:text-primary-300');
+
+                    // Charger les photos filtrées avec animation
                     appState.currentFilter = filter;
-                    loadPortfolio(filter);
+                    setTimeout(() => {
+                        loadPortfolio(filter);
+                        portfolioGrid.style.transition = 'all 0.3s ease-out';
+                        portfolioGrid.style.opacity = '1';
+                        portfolioGrid.style.transform = 'scale(1)';
+                    }, 150);
                 });
             });
         }
 
         // ==========================================
-        // GESTION DES TÉMOIGNAGES DYNAMIQUES
+        // GESTION DES TÉMOIGNAGES DYNAMIQUES AVEC CARROUSEL
         // ==========================================
 
+        let currentTestimonialIndex = 0;
+        let testimonialsPerSlide = 3;
+
         async function loadTestimonials() {
-            const container = document.getElementById('testimonials-container');
+            const track = document.getElementById('testimonials-track');
             const loadingIndicator = document.getElementById('testimonials-loading');
+            const emptyMessage = document.getElementById('testimonials-empty');
 
             loadingIndicator.classList.remove('hidden');
-            container.innerHTML = '';
+            emptyMessage.classList.add('hidden');
+            track.innerHTML = '';
 
             try {
                 const testimonials = await SupabasePortfolio.temoignages.get();
@@ -1037,57 +1322,146 @@
                 loadingIndicator.classList.add('hidden');
 
                 if (testimonials.length === 0) {
-                    container.innerHTML = `
-                        <div class="text-center py-12">
-                            <p class="text-gray-400">Aucun témoignage disponible pour le moment.</p>
-                        </div>
-                    `;
+                    emptyMessage.classList.remove('hidden');
                     return;
                 }
 
-                // Générer les éléments témoignages
-                const testimonialsHTML = `
-                    <div class="grid grid-cols-1 md:grid-cols-${Math.min(testimonials.length, 3)} gap-8">
-                        ${testimonials.slice(0, 6).map((testimonial, index) => `
-                            <div class="bg-gray-900 p-8 rounded-lg" data-aos="fade-up" data-aos-delay="${100 + index * 100}">
-                                <div class="flex items-center mb-6">
-                                    <div class="text-primary">
-                                        ${generateStars(testimonial.note)}
-                                    </div>
-                                </div>
-                                <p class="text-gray-300 mb-6">« ${testimonial.message} »</p>
-                                <div class="flex items-center">
-                                    <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-black font-bold mr-4">
-                                        ${getInitials(testimonial.auteur)}
-                                    </div>
-                                    <div>
-                                        <h4 class="text-white font-medium">${testimonial.auteur}</h4>
-                                        <p class="text-gray-400 text-sm">
-                                            ${testimonial.poste ? testimonial.poste + (testimonial.entreprise ? ', ' + testimonial.entreprise : '') : (testimonial.entreprise || '')}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
+                // Ajuster le nombre de témoignages par slide selon la taille d'écran
+                const updateTestimonialsPerSlide = () => {
+                    if (window.innerWidth < 768) {
+                        testimonialsPerSlide = 1;
+                    } else if (window.innerWidth < 1024) {
+                        testimonialsPerSlide = 2;
+                    } else {
+                        testimonialsPerSlide = 3;
+                    }
+                };
 
-                container.innerHTML = testimonialsHTML;
-                AOS.refresh(); // Réactiver les animations
+                updateTestimonialsPerSlide();
+                window.addEventListener('resize', updateTestimonialsPerSlide);
+
+                // Créer les slides
+                const slides = [];
+                for (let i = 0; i < testimonials.length; i += testimonialsPerSlide) {
+                    const slideTestimonials = testimonials.slice(i, i + testimonialsPerSlide);
+                    slides.push(slideTestimonials);
+                }
+
+                // Générer le HTML du carrousel
+                const carouselHTML = slides.map((slideTestimonials, slideIndex) => `
+                    <div class="w-full flex-shrink-0 px-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            ${slideTestimonials.map((testimonial, index) => `
+                                <div class="card-testimonial group" data-aos="fade-up" data-aos-delay="${100 + index * 100}">
+                                    <div class="flex items-center mb-6">
+                                        <div class="text-primary-500 text-lg">
+                                            ${generateStars(testimonial.note)}
+                                        </div>
+                                    </div>
+                                    <blockquote class="text-neutral-300 mb-6 leading-relaxed text-lg">
+                                        « ${testimonial.message} »
+                                    </blockquote>
+                                    <div class="flex items-center">
+                                        <div class="w-14 h-14 rounded-full bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center text-black font-bold text-lg mr-4">
+                                            ${getInitials(testimonial.auteur)}
+                                        </div>
+                                        <div>
+                                            <h4 class="text-white font-semibold text-lg">${testimonial.auteur}</h4>
+                                            <p class="text-neutral-400">
+                                                ${testimonial.poste ? testimonial.poste + (testimonial.entreprise ? ', ' + testimonial.entreprise : '') : (testimonial.entreprise || 'Client')}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('');
+
+                track.innerHTML = carouselHTML;
+
+                // Générer les points de navigation
+                generateTestimonialDots(slides.length);
+
+                // Initialiser les contrôles du carrousel
+                initTestimonialCarousel(slides.length);
+
+                AOS.refresh();
 
             } catch (error) {
                 console.error('Erreur lors du chargement des témoignages:', error);
                 loadingIndicator.classList.add('hidden');
-                container.innerHTML = `
-                    <div class="text-center py-12">
-                        <i class="ri-error-warning-line text-4xl text-red-500 mb-4 block"></i>
-                        <p class="text-gray-400">Erreur lors du chargement des témoignages</p>
-                        <button onclick="loadTestimonials()" class="mt-4 bg-primary text-black px-6 py-2 rounded-button">
+                track.innerHTML = `
+                    <div class="w-full text-center py-16">
+                        <i class="ri-error-warning-line text-6xl text-red-500 mb-6 block"></i>
+                        <h3 class="text-xl font-semibold text-white mb-2">Erreur de chargement</h3>
+                        <p class="text-neutral-400 mb-6">Impossible de charger les témoignages</p>
+                        <button onclick="loadTestimonials()" class="btn-primary">
+                            <i class="ri-refresh-line mr-2"></i>
                             Réessayer
                         </button>
                     </div>
                 `;
             }
+        }
+
+        function generateTestimonialDots(slideCount) {
+            const dotsContainer = document.getElementById('testimonial-dots');
+            dotsContainer.innerHTML = '';
+
+            for (let i = 0; i < slideCount; i++) {
+                const dot = document.createElement('button');
+                dot.className = `w-3 h-3 rounded-full transition-all duration-300 ${i === 0 ? 'bg-primary-500' : 'bg-neutral-600 hover:bg-neutral-500'}`;
+                dot.setAttribute('data-slide', i);
+                dot.addEventListener('click', () => goToTestimonialSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function initTestimonialCarousel(slideCount) {
+            const prevBtn = document.getElementById('prev-testimonial');
+            const nextBtn = document.getElementById('next-testimonial');
+            const track = document.getElementById('testimonials-track');
+
+            prevBtn.addEventListener('click', () => {
+                currentTestimonialIndex = (currentTestimonialIndex - 1 + slideCount) % slideCount;
+                updateTestimonialCarousel();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentTestimonialIndex = (currentTestimonialIndex + 1) % slideCount;
+                updateTestimonialCarousel();
+            });
+
+            // Auto-play du carrousel
+            setInterval(() => {
+                currentTestimonialIndex = (currentTestimonialIndex + 1) % slideCount;
+                updateTestimonialCarousel();
+            }, 5000);
+        }
+
+        function goToTestimonialSlide(slideIndex) {
+            currentTestimonialIndex = slideIndex;
+            updateTestimonialCarousel();
+        }
+
+        function updateTestimonialCarousel() {
+            const track = document.getElementById('testimonials-track');
+            const dots = document.querySelectorAll('#testimonial-dots button');
+
+            // Mettre à jour la position du track
+            track.style.transform = `translateX(-${currentTestimonialIndex * 100}%)`;
+
+            // Mettre à jour les points actifs
+            dots.forEach((dot, index) => {
+                if (index === currentTestimonialIndex) {
+                    dot.classList.remove('bg-neutral-600', 'hover:bg-neutral-500');
+                    dot.classList.add('bg-primary-500');
+                } else {
+                    dot.classList.remove('bg-primary-500');
+                    dot.classList.add('bg-neutral-600', 'hover:bg-neutral-500');
+                }
+            });
         }
 
         function generateStars(rating) {

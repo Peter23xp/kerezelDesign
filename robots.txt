@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://kerezeldesign.netlify.app/sitemap.xml
+
+# Disallow admin pages
+Disallow: /admin.html
+Disallow: /admin-dashboard.html
+Disallow: /create-admin.html
+
+# Allow all other pages
+Allow: /services.html
+Allow: /blog.html
+Allow: /photo/

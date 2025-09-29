@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Blog & Projets - Kerezel Design | Actualités et Réalisations</title>
+    <meta name="description" content="Découvrez nos derniers projets, conseils photographie et actualités Kerezel Design. Articles sur les techniques photo, design graphique et témoignages clients à Goma.">
+    <meta name="keywords" content="blog photographe Goma, conseils photographie, projets récents, techniques photo, design graphique Goma">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Blog & Projets - Kerezel Design">
+    <meta property="og:description" content="Découvrez nos derniers projets et conseils en photographie et design graphique.">
+    <meta property="og:image" content="https://kerezeldesign.netlify.app/photo/hero.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📸</text></svg>">
+    
+    <!-- Tailwind CSS -->
+    <link href="dist/output.css" rel="stylesheet">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0F0F0F;
+            color: #F5F5F5;
+        }
+        .heading {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-black bg-opacity-80 backdrop-blur-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-['Playfair_Display'] font-bold text-white">
+                Kerezel <span class="text-primary-500">Design</span>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-neutral-400 hover:text-primary-400 transition-colors">Accueil</a>
+                <a href="index.html#a-propos" class="text-neutral-400 hover:text-primary-400 transition-colors">À propos</a>
+                <a href="index.html#portfolio" class="text-neutral-400 hover:text-primary-400 transition-colors">Portfolio</a>
+                <a href="services.html" class="text-neutral-400 hover:text-primary-400 transition-colors">Services</a>
+                <a href="blog.html" class="text-primary-400 font-medium">Blog</a>
+                <a href="index.html#contact" class="text-neutral-400 hover:text-primary-400 transition-colors">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-white focus:outline-none">
+                    <i class="ri-menu-line ri-lg"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section Blog -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-accent-900 via-secondary-900 to-accent-900">
+        <div class="absolute inset-0 bg-black/40"></div>
+        <div class="container mx-auto px-6 z-10 text-center">
+            <div class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-duration="1000">
+                <div class="inline-flex items-center px-4 py-2 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full text-primary-300 text-sm font-medium mb-8">
+                    <i class="ri-article-line mr-2"></i>
+                    Blog & Projets
+                </div>
+                <h1 class="heading text-5xl md:text-7xl font-bold text-white mb-6">
+                    Nos <span class="text-primary-500">Actualités</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-neutral-300 mb-8 max-w-3xl mx-auto">
+                    Découvrez nos derniers projets, conseils photographie et actualités du studio
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Article -->
+    <section class="py-24 bg-secondary-900">
+        <div class="container mx-auto px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="bg-gradient-to-r from-primary-500/10 to-primary-600/10 backdrop-blur-sm border border-primary-500/20 rounded-card p-8 mb-16" data-aos="fade-up">
+                    <div class="flex items-center mb-6">
+                        <span class="inline-flex items-center px-3 py-1 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full text-primary-300 text-sm font-medium">
+                            <i class="ri-star-line mr-1"></i>
+                            Article vedette
+                        </span>
+                        <span class="text-neutral-400 text-sm ml-4">15 Janvier 2025</span>
+                    </div>
+                    <h2 class="heading text-3xl md:text-4xl font-bold text-white mb-4">
+                        Les 10 conseils essentiels pour une séance photo réussie
+                    </h2>
+                    <p class="text-neutral-400 text-lg mb-6 leading-relaxed">
+                        Découvrez mes conseils professionnels pour préparer et réussir votre séance photo, 
+                        que ce soit pour un portrait studio ou un shooting en extérieur.
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full flex items-center justify-center">
+                                <i class="ri-user-line text-primary-300"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-medium">Kerezel Design</div>
+                                <div class="text-neutral-400 text-sm">Photographe professionnel</div>
+                            </div>
+                        </div>
+                        <a href="#article-1" class="btn-primary">
+                            <i class="ri-arrow-right-line mr-2"></i>
+                            Lire l'article
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Grid -->
+    <section class="py-24 bg-accent-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="heading text-4xl md:text-5xl font-bold text-white mb-6" data-aos="fade-up">
+                    Articles <span class="text-primary-500">Récents</span>
+                </h2>
+                <p class="text-neutral-400 max-w-3xl mx-auto text-lg" data-aos="fade-up" data-aos-delay="200">
+                    Explorez nos articles sur la photographie, le design et nos projets récents.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Article 1 -->
+                <article class="card-hover group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative overflow-hidden rounded-card mb-6">
+                        <img src="photo/hero.jpg" alt="Conseils photographie mariage" 
+                             class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute top-4 left-4">
+                            <span class="inline-flex items-center px-3 py-1 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full text-primary-300 text-xs font-medium">
+                                <i class="ri-camera-line mr-1"></i>
+                                Photographie
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-neutral-400 text-sm mb-3">
+                            <i class="ri-calendar-line mr-2"></i>
+                            12 Janvier 2025
+                            <span class="mx-2">•</span>
+                            <i class="ri-time-line mr-2"></i>
+                            5 min de lecture
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">
+                            Comment choisir le bon photographe pour votre mariage
+                        </h3>
+                        <p class="text-neutral-400 mb-4 leading-relaxed">
+                            Les critères essentiels à considérer lors du choix de votre photographe de mariage 
+                            pour immortaliser parfaitement votre grand jour.
+                        </p>
+                        <a href="#article-2" class="text-primary-400 hover:text-primary-300 font-medium inline-flex items-center">
+                            Lire la suite
+                            <i class="ri-arrow-right-line ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="card-hover group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative overflow-hidden rounded-card mb-6">
+                        <img src="photo/dfa1aef3-f3e5-49af-8837-7b2a9c9d08e4.jpg" alt="Design graphique moderne" 
+                             class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute top-4 left-4">
+                            <span class="inline-flex items-center px-3 py-1 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full text-primary-300 text-xs font-medium">
+                                <i class="ri-palette-line mr-1"></i>
+                                Design
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-neutral-400 text-sm mb-3">
+                            <i class="ri-calendar-line mr-2"></i>
+                            8 Janvier 2025
+                            <span class="mx-2">•</span>
+                            <i class="ri-time-line mr-2"></i>
+                            7 min de lecture
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">
+                            Les tendances design graphique 2025
+                        </h3>
+                        <p class="text-neutral-400 mb-4 leading-relaxed">
+                            Découvrez les nouvelles tendances en design graphique qui marqueront l'année 2025 
+                            et comment les intégrer dans vos projets.
+                        </p>
+                        <a href="#article-3" class="text-primary-400 hover:text-primary-300 font-medium inline-flex items-center">
+                            Lire la suite
+                            <i class="ri-arrow-right-line ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="card-hover group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="relative overflow-hidden rounded-card mb-6">
+                        <img src="photo/ker.jpg" alt="Projet client récent" 
+                             class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute top-4 left-4">
+                            <span class="inline-flex items-center px-3 py-1 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full text-primary-300 text-xs font-medium">
+                                <i class="ri-image-line mr-1"></i>
+                                Projet
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-neutral-400 text-sm mb-3">
+                            <i class="ri-calendar-line mr-2"></i>
+                            5 Janvier 2025
+                            <span class="mx-2">•</span>
+                            <i class="ri-time-line mr-2"></i>
+                            4 min de lecture
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">
+                            Projet : Identité visuelle pour restaurant à Goma
+                        </h3>
+                        <p class="text-neutral-400 mb-4 leading-relaxed">
+                            Retour sur la création complète de l'identité visuelle pour un nouveau restaurant 
+                            à Goma, du logo aux supports de communication.
+                        </p>
+                        <a href="#article-4" class="text-primary-400 hover:text-primary-300 font-medium inline-flex items-center">
+                            Lire la suite
+                            <i class="ri-arrow-right-line ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Article 4 -->
+                <article class="card-hover group" data-aos="fade-up" data-aos-delay="400">
+                    <div class="relative overflow-hidden rounded-card mb-6">
+                        <img src="photo/hero.jpg" alt="Techniques photographie" 
+                             class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute top-4 left-4">
+                            <span class="inline-flex items-center px-3 py-1 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full text-primary-300 text-xs font-medium">
+                                <i class="ri-camera-lens-line mr-1"></i>
+                                Technique
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-neutral-400 text-sm mb-3">
+                            <i class="ri-calendar-line mr-2"></i>
+                            2 Janvier 2025
+                            <span class="mx-2">•</span>
+                            <i class="ri-time-line mr-2"></i>
+                            6 min de lecture
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">
+                            Maîtriser la lumière naturelle en photographie
+                        </h3>
+                        <p class="text-neutral-400 mb-4 leading-relaxed">
+                            Apprenez à utiliser la lumière naturelle pour créer des images magnifiques, 
+                            que ce soit en studio ou en extérieur.
+                        </p>
+                        <a href="#article-5" class="text-primary-400 hover:text-primary-300 font-medium inline-flex items-center">
+                            Lire la suite
+                            <i class="ri-arrow-right-line ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Article 5 -->
+                <article class="card-hover group" data-aos="fade-up" data-aos-delay="500">
+                    <div class="relative overflow-hidden rounded-card mb-6">
+                        <img src="photo/dfa1aef3-f3e5-49af-8837-7b2a9c9d08e4.jpg" alt="Témoignage client" 
+                             class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute top-4 left-4">
+                            <span class="inline-flex items-center px-3 py-1 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full text-primary-300 text-xs font-medium">
+                                <i class="ri-customer-service-2-line mr-1"></i>
+                                Témoignage
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-neutral-400 text-sm mb-3">
+                            <i class="ri-calendar-line mr-2"></i>
+                            28 Décembre 2024
+                            <span class="mx-2">•</span>
+                            <i class="ri-time-line mr-2"></i>
+                            3 min de lecture
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">
+                            Témoignage : Mariage de Sarah et Jean à Goma
+                        </h3>
+                        <p class="text-neutral-400 mb-4 leading-relaxed">
+                            Sarah et Jean partagent leur expérience avec notre service de photographie de mariage 
+                            et les souvenirs inoubliables créés.
+                        </p>
+                        <a href="#article-6" class="text-primary-400 hover:text-primary-300 font-medium inline-flex items-center">
+                            Lire la suite
+                            <i class="ri-arrow-right-line ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Article 6 -->
+                <article class="card-hover group" data-aos="fade-up" data-aos-delay="600">
+                    <div class="relative overflow-hidden rounded-card mb-6">
+                        <img src="photo/ker.jpg" alt="Équipement photographie" 
+                             class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute top-4 left-4">
+                            <span class="inline-flex items-center px-3 py-1 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full text-primary-300 text-xs font-medium">
+                                <i class="ri-tools-line mr-1"></i>
+                                Équipement
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-neutral-400 text-sm mb-3">
+                            <i class="ri-calendar-line mr-2"></i>
+                            25 Décembre 2024
+                            <span class="mx-2">•</span>
+                            <i class="ri-time-line mr-2"></i>
+                            8 min de lecture
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">
+                            Mon équipement photo : ce que j'utilise vraiment
+                        </h3>
+                        <p class="text-neutral-400 mb-4 leading-relaxed">
+                            Découvrez l'équipement photographique que j'utilise au quotidien pour mes projets 
+                            professionnels et pourquoi ces choix.
+                        </p>
+                        <a href="#article-7" class="text-primary-400 hover:text-primary-300 font-medium inline-flex items-center">
+                            Lire la suite
+                            <i class="ri-arrow-right-line ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Pagination -->
+            <div class="flex justify-center mt-16" data-aos="fade-up" data-aos-delay="700">
+                <div class="flex items-center space-x-2">
+                    <button class="w-10 h-10 bg-secondary-800 hover:bg-primary-500 hover:text-black text-white rounded-full flex items-center justify-center transition-colors">
+                        <i class="ri-arrow-left-line"></i>
+                    </button>
+                    <button class="w-10 h-10 bg-primary-500 text-black rounded-full flex items-center justify-center font-semibold">1</button>
+                    <button class="w-10 h-10 bg-secondary-800 hover:bg-primary-500 hover:text-black text-white rounded-full flex items-center justify-center transition-colors">2</button>
+                    <button class="w-10 h-10 bg-secondary-800 hover:bg-primary-500 hover:text-black text-white rounded-full flex items-center justify-center transition-colors">3</button>
+                    <button class="w-10 h-10 bg-secondary-800 hover:bg-primary-500 hover:text-black text-white rounded-full flex items-center justify-center transition-colors">
+                        <i class="ri-arrow-right-line"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-24 bg-gradient-to-r from-primary-500 to-primary-600">
+        <div class="container mx-auto px-6 text-center">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="heading text-4xl md:text-5xl font-bold text-black mb-6" data-aos="fade-up">
+                    Restez informé
+                </h2>
+                <p class="text-black/80 text-xl mb-8" data-aos="fade-up" data-aos-delay="200">
+                    Recevez nos derniers articles et conseils directement dans votre boîte mail.
+                </p>
+                <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-4" data-aos="fade-up" data-aos-delay="400">
+                    <input type="email" placeholder="Votre adresse email" 
+                           class="flex-1 px-6 py-4 bg-white/90 border border-white/20 rounded-button text-black placeholder-black/60 focus:outline-none focus:ring-2 focus:ring-black/20">
+                    <button type="submit" class="bg-black text-white font-semibold py-4 px-8 rounded-button hover:bg-black/90 transition-all">
+                        <i class="ri-mail-line mr-2"></i>
+                        S'abonner
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary-900 py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <a href="index.html" class="text-2xl font-['Playfair_Display'] font-bold text-white mb-4 inline-block">
+                        Kerezel <span class="text-primary-500">Design</span>
+                    </a>
+                    <p class="text-neutral-400 mb-6 max-w-md">
+                        Photographe et designer graphique professionnel basé à Goma, 
+                        spécialisé dans la création d'images et de designs visuels captivants.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/kerezeldesign/" target="_blank"
+                            class="w-10 h-10 bg-secondary-800 text-white hover:bg-primary-500 hover:text-black transition-colors rounded-full flex items-center justify-center">
+                            <i class="ri-instagram-line"></i>
+                        </a>
+                        <a href="https://www.facebook.com/kerezeldesign/" target="_blank"
+                            class="w-10 h-10 bg-secondary-800 text-white hover:bg-primary-500 hover:text-black transition-colors rounded-full flex items-center justify-center">
+                            <i class="ri-facebook-line"></i>
+                        </a>
+                        <a href="https://wa.me/243976854161" target="_blank"
+                            class="w-10 h-10 bg-secondary-800 text-white hover:bg-primary-500 hover:text-black transition-colors rounded-full flex items-center justify-center">
+                            <i class="ri-whatsapp-line"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-white font-semibold text-lg mb-4">Articles récents</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#article-1" class="text-neutral-400 hover:text-primary-400 transition-colors">Conseils photographie mariage</a></li>
+                        <li><a href="#article-2" class="text-neutral-400 hover:text-primary-400 transition-colors">Tendances design 2025</a></li>
+                        <li><a href="#article-3" class="text-neutral-400 hover:text-primary-400 transition-colors">Projet restaurant Goma</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-semibold text-lg mb-4">Contact</h3>
+                    <ul class="space-y-2 text-neutral-400">
+                        <li>+243 976854161</li>
+                        <li>kerezeldesign@gmail.com</li>
+                        <li>Avenue du Lac 123, Goma</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-secondary-700 pt-8 text-center">
+                <p class="text-neutral-500">© 2025 Kerezel Design. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialisation AOS
+        AOS.init({
+            once: true,
+            offset: 120,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
+
+        // Newsletter form
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            if (email) {
+                alert('Merci pour votre inscription ! Vous recevrez bientôt nos actualités.');
+                this.reset();
+            }
+        });
+    </script>
+</body>
+
+</html>
