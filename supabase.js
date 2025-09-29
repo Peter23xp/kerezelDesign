@@ -499,10 +499,30 @@ function generateSessionToken() {
 // Fonction pour obtenir l'IP du client (simulation)
 async function getClientIP() {
     try {
-        const response = await fetch('https://api.ipify.org?format=json');
-        const data = await response.json();
-        return data.ip;
+        // Essayer plusieurs services d'IP
+        const services = [
+            'https://api.ipify.org?format=json',
+            'https://ipapi.co/json/',
+            'https://api.myip.com'
+        ];
+        
+        for (const service of services) {
+            try {
+                const response = await fetch(service, { 
+                    timeout: 3000,
+                    mode: 'cors'
+                });
+                const data = await response.json();
+                return data.ip || data.query || 'unknown';
+            } catch (serviceError) {
+                console.warn(`Service ${service} non disponible:`, serviceError);
+                continue;
+            }
+        }
+        
+        return '127.0.0.1'; // IP locale par défaut
     } catch (error) {
+        console.warn('Impossible de récupérer l\'IP:', error);
         return '127.0.0.1'; // IP locale par défaut
     }
 }

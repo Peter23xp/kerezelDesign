@@ -6,25 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administration - Kerezel Design</title>
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#D4AF37',
-                        secondary: '#1A1A1A',
-                        danger: '#DC2626',
-                        success: '#059669'
-                    },
-                    borderRadius: {
-                        'button': '8px'
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Tailwind CSS Local -->
+    <link href="dist/output.css" rel="stylesheet">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -136,15 +119,145 @@
             background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
+        /* Responsive pour petits mobiles */
+        @media (max-width: 640px) {
             .login-container {
-                margin: 20px;
-                padding: 24px;
+                margin: 10px;
+                padding: 16px;
+                border-radius: 12px;
             }
             
             .dashboard-grid {
                 grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .stat-card {
+                padding: 16px;
+            }
+            
+            .dashboard-card {
+                padding: 16px;
+                margin-bottom: 16px;
+            }
+            
+            .btn-primary {
+                padding: 12px 16px;
+                font-size: 14px;
+            }
+            
+            .btn-secondary {
+                padding: 10px 14px;
+                font-size: 14px;
+            }
+            
+            .btn-danger {
+                padding: 10px 14px;
+                font-size: 14px;
+            }
+            
+            .input-field {
+                padding: 12px;
+                font-size: 16px; /* Évite le zoom sur iOS */
+            }
+            
+            .heading {
+                font-size: 24px;
+            }
+            
+            .text-responsive {
+                font-size: 14px;
+            }
+            
+            .mobile-hidden {
+                display: none;
+            }
+            
+            .mobile-full {
+                width: 100%;
+            }
+            
+            .mobile-p-4 {
+                padding: 16px;
+            }
+            
+            .mobile-text-sm {
+                font-size: 12px;
+            }
+            
+            .mobile-grid-1 {
+                grid-template-columns: 1fr;
+            }
+            
+            .mobile-block {
+                display: block;
+            }
+            
+            .mobile-flex-col {
+                flex-direction: column;
+            }
+            
+            .mobile-space-y-2 > * + * {
+                margin-top: 8px;
+            }
+            
+            .mobile-text-center {
+                text-align: center;
+            }
+            
+            .mobile-w-full {
+                width: 100%;
+            }
+            
+            .mobile-mb-4 {
+                margin-bottom: 16px;
+            }
+            
+            .mobile-mt-4 {
+                margin-top: 16px;
+            }
+            
+            .mobile-px-4 {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+            
+            .mobile-py-2 {
+                padding-top: 8px;
+                padding-bottom: 8px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                margin: 5px;
+                padding: 12px;
+            }
+            
+            .stat-card {
+                padding: 12px;
+            }
+            
+            .dashboard-card {
+                padding: 12px;
+            }
+            
+            .heading {
+                font-size: 20px;
+            }
+            
+            .text-responsive {
+                font-size: 12px;
+            }
+            
+            .btn-primary {
+                padding: 10px 14px;
+                font-size: 13px;
+            }
+            
+            .input-field {
+                padding: 10px;
+                font-size: 16px;
             }
         }
     </style>
@@ -152,58 +265,58 @@
 
 <body>
     <!-- Login Screen -->
-    <div id="login-screen" class="min-h-screen flex items-center justify-center p-6">
-        <div class="login-container w-full max-w-md p-8 rounded-2xl shadow-2xl">
+    <div id="login-screen" class="min-h-screen flex items-center justify-center p-2 sm:p-6">
+        <div class="login-container w-full max-w-md p-4 sm:p-8 rounded-2xl shadow-2xl">
             <!-- Logo -->
-            <div class="text-center mb-8">
-                <div class="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-4">
-                    <i class="ri-shield-user-line text-2xl text-black"></i>
+            <div class="text-center mb-6 sm:mb-8">
+                <div class="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-primary rounded-full mb-3 sm:mb-4">
+                    <i class="ri-shield-user-line text-xl sm:text-2xl text-black"></i>
                 </div>
-                <h1 class="heading text-3xl font-bold text-white mb-2">Administration</h1>
-                <p class="text-gray-400">Kerezel Design</p>
+                <h1 class="heading text-2xl sm:text-3xl font-bold text-white mb-2">Administration</h1>
+                <p class="text-gray-400 text-sm sm:text-base">Kerezel Design</p>
             </div>
 
             <!-- Login Form -->
-            <form id="login-form" class="space-y-6">
+            <form id="login-form" class="space-y-4 sm:space-y-6">
                 <div>
-                    <label for="admin-email" class="block text-white mb-2 font-medium">Email administrateur</label>
+                    <label for="admin-email" class="block text-white mb-2 font-medium text-sm sm:text-base">Email administrateur</label>
                     <input type="email" id="admin-email" required
-                        class="input-field w-full px-4 py-3 rounded-lg text-white placeholder-gray-400"
+                        class="input-field w-full px-3 py-2 sm:px-4 sm:py-3 rounded-lg text-white placeholder-gray-400 text-base"
                         placeholder="admin@kerezeldesign.com">
                 </div>
 
                 <div>
-                    <label for="admin-password" class="block text-white mb-2 font-medium">Mot de passe</label>
+                    <label for="admin-password" class="block text-white mb-2 font-medium text-sm sm:text-base">Mot de passe</label>
                     <div class="relative">
                         <input type="password" id="admin-password" required
-                            class="input-field w-full px-4 py-3 pr-12 rounded-lg text-white placeholder-gray-400"
+                            class="input-field w-full px-3 py-2 sm:px-4 sm:py-3 pr-10 sm:pr-12 rounded-lg text-white placeholder-gray-400 text-base"
                             placeholder="••••••••">
-                        <button type="button" id="toggle-password" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white">
-                            <i class="ri-eye-line"></i>
+                        <button type="button" id="toggle-password" class="absolute right-2 sm:right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white">
+                            <i class="ri-eye-line text-sm sm:text-base"></i>
                         </button>
                     </div>
                 </div>
 
-                <div class="flex items-center justify-between">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
                     <label class="flex items-center">
                         <input type="checkbox" id="remember-me" class="mr-2 rounded">
-                        <span class="text-gray-400 text-sm">Se souvenir de moi</span>
+                        <span class="text-gray-400 text-xs sm:text-sm">Se souvenir de moi</span>
                     </label>
-                    <a href="#" class="text-primary hover:text-yellow-300 text-sm">Mot de passe oublié ?</a>
+                    <a href="#" class="text-primary hover:text-yellow-300 text-xs sm:text-sm">Mot de passe oublié ?</a>
                 </div>
 
-                <button type="submit" class="btn-primary w-full py-3 px-6 rounded-lg font-semibold text-black">
+                <button type="submit" class="btn-primary w-full py-2 sm:py-3 px-4 sm:px-6 rounded-lg font-semibold text-black text-sm sm:text-base">
                     <span id="login-text">Se connecter</span>
-                    <div id="login-loading" class="loading-spinner w-5 h-5 mx-auto hidden"></div>
+                    <div id="login-loading" class="loading-spinner w-4 h-4 sm:w-5 sm:h-5 mx-auto hidden"></div>
                 </button>
             </form>
 
             <!-- Security Notice -->
-            <div class="mt-8 p-4 bg-yellow-900 bg-opacity-20 border border-yellow-600 border-opacity-30 rounded-lg">
+            <div class="mt-6 sm:mt-8 p-3 sm:p-4 bg-yellow-900 bg-opacity-20 border border-yellow-600 border-opacity-30 rounded-lg">
                 <div class="flex items-start">
-                    <i class="ri-shield-check-line text-yellow-400 mr-3 mt-0.5"></i>
+                    <i class="ri-shield-check-line text-yellow-400 mr-2 sm:mr-3 mt-0.5 text-sm sm:text-base"></i>
                     <div>
-                        <h4 class="text-yellow-400 font-medium text-sm">Accès sécurisé</h4>
+                        <h4 class="text-yellow-400 font-medium text-xs sm:text-sm">Accès sécurisé</h4>
                         <p class="text-gray-400 text-xs mt-1">Cette interface est réservée aux administrateurs autorisés.</p>
                     </div>
                 </div>
@@ -215,25 +328,28 @@
     <div id="dashboard-screen" class="hidden min-h-screen">
         <!-- Header -->
         <header class="bg-black bg-opacity-80 backdrop-blur-sm border-b border-gray-800">
-            <div class="container mx-auto px-6 py-4">
+            <div class="container mx-auto px-3 sm:px-6 py-3 sm:py-4">
                 <div class="flex justify-between items-center">
-                    <div class="flex items-center space-x-4">
-                        <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                            <i class="ri-shield-user-line text-black"></i>
+                    <div class="flex items-center space-x-2 sm:space-x-4">
+                        <div class="w-8 h-8 sm:w-10 sm:h-10 bg-primary rounded-full flex items-center justify-center">
+                            <i class="ri-shield-user-line text-black text-sm sm:text-base"></i>
                         </div>
-                        <div>
-                            <h1 class="heading text-xl font-bold text-white">Administration</h1>
-                            <p class="text-gray-400 text-sm">Kerezel Design</p>
+                        <div class="hidden sm:block">
+                            <h1 class="heading text-lg sm:text-xl font-bold text-white">Administration</h1>
+                            <p class="text-gray-400 text-xs sm:text-sm">Kerezel Design</p>
+                        </div>
+                        <div class="sm:hidden">
+                            <h1 class="heading text-sm font-bold text-white">Admin</h1>
                         </div>
                     </div>
                     
-                    <div class="flex items-center space-x-4">
-                        <div class="text-right">
+                    <div class="flex items-center space-x-2 sm:space-x-4">
+                        <div class="text-right hidden sm:block">
                             <p class="text-white text-sm font-medium">Administrateur</p>
                             <p class="text-gray-400 text-xs">Connecté</p>
                         </div>
-                        <button id="logout-btn" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors">
-                            <i class="ri-logout-box-line mr-2"></i>Déconnexion
+                        <button id="logout-btn" class="bg-red-600 hover:bg-red-700 text-white px-2 sm:px-4 py-1 sm:py-2 rounded-lg transition-colors text-xs sm:text-sm">
+                            <i class="ri-logout-box-line mr-1 sm:mr-2"></i><span class="hidden sm:inline">Déconnexion</span><span class="sm:hidden">Exit</span>
                         </button>
                     </div>
                 </div>
@@ -241,87 +357,87 @@
         </header>
 
         <!-- Main Content -->
-        <main class="container mx-auto px-6 py-8">
+        <main class="container mx-auto px-3 sm:px-6 py-4 sm:py-8">
             <!-- Stats Overview -->
-            <div class="dashboard-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div class="stat-card dashboard-card p-6 rounded-xl">
+            <div class="dashboard-grid grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 mb-6 sm:mb-8">
+                <div class="stat-card dashboard-card p-3 sm:p-6 rounded-xl">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-400 text-sm">Photos totales</p>
-                            <p id="total-photos" class="text-2xl font-bold text-white">-</p>
+                            <p class="text-gray-400 text-xs sm:text-sm">Photos totales</p>
+                            <p id="total-photos" class="text-lg sm:text-2xl font-bold text-white">-</p>
                         </div>
-                        <div class="w-12 h-12 bg-primary bg-opacity-20 rounded-full flex items-center justify-center">
-                            <i class="ri-image-line text-primary text-xl"></i>
+                        <div class="w-8 h-8 sm:w-12 sm:h-12 bg-primary bg-opacity-20 rounded-full flex items-center justify-center">
+                            <i class="ri-image-line text-primary text-sm sm:text-xl"></i>
                         </div>
                     </div>
                 </div>
 
-                <div class="stat-card dashboard-card p-6 rounded-xl">
+                <div class="stat-card dashboard-card p-3 sm:p-6 rounded-xl">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-400 text-sm">Photos récentes</p>
-                            <p id="recent-photos" class="text-2xl font-bold text-white">-</p>
+                            <p class="text-gray-400 text-xs sm:text-sm">Photos récentes</p>
+                            <p id="recent-photos" class="text-lg sm:text-2xl font-bold text-white">-</p>
                         </div>
-                        <div class="w-12 h-12 bg-green-500 bg-opacity-20 rounded-full flex items-center justify-center">
-                            <i class="ri-time-line text-green-500 text-xl"></i>
+                        <div class="w-8 h-8 sm:w-12 sm:h-12 bg-green-500 bg-opacity-20 rounded-full flex items-center justify-center">
+                            <i class="ri-time-line text-green-500 text-sm sm:text-xl"></i>
                         </div>
                     </div>
                 </div>
 
-                <div class="stat-card dashboard-card p-6 rounded-xl">
+                <div class="stat-card dashboard-card p-3 sm:p-6 rounded-xl">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-400 text-sm">Témoignages</p>
-                            <p id="total-testimonials" class="text-2xl font-bold text-white">-</p>
+                            <p class="text-gray-400 text-xs sm:text-sm">Témoignages</p>
+                            <p id="total-testimonials" class="text-lg sm:text-2xl font-bold text-white">-</p>
                         </div>
-                        <div class="w-12 h-12 bg-blue-500 bg-opacity-20 rounded-full flex items-center justify-center">
-                            <i class="ri-chat-quote-line text-blue-500 text-xl"></i>
+                        <div class="w-8 h-8 sm:w-12 sm:h-12 bg-blue-500 bg-opacity-20 rounded-full flex items-center justify-center">
+                            <i class="ri-chat-quote-line text-blue-500 text-sm sm:text-xl"></i>
                         </div>
                     </div>
                 </div>
 
-                <div class="stat-card dashboard-card p-6 rounded-xl">
+                <div class="stat-card dashboard-card p-3 sm:p-6 rounded-xl">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-400 text-sm">Statut</p>
-                            <p id="connection-status" class="text-sm font-medium text-green-400">En ligne</p>
+                            <p class="text-gray-400 text-xs sm:text-sm">Statut</p>
+                            <p id="connection-status" class="text-xs sm:text-sm font-medium text-green-400">En ligne</p>
                         </div>
-                        <div class="w-12 h-12 bg-green-500 bg-opacity-20 rounded-full flex items-center justify-center">
-                            <i class="ri-wifi-line text-green-500 text-xl"></i>
+                        <div class="w-8 h-8 sm:w-12 sm:h-12 bg-green-500 bg-opacity-20 rounded-full flex items-center justify-center">
+                            <i class="ri-wifi-line text-green-500 text-sm sm:text-xl"></i>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Quick Actions -->
-            <div class="dashboard-card p-6 rounded-xl mb-8">
-                <h2 class="heading text-xl font-bold text-white mb-6">Actions rapides</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <button id="add-photo-btn" class="bg-primary hover:bg-opacity-90 text-black font-medium py-3 px-6 rounded-lg transition-colors">
-                        <i class="ri-add-line mr-2"></i>Ajouter une photo
+            <div class="dashboard-card p-4 sm:p-6 rounded-xl mb-6 sm:mb-8">
+                <h2 class="heading text-lg sm:text-xl font-bold text-white mb-4 sm:mb-6">Actions rapides</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                    <button id="add-photo-btn" class="btn-primary text-sm sm:text-base py-2 sm:py-3 px-3 sm:px-6">
+                        <i class="ri-add-line mr-1 sm:mr-2"></i><span class="hidden sm:inline">Ajouter une photo</span><span class="sm:hidden">Photo</span>
                     </button>
-                    <button id="add-testimonial-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
-                        <i class="ri-chat-add-line mr-2"></i>Ajouter un témoignage
+                    <button id="add-testimonial-btn" class="btn-secondary text-sm sm:text-base py-2 sm:py-3 px-3 sm:px-6">
+                        <i class="ri-chat-add-line mr-1 sm:mr-2"></i><span class="hidden sm:inline">Ajouter un témoignage</span><span class="sm:hidden">Témoignage</span>
                     </button>
-                    <button id="view-gallery-btn" class="bg-gray-700 hover:bg-gray-600 text-white font-medium py-3 px-6 rounded-lg transition-colors">
-                        <i class="ri-gallery-line mr-2"></i>Voir la galerie
+                    <button id="view-gallery-btn" class="btn-secondary text-sm sm:text-base py-2 sm:py-3 px-3 sm:px-6">
+                        <i class="ri-gallery-line mr-1 sm:mr-2"></i><span class="hidden sm:inline">Voir la galerie</span><span class="sm:hidden">Galerie</span>
                     </button>
                 </div>
             </div>
 
             <!-- Recent Activity -->
-            <div class="dashboard-card p-6 rounded-xl">
-                <h2 class="heading text-xl font-bold text-white mb-6">Activité récente</h2>
-                <div id="recent-activity" class="space-y-4">
-                    <div class="flex items-center p-4 bg-gray-800 bg-opacity-50 rounded-lg">
-                        <div class="w-10 h-10 bg-primary bg-opacity-20 rounded-full flex items-center justify-center mr-4">
-                            <i class="ri-image-line text-primary"></i>
+            <div class="dashboard-card p-4 sm:p-6 rounded-xl">
+                <h2 class="heading text-lg sm:text-xl font-bold text-white mb-4 sm:mb-6">Activité récente</h2>
+                <div id="recent-activity" class="space-y-3 sm:space-y-4">
+                    <div class="flex items-center p-3 sm:p-4 bg-gray-800 bg-opacity-50 rounded-lg">
+                        <div class="w-8 h-8 sm:w-10 sm:h-10 bg-primary bg-opacity-20 rounded-full flex items-center justify-center mr-3 sm:mr-4">
+                            <i class="ri-image-line text-primary text-sm sm:text-base"></i>
                         </div>
-                        <div class="flex-1">
-                            <p class="text-white font-medium">Aucune activité récente</p>
-                            <p class="text-gray-400 text-sm">Les actions apparaîtront ici</p>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-white font-medium text-sm sm:text-base truncate">Aucune activité récente</p>
+                            <p class="text-gray-400 text-xs sm:text-sm truncate">Les actions apparaîtront ici</p>
                         </div>
-                        <span class="text-gray-500 text-sm">-</span>
+                        <span class="text-gray-500 text-xs sm:text-sm">-</span>
                     </div>
                 </div>
             </div>
