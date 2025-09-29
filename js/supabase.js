@@ -41,7 +41,46 @@
                             })
                         })
                     }),
+                    limit: (count) => ({
+                        order: (column, options = {}) => ({
+                            async then(callback) {
+                                const response = await fetch(`${supabaseUrl}/rest/v1/${table}?select=${columns}&limit=${count}&order=${column}.${options.ascending ? 'asc' : 'desc'}`, {
+                                    headers: {
+                                        'apikey': supabaseKey,
+                                        'Authorization': `Bearer ${supabaseKey}`,
+                                        'Content-Type': 'application/json'
+                                    }
+                                });
+                                const data = await response.json();
+                                callback({ data, error: response.ok ? null : { message: 'Error' } });
+                            }
+                        }),
+                        async then(callback) {
+                            const response = await fetch(`${supabaseUrl}/rest/v1/${table}?select=${columns}&limit=${count}`, {
+                                headers: {
+                                    'apikey': supabaseKey,
+                                    'Authorization': `Bearer ${supabaseKey}`,
+                                    'Content-Type': 'application/json'
+                                }
+                            });
+                            const data = await response.json();
+                            callback({ data, error: response.ok ? null : { message: 'Error' } });
+                        }
+                    }),
                     order: (column, options = {}) => ({
+                        limit: (count) => ({
+                            async then(callback) {
+                                const response = await fetch(`${supabaseUrl}/rest/v1/${table}?select=${columns}&order=${column}.${options.ascending ? 'asc' : 'desc'}&limit=${count}`, {
+                                    headers: {
+                                        'apikey': supabaseKey,
+                                        'Authorization': `Bearer ${supabaseKey}`,
+                                        'Content-Type': 'application/json'
+                                    }
+                                });
+                                const data = await response.json();
+                                callback({ data, error: response.ok ? null : { message: 'Error' } });
+                            }
+                        }),
                         async then(callback) {
                             const response = await fetch(`${supabaseUrl}/rest/v1/${table}?select=${columns}&order=${column}.${options.ascending ? 'asc' : 'desc'}`, {
                                 headers: {
