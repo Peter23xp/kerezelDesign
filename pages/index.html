@@ -204,6 +204,30 @@
                 font-size: 1.25rem;
             }
             
+            /* Statistiques mobiles */
+            .hero-content .grid.grid-cols-3 {
+                gap: 0.5rem;
+                max-width: 100%;
+            }
+            
+            .hero-content .grid.grid-cols-3 > div {
+                padding: 0.75rem;
+            }
+            
+            .hero-content .grid.grid-cols-3 .text-2xl {
+                font-size: 1.5rem;
+            }
+            
+            .hero-content .grid.grid-cols-3 .text-xs {
+                font-size: 0.7rem;
+            }
+            
+            /* Description mobile */
+            .hero-content .bg-black\/30 {
+                padding: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            
             /* Menu mobile amélioré */
             #mobile-menu {
                 backdrop-filter: blur(10px);
@@ -232,6 +256,30 @@
             /* Formulaires mobile */
             .contact-form {
                 padding: 1.5rem;
+            }
+        }
+        
+        /* Améliorations pour très petits écrans */
+        @media (max-width: 480px) {
+            .hero-content .grid.grid-cols-3 {
+                gap: 0.25rem;
+            }
+            
+            .hero-content .grid.grid-cols-3 > div {
+                padding: 0.5rem;
+            }
+            
+            .hero-content .grid.grid-cols-3 .text-2xl {
+                font-size: 1.25rem;
+            }
+            
+            .hero-content .grid.grid-cols-3 .text-xs {
+                font-size: 0.65rem;
+            }
+            
+            .hero-content .bg-black\/30 {
+                padding: 0.75rem;
+                margin-bottom: 1rem;
             }
         }
 
@@ -375,30 +423,16 @@
                 </p>
                 
                 <!-- Description avec valeur ajoutée -->
-                <p class="hero-description animate-slide-up" data-aos="slide-up" data-aos-delay="800">
-                    Transformez vos moments précieux en œuvres d'art intemporelles. 
-                    <span class="text-primary-400 font-medium">Photographie d'événements, portraits studio, design graphique</span> 
-                    et identité visuelle sur mesure à Goma.
-                </p>
-                
-                <!-- Statistiques de crédibilité -->
-                <div class="grid grid-cols-3 gap-8 max-w-2xl mx-auto mb-12 animate-scale-in" data-aos="scale-in" data-aos-delay="1000">
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-primary-500 mb-2">500+</div>
-                        <div class="text-neutral-400 text-sm">Projets réalisés</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-primary-500 mb-2">10+</div>
-                        <div class="text-neutral-400 text-sm">Années d'expérience</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-primary-500 mb-2">100%</div>
-                        <div class="text-neutral-400 text-sm">Clients satisfaits</div>
-                    </div>
+                <div class="bg-black/30 backdrop-blur-sm rounded-lg p-6 mb-8 max-w-3xl mx-auto border border-primary-500/20">
+                    <p class="hero-description animate-slide-up text-white" data-aos="slide-up" data-aos-delay="800">
+                        Transformez vos moments précieux en œuvres d'art intemporelles. 
+                        <span class="text-primary-400 font-medium">Photographie d'événements, portraits studio, design graphique</span> 
+                        et identité visuelle sur mesure à Goma.
+                    </p>
                 </div>
                 
                 <!-- CTA Premium -->
-                <div class="flex flex-col sm:flex-row gap-6 justify-center animate-slide-up" data-aos="slide-up" data-aos-delay="1200">
+                <div class="flex flex-col sm:flex-row gap-6 justify-center mb-12 animate-slide-up" data-aos="slide-up" data-aos-delay="1000">
                     <a href="#portfolio" aria-label="Découvrir le portfolio de Kerezel Design"
                         class="btn-primary group">
                         <i class="ri-image-line mr-2 group-hover:animate-pulse"></i>
@@ -411,6 +445,22 @@
                         Réserver une séance
                         <i class="ri-arrow-right-line ml-2 group-hover:translate-x-1 transition-transform"></i>
                     </a>
+                </div>
+                
+                <!-- Statistiques de crédibilité repositionnées -->
+                <div class="grid grid-cols-3 gap-4 max-w-xl mx-auto animate-scale-in" data-aos="scale-in" data-aos-delay="1200">
+                    <div class="text-center bg-black/50 backdrop-blur-sm rounded-lg p-3 border border-primary-500/30">
+                        <div class="text-2xl font-bold text-primary-500 mb-1">500+</div>
+                        <div class="text-white text-xs font-medium">Projets réalisés</div>
+                    </div>
+                    <div class="text-center bg-black/50 backdrop-blur-sm rounded-lg p-3 border border-primary-500/30">
+                        <div class="text-2xl font-bold text-primary-500 mb-1">10+</div>
+                        <div class="text-white text-xs font-medium">Années d'expérience</div>
+                    </div>
+                    <div class="text-center bg-black/50 backdrop-blur-sm rounded-lg p-3 border border-primary-500/30">
+                        <div class="text-2xl font-bold text-primary-500 mb-1">100%</div>
+                        <div class="text-white text-xs font-medium">Clients satisfaits</div>
+                    </div>
                 </div>
                 
                 <!-- Indicateur de scroll -->
