@@ -189,14 +189,63 @@
             transform: rotate(45deg);
         }
 
+        /* Hero Section Professionnelle */
+        .hero-professional {
+            background: linear-gradient(135deg, #1a1a1a 0%, #000000 50%, #1a1a1a 100%);
+        }
+        
+        .hero-overlay-professional {
+            background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.8) 100%);
+        }
+        
+        .hero-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-badge {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero-cta-primary {
+            background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .hero-cta-primary:hover {
+            background: linear-gradient(135deg, #F4D03F 0%, #D4AF37 100%);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .hero-cta-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .hero-cta-secondary:hover {
+            border-color: #D4AF37;
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-2px);
+        }
+        
         /* Améliorations responsive */
         @media (max-width: 768px) {
             .portfolio-item img {
                 height: 250px;
             }
             
+            /* Hero responsive */
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 3rem;
                 line-height: 1.1;
             }
             
@@ -204,41 +253,10 @@
                 font-size: 1.25rem;
             }
             
-            /* Statistiques mobiles */
-            .hero-content .grid.grid-cols-3 {
-                gap: 0.5rem;
-                max-width: 100%;
-            }
-            
-            .hero-content .grid.grid-cols-3 > div {
-                padding: 0.75rem;
-            }
-            
-            .hero-content .grid.grid-cols-3 .text-2xl {
-                font-size: 1.5rem;
-            }
-            
-            .hero-content .grid.grid-cols-3 .text-xs {
-                font-size: 0.7rem;
-            }
-            
-            /* Description mobile */
-            .hero-content .bg-black\/30 {
-                padding: 1rem;
-                margin-bottom: 1.5rem;
-            }
-            
             /* Menu mobile amélioré */
             #mobile-menu {
                 backdrop-filter: blur(10px);
                 background-color: rgba(0, 0, 0, 0.95);
-            }
-            
-            /* Boutons mobiles */
-            .mobile-cta {
-                width: 100%;
-                justify-content: center;
-                padding: 1rem 2rem;
             }
             
             /* Grille responsive */
@@ -256,30 +274,6 @@
             /* Formulaires mobile */
             .contact-form {
                 padding: 1.5rem;
-            }
-        }
-        
-        /* Améliorations pour très petits écrans */
-        @media (max-width: 480px) {
-            .hero-content .grid.grid-cols-3 {
-                gap: 0.25rem;
-            }
-            
-            .hero-content .grid.grid-cols-3 > div {
-                padding: 0.5rem;
-            }
-            
-            .hero-content .grid.grid-cols-3 .text-2xl {
-                font-size: 1.25rem;
-            }
-            
-            .hero-content .grid.grid-cols-3 .text-xs {
-                font-size: 0.65rem;
-            }
-            
-            .hero-content .bg-black\/30 {
-                padding: 0.75rem;
-                margin-bottom: 1rem;
             }
         }
 
@@ -388,62 +382,73 @@
         </div>
     </nav>
 
-    <!-- Hero Section Premium -->
+    <!-- Hero Section Professionnelle -->
     <main id="main-content">
-    <section id="accueil" class="hero-section"
-        style="background-image: url('../assets/images/dfa1aef3-f3e5-49af-8837-7b2a9c9d08e4.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
-        <div class="hero-overlay"></div>
-        
-        <!-- Particules flottantes -->
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-primary-500/30 rounded-full animate-float"></div>
-            <div class="absolute top-1/3 right-1/3 w-1 h-1 bg-primary-400/40 rounded-full animate-float" style="animation-delay: 1s;"></div>
-            <div class="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-primary-300/20 rounded-full animate-float" style="animation-delay: 2s;"></div>
-            <div class="absolute top-1/2 right-1/4 w-1 h-1 bg-primary-500/25 rounded-full animate-float" style="animation-delay: 0.5s;"></div>
+    <section id="accueil" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-800">
+        <!-- Image de fond avec overlay professionnel -->
+        <div class="absolute inset-0">
+            <img src="../assets/images/dfa1aef3-f3e5-49af-8837-7b2a9c9d08e4.jpg" 
+                 alt="Kerezel Design - Photographe Professionnel" 
+                 class="w-full h-full object-cover object-center">
+            <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/80"></div>
         </div>
         
-        <div class="hero-content">
-            <div class="animate-fade-in" data-aos="fade-up" data-aos-duration="1200">
-                <!-- Badge de crédibilité -->
-                <div class="inline-flex items-center px-4 py-2 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full text-primary-300 text-sm font-medium mb-8 animate-slide-down" data-aos="slide-down" data-aos-delay="200">
-                    <i class="ri-award-line mr-2"></i>
-                    Photographe Professionnel • 10+ ans d'expérience
+        <!-- Contenu principal -->
+        <div class="relative z-10 container mx-auto px-6 text-center">
+            <div class="max-w-5xl mx-auto">
+                <!-- Badge de crédibilité professionnel -->
+                <div class="hero-badge inline-flex items-center px-6 py-3 rounded-full text-white text-sm font-medium mb-8" data-aos="fade-down" data-aos-duration="800">
+                    <div class="w-2 h-2 bg-primary-500 rounded-full mr-3 animate-pulse"></div>
+                    Photographe Professionnel • 10+ ans d'expérience • Goma, RDC
                 </div>
                 
-                <!-- Titre principal avec effet de typographie -->
-                <h1 class="heading hero-title animate-slide-up" data-aos="slide-up" data-aos-delay="400">
-                    <span class="block">Kerezel</span>
-                    <span class="block text-primary-500">Design</span>
+                <!-- Titre principal impactant -->
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                    <span class="block font-['Playfair_Display']">Kerezel</span>
+                    <span class="block font-['Playfair_Display'] text-primary-500">Design</span>
                 </h1>
                 
-                <!-- Sous-titre avec storytelling -->
-                <p class="hero-subtitle animate-slide-up" data-aos="slide-up" data-aos-delay="600">
-                    <span class="text-white font-semibold">Visual Artist</span>
-                    <span class="text-neutral-300"> & Créateur d'émotions</span>
-                </p>
+                <!-- Sous-titre professionnel -->
+                <h2 class="text-xl md:text-2xl lg:text-3xl text-white/90 mb-8 font-light leading-relaxed" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+                    Photographe & Designer Graphique Professionnel
+                </h2>
                 
                 <!-- Description avec valeur ajoutée -->
-                <div class="bg-black/30 backdrop-blur-sm rounded-lg p-6 mb-8 max-w-3xl mx-auto border border-primary-500/20">
-                    <p class="hero-description animate-slide-up text-white" data-aos="slide-up" data-aos-delay="800">
-                        Transformez vos moments précieux en œuvres d'art intemporelles. 
-                        <span class="text-primary-400 font-medium">Photographie d'événements, portraits studio, design graphique</span> 
-                        et identité visuelle sur mesure à Goma.
-                    </p>
+                <p class="hero-description animate-slide-up" data-aos="slide-up" data-aos-delay="800">
+                    Transformez vos moments précieux en œuvres d'art intemporelles. 
+                    <span class="text-primary-400 font-medium">Photographie d'événements, portraits studio, design graphique</span> 
+                    et identité visuelle sur mesure à Goma.
+                </p>
+                
+                <!-- Statistiques de crédibilité -->
+                <div class="grid grid-cols-3 gap-8 max-w-2xl mx-auto mb-12 animate-scale-in" data-aos="scale-in" data-aos-delay="1000">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-primary-500 mb-2">500+</div>
+                        <div class="text-neutral-400 text-sm">Projets réalisés</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-primary-500 mb-2">10+</div>
+                        <div class="text-neutral-400 text-sm">Années d'expérience</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-primary-500 mb-2">100%</div>
+                        <div class="text-neutral-400 text-sm">Clients satisfaits</div>
+                    </div>
                 </div>
                 
                 <!-- CTA Premium -->
-                <div class="flex flex-col sm:flex-row gap-6 justify-center mb-12 animate-slide-up" data-aos="slide-up" data-aos-delay="1000">
+                <div class="flex flex-col sm:flex-row gap-6 justify-center animate-slide-up" data-aos="slide-up" data-aos-delay="1200">
                     <a href="#portfolio" aria-label="Découvrir le portfolio de Kerezel Design"
                         class="btn-primary group">
                         <i class="ri-image-line mr-2 group-hover:animate-pulse"></i>
                         Découvrir mon univers
                         <i class="ri-arrow-right-line ml-2 group-hover:translate-x-1 transition-transform"></i>
                     </a>
-                    <a href="#contact" aria-label="Réserver une séance avec Kerezel Design"
-                        class="btn-outline group">
-                        <i class="ri-calendar-line mr-2"></i>
+                    <a href="#contact" 
+                       class="hero-cta-secondary group text-white hover:text-primary-400 font-semibold py-4 px-8 rounded-full flex items-center justify-center">
+                        <i class="ri-calendar-line mr-3 text-lg"></i>
                         Réserver une séance
-                        <i class="ri-arrow-right-line ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        <i class="ri-arrow-right-line ml-3 group-hover:translate-x-1 transition-transform"></i>
                     </a>
                 </div>
                 
@@ -463,10 +468,26 @@
                     </div>
                 </div>
                 
-                <!-- Indicateur de scroll -->
-                <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-                    <div class="w-6 h-10 border-2 border-primary-500/50 rounded-full flex justify-center">
-                        <div class="w-1 h-3 bg-primary-500 rounded-full mt-2 animate-pulse"></div>
+                <!-- Statistiques de crédibilité -->
+                <div class="hero-stats grid grid-cols-3 gap-6 max-w-2xl mx-auto" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1000">
+                    <div class="text-center">
+                        <div class="text-3xl md:text-4xl font-bold text-primary-500 mb-2">500+</div>
+                        <div class="text-white/80 text-sm font-medium">Projets réalisés</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl md:text-4xl font-bold text-primary-500 mb-2">10+</div>
+                        <div class="text-white/80 text-sm font-medium">Années d'expérience</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl md:text-4xl font-bold text-primary-500 mb-2">100%</div>
+                        <div class="text-white/80 text-sm font-medium">Clients satisfaits</div>
+                    </div>
+                </div>
+                
+                <!-- Indicateur de scroll élégant -->
+                <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1200">
+                    <div class="w-8 h-12 border-2 border-white/30 rounded-full flex justify-center">
+                        <div class="w-1 h-3 bg-white/60 rounded-full mt-2 animate-pulse"></div>
                     </div>
                 </div>
             </div>

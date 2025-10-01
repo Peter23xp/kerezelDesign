@@ -39,6 +39,84 @@
         .heading {
             font-family: 'Playfair Display', serif;
         }
+        
+        /* Boutons premium */
+        .btn-primary {
+            @apply bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-black font-semibold py-4 px-8 rounded-button transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl hover:shadow-primary-500/25 relative overflow-hidden;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            @apply absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 transition-opacity duration-300;
+        }
+        
+        .btn-primary:hover::before {
+            @apply opacity-100;
+        }
+        
+        .btn-outline {
+            @apply border-2 border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-black font-semibold py-3 px-6 rounded-button transition-all duration-300 transform hover:scale-105;
+        }
+        
+        /* Cartes premium */
+        .card-service {
+            @apply bg-gradient-to-br from-secondary-800/80 to-secondary-900/80 backdrop-blur-sm border border-secondary-600 rounded-card p-8 shadow-xl transition-all duration-300 hover:border-primary-500 hover:transform hover:-translate-y-1 hover:shadow-primary-500/20;
+        }
+        
+        /* FAQ */
+        .faq-item {
+            @apply border-b border-secondary-700 py-6;
+        }
+        
+        .faq-question {
+            @apply text-white font-semibold text-lg mb-3 cursor-pointer flex items-center justify-between;
+        }
+        
+        .faq-answer {
+            @apply text-neutral-400 leading-relaxed max-h-0 overflow-hidden transition-all duration-300;
+        }
+        
+        .faq-answer.open {
+            @apply max-h-96 mt-4;
+        }
+        
+        /* Améliorations responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+                line-height: 1.1;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.25rem;
+            }
+            
+            .card-service {
+                padding: 1.5rem;
+            }
+            
+            .card-service h3 {
+                font-size: 1.5rem;
+            }
+            
+            .card-service p {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .card-service {
+                padding: 1rem;
+            }
+            
+            .card-service h3 {
+                font-size: 1.25rem;
+            }
+            
+            .card-service p {
+                font-size: 0.85rem;
+            }
+        }
     </style>
 </head>
 
