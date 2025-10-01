@@ -189,33 +189,184 @@
             transform: rotate(45deg);
         }
 
-        /* Hero Section Professionnelle */
-        .hero-professional {
+        /* Hero Section Refactorisée */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
             background: linear-gradient(135deg, #1a1a1a 0%, #000000 50%, #1a1a1a 100%);
         }
         
-        .hero-overlay-professional {
+        .hero-background {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+        
+        .hero-bg-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
             background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.8) 100%);
         }
         
-        .hero-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            text-align: center;
         }
         
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        /* Hero Badge */
         .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+        
+        .hero-badge-indicator {
+            width: 0.5rem;
+            height: 0.5rem;
+            background-color: #D4AF37;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+            animation: pulse 2s infinite;
+        }
+        
+        .hero-badge-text {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        /* Hero Title */
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .hero-title-primary {
+            display: block;
+            color: white;
+        }
+        
+        .hero-title-accent {
+            display: block;
+            color: #D4AF37;
+        }
+        
+        /* Hero Subtitle */
+        .hero-subtitle {
+            font-size: clamp(1.25rem, 3vw, 3rem);
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+        
+        /* Hero Description */
+        .hero-description {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 3rem;
+            max-width: 42rem;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        .hero-description-highlight {
+            color: #D4AF37;
+            font-weight: 500;
+        }
+        
+        /* Hero Statistics */
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 32rem;
+            margin: 0 auto 3rem;
+        }
+        
+        .hero-stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 0.75rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .hero-stat-number {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: #D4AF37;
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero-stat-label {
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        /* Hero CTA */
+        .hero-cta {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+        
+        @media (min-width: 640px) {
+            .hero-cta {
+                flex-direction: row;
+            }
         }
         
         .hero-cta-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
             background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+            color: black;
+            font-weight: 600;
+            border-radius: 9999px;
+            text-decoration: none;
             box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         
         .hero-cta-primary:hover {
@@ -224,17 +375,81 @@
             transform: translateY(-2px);
         }
         
+        .hero-cta-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .hero-cta-primary:hover::before {
+            opacity: 1;
+        }
+        
         .hero-cta-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
             border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-weight: 600;
+            border-radius: 9999px;
+            text-decoration: none;
             transition: all 0.3s ease;
         }
         
         .hero-cta-secondary:hover {
             border-color: #D4AF37;
             background: rgba(212, 175, 55, 0.1);
+            color: #D4AF37;
             transform: translateY(-2px);
+        }
+        
+        .hero-cta-icon {
+            margin-right: 0.5rem;
+            font-size: 1.125rem;
+        }
+        
+        .hero-cta-arrow {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .hero-cta-primary:hover .hero-cta-arrow,
+        .hero-cta-secondary:hover .hero-cta-arrow {
+            transform: translateX(4px);
+        }
+        
+        /* Hero Scroll Indicator */
+        .hero-scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        
+        .hero-scroll-mouse {
+            width: 2rem;
+            height: 3rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 9999px;
+            display: flex;
+            justify-content: center;
+            padding-top: 0.5rem;
+        }
+        
+        .hero-scroll-wheel {
+            width: 0.25rem;
+            height: 0.75rem;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 9999px;
+            animation: pulse 2s infinite;
         }
         
         /* Améliorations responsive */
@@ -243,14 +458,75 @@
                 height: 250px;
             }
             
-            /* Hero responsive */
+            /* Hero responsive amélioré */
+            .hero-container {
+                padding: 0 1rem;
+            }
+            
+            .hero-badge {
+                padding: 0.5rem 1rem;
+                font-size: 0.75rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .hero-badge-text {
+                font-size: 0.75rem;
+            }
+            
             .hero-title {
-                font-size: 3rem;
-                line-height: 1.1;
+                font-size: clamp(2.5rem, 12vw, 4rem);
+                margin-bottom: 1rem;
             }
             
             .hero-subtitle {
-                font-size: 1.25rem;
+                font-size: clamp(1rem, 4vw, 1.5rem);
+                margin-bottom: 1.5rem;
+            }
+            
+            .hero-description {
+                font-size: clamp(0.875rem, 3vw, 1.125rem);
+                margin-bottom: 2rem;
+                padding: 0 1rem;
+            }
+            
+            .hero-stats {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                max-width: 20rem;
+                margin-bottom: 2rem;
+            }
+            
+            .hero-stat-item {
+                padding: 1rem;
+            }
+            
+            .hero-stat-number {
+                font-size: clamp(1.25rem, 6vw, 2rem);
+            }
+            
+            .hero-stat-label {
+                font-size: 0.75rem;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+            
+            .hero-cta-primary,
+            .hero-cta-secondary {
+                padding: 0.875rem 1.5rem;
+                font-size: 0.875rem;
+            }
+            
+            .hero-scroll-indicator {
+                bottom: 1rem;
+            }
+            
+            .hero-scroll-mouse {
+                width: 1.5rem;
+                height: 2.25rem;
             }
             
             /* Menu mobile amélioré */
@@ -274,6 +550,28 @@
             /* Formulaires mobile */
             .contact-form {
                 padding: 1.5rem;
+            }
+        }
+        
+        /* Responsive pour très petits écrans */
+        @media (max-width: 480px) {
+            .hero-badge {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+            
+            .hero-badge-indicator {
+                margin-right: 0;
+            }
+            
+            .hero-stats {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            
+            .hero-stat-item {
+                padding: 0.75rem;
             }
         }
 
@@ -382,114 +680,83 @@
         </div>
     </nav>
 
-    <!-- Hero Section Professionnelle -->
+    <!-- Hero Section Refactorisée -->
     <main id="main-content">
-    <section id="accueil" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-800">
-        <!-- Image de fond avec overlay professionnel -->
-        <div class="absolute inset-0">
+    <section id="accueil" class="hero-section">
+        <!-- Background Image Container -->
+        <div class="hero-background">
             <img src="../assets/images/dfa1aef3-f3e5-49af-8837-7b2a9c9d08e4.jpg" 
                  alt="Kerezel Design - Photographe Professionnel" 
-                 class="w-full h-full object-cover object-center">
-            <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/80"></div>
+                 class="hero-bg-image"
+                 loading="eager">
+            <div class="hero-overlay"></div>
         </div>
         
-        <!-- Contenu principal -->
-        <div class="relative z-10 container mx-auto px-6 text-center">
-            <div class="max-w-5xl mx-auto">
-                <!-- Badge de crédibilité professionnel -->
-                <div class="hero-badge inline-flex items-center px-6 py-3 rounded-full text-white text-sm font-medium mb-8" data-aos="fade-down" data-aos-duration="800">
-                    <div class="w-2 h-2 bg-primary-500 rounded-full mr-3 animate-pulse"></div>
-                    Photographe Professionnel • 10+ ans d'expérience • Goma, RDC
+        <!-- Hero Content Container -->
+        <div class="hero-content">
+            <div class="hero-container">
+                
+                <!-- Credibility Badge -->
+                <div class="hero-badge" data-aos="fade-down" data-aos-duration="800">
+                    <div class="hero-badge-indicator"></div>
+                    <span class="hero-badge-text">Photographe Professionnel • 10+ ans d'expérience • Goma, RDC</span>
                 </div>
                 
-                <!-- Titre principal impactant -->
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                    <span class="block font-['Playfair_Display']">Kerezel</span>
-                    <span class="block font-['Playfair_Display'] text-primary-500">Design</span>
+                <!-- Main Title -->
+                <h1 class="hero-title" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                    <span class="hero-title-primary">Kerezel</span>
+                    <span class="hero-title-accent">Design</span>
                 </h1>
                 
-                <!-- Sous-titre professionnel -->
-                <h2 class="text-xl md:text-2xl lg:text-3xl text-white/90 mb-8 font-light leading-relaxed" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+                <!-- Subtitle -->
+                <h2 class="hero-subtitle" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
                     Photographe & Designer Graphique Professionnel
                 </h2>
                 
-                <!-- Description avec valeur ajoutée -->
-                <p class="hero-description animate-slide-up" data-aos="slide-up" data-aos-delay="800">
+                <!-- Description -->
+                <p class="hero-description" data-aos="slide-up" data-aos-delay="800">
                     Transformez vos moments précieux en œuvres d'art intemporelles. 
-                    <span class="text-primary-400 font-medium">Photographie d'événements, portraits studio, design graphique</span> 
+                    <span class="hero-description-highlight">Photographie d'événements, portraits studio, design graphique</span> 
                     et identité visuelle sur mesure à Goma.
                 </p>
                 
-                <!-- Statistiques de crédibilité -->
-                <div class="grid grid-cols-3 gap-8 max-w-2xl mx-auto mb-12 animate-scale-in" data-aos="scale-in" data-aos-delay="1000">
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-primary-500 mb-2">500+</div>
-                        <div class="text-neutral-400 text-sm">Projets réalisés</div>
+                <!-- Statistics -->
+                <div class="hero-stats" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1000">
+                    <div class="hero-stat-item">
+                        <div class="hero-stat-number">500+</div>
+                        <div class="hero-stat-label">Projets réalisés</div>
                     </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-primary-500 mb-2">10+</div>
-                        <div class="text-neutral-400 text-sm">Années d'expérience</div>
+                    <div class="hero-stat-item">
+                        <div class="hero-stat-number">10+</div>
+                        <div class="hero-stat-label">Années d'expérience</div>
                     </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-primary-500 mb-2">100%</div>
-                        <div class="text-neutral-400 text-sm">Clients satisfaits</div>
+                    <div class="hero-stat-item">
+                        <div class="hero-stat-number">100%</div>
+                        <div class="hero-stat-label">Clients satisfaits</div>
                     </div>
                 </div>
                 
-                <!-- CTA Premium -->
-                <div class="flex flex-col sm:flex-row gap-6 justify-center animate-slide-up" data-aos="slide-up" data-aos-delay="1200">
-                    <a href="#portfolio" aria-label="Découvrir le portfolio de Kerezel Design"
-                        class="btn-primary group">
-                        <i class="ri-image-line mr-2 group-hover:animate-pulse"></i>
-                        Découvrir mon univers
-                        <i class="ri-arrow-right-line ml-2 group-hover:translate-x-1 transition-transform"></i>
+                <!-- Call to Action -->
+                <div class="hero-cta" data-aos="slide-up" data-aos-delay="1200">
+                    <a href="#portfolio" class="hero-cta-primary" aria-label="Découvrir le portfolio de Kerezel Design">
+                        <i class="ri-image-line hero-cta-icon"></i>
+                        <span>Découvrir mon univers</span>
+                        <i class="ri-arrow-right-line hero-cta-arrow"></i>
                     </a>
-                    <a href="#contact" 
-                       class="hero-cta-secondary group text-white hover:text-primary-400 font-semibold py-4 px-8 rounded-full flex items-center justify-center">
-                        <i class="ri-calendar-line mr-3 text-lg"></i>
-                        Réserver une séance
-                        <i class="ri-arrow-right-line ml-3 group-hover:translate-x-1 transition-transform"></i>
+                    <a href="#contact" class="hero-cta-secondary" aria-label="Réserver une séance photo">
+                        <i class="ri-calendar-line hero-cta-icon"></i>
+                        <span>Réserver une séance</span>
+                        <i class="ri-arrow-right-line hero-cta-arrow"></i>
                     </a>
                 </div>
                 
-                <!-- Statistiques de crédibilité repositionnées -->
-                <div class="grid grid-cols-3 gap-4 max-w-xl mx-auto animate-scale-in" data-aos="scale-in" data-aos-delay="1200">
-                    <div class="text-center bg-black/50 backdrop-blur-sm rounded-lg p-3 border border-primary-500/30">
-                        <div class="text-2xl font-bold text-primary-500 mb-1">500+</div>
-                        <div class="text-white text-xs font-medium">Projets réalisés</div>
-                    </div>
-                    <div class="text-center bg-black/50 backdrop-blur-sm rounded-lg p-3 border border-primary-500/30">
-                        <div class="text-2xl font-bold text-primary-500 mb-1">10+</div>
-                        <div class="text-white text-xs font-medium">Années d'expérience</div>
-                    </div>
-                    <div class="text-center bg-black/50 backdrop-blur-sm rounded-lg p-3 border border-primary-500/30">
-                        <div class="text-2xl font-bold text-primary-500 mb-1">100%</div>
-                        <div class="text-white text-xs font-medium">Clients satisfaits</div>
+                <!-- Scroll Indicator -->
+                <div class="hero-scroll-indicator" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1200">
+                    <div class="hero-scroll-mouse">
+                        <div class="hero-scroll-wheel"></div>
                     </div>
                 </div>
                 
-                <!-- Statistiques de crédibilité -->
-                <div class="hero-stats grid grid-cols-3 gap-6 max-w-2xl mx-auto" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1000">
-                    <div class="text-center">
-                        <div class="text-3xl md:text-4xl font-bold text-primary-500 mb-2">500+</div>
-                        <div class="text-white/80 text-sm font-medium">Projets réalisés</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl md:text-4xl font-bold text-primary-500 mb-2">10+</div>
-                        <div class="text-white/80 text-sm font-medium">Années d'expérience</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl md:text-4xl font-bold text-primary-500 mb-2">100%</div>
-                        <div class="text-white/80 text-sm font-medium">Clients satisfaits</div>
-                    </div>
-                </div>
-                
-                <!-- Indicateur de scroll élégant -->
-                <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1200">
-                    <div class="w-8 h-12 border-2 border-white/30 rounded-full flex justify-center">
-                        <div class="w-1 h-3 bg-white/60 rounded-full mt-2 animate-pulse"></div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
