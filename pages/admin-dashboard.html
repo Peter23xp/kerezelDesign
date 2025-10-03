@@ -624,7 +624,7 @@
                 const thirtyDaysAgo = new Date();
                 thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
                 appState.stats.recentPhotos = photos.filter(photo => 
-                    new Date(photo.created_at) > thirtyDaysAgo
+                    new Date(photo.date_creation || photo.created_at) > thirtyDaysAgo
                 ).length;
 
                 updateStatsDisplay();
@@ -668,9 +668,9 @@
                     </div>
                     <div class="flex-1">
                         <p class="text-white font-medium">${photo.titre}</p>
-                        <p class="text-gray-400 text-sm">${photo.categorie} • ${formatDate(photo.created_at)}</p>
+                        <p class="text-gray-400 text-sm">${photo.categorie} • ${formatDate(photo.date_creation || photo.created_at)}</p>
                     </div>
-                    <span class="text-gray-500 text-sm">${formatTimeAgo(photo.created_at)}</span>
+                    <span class="text-gray-500 text-sm">${formatTimeAgo(photo.date_creation || photo.created_at)}</span>
                 </div>
             `).join('');
         }
