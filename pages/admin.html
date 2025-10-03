@@ -825,7 +825,8 @@
                         categorie: formData.get('categorie'),
                         alt_text: formData.get('alt-text') || formData.get('titre'),
                         ordre_affichage: parseInt(formData.get('ordre')) || 0,
-                        is_featured: formData.has('is-featured')
+                        is_featured: formData.has('is-featured'),
+                        is_visible: true
                     };
 
                     // Optimiser l'image si nécessaire
@@ -883,7 +884,7 @@
                         poste: formData.get('poste') || null,
                         message: formData.get('message'),
                         note: parseInt(formData.get('note')),
-                        is_visible: formData.has('visible')
+                        is_visible: formData.has('visible') ? true : true // Toujours visible par défaut
                     };
 
                     const result = await SupabasePortfolio.temoignages.add(temoignageData);

@@ -77,6 +77,7 @@ async function getPhotos(categorie = null) {
         let query = supabaseClient
             .from('photos')
             .select('*')
+            .eq('is_visible', true)
             .order('created_at', { ascending: false });
 
         if (categorie && categorie !== 'tout') {
@@ -126,7 +127,9 @@ async function addPhoto(photoData, imageFile) {
                     titre: photoData.titre,
                     description: photoData.description,
                     url_image: publicUrl,
-                    categorie: photoData.categorie
+                    categorie: photoData.categorie,
+                    is_visible: true,
+                    alt_text: photoData.alt_text || photoData.titre
                 }
             ])
             .select();
@@ -218,6 +221,7 @@ async function getTemoignages() {
         const { data, error } = await supabaseClient
             .from('temoignages')
             .select('*')
+            .eq('is_visible', true)
             .order('created_at', { ascending: false });
 
         if (error) {
@@ -235,9 +239,15 @@ async function getTemoignages() {
 // Ajouter un nouveau témoignage
 async function addTemoignage(temoignageData) {
     try {
+        // S'assurer que is_visible est défini
+        const temoignageDataWithVisibility = {
+            ...temoignageData,
+            is_visible: temoignageData.is_visible !== undefined ? temoignageData.is_visible : true
+        };
+
         const { data, error } = await supabaseClient
             .from('temoignages')
-            .insert([temoignageData])
+            .insert([temoignageDataWithVisibility])
             .select();
 
         if (error) {

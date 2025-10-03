@@ -3,8 +3,8 @@
     'use strict';
 
     // Configuration Supabase
-    const SUPABASE_URL = 'https://your-project.supabase.co';
-    const SUPABASE_ANON_KEY = 'your-anon-key';
+    const SUPABASE_URL = 'https://tfoyjidkxmtlcbrvupkz.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRmb3lqaWRreG10bGNicnZ1cGt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkxNDU3MTgsImV4cCI6MjA3NDcyMTcxOH0.O21vw7_PesSCp-sUF-Xk2yNNYv215t76fEx5lfib8Zg';
 
     // Client Supabase simplifié
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -26,13 +26,13 @@
         photos: {
             async get(filter = null) {
                 try {
-                    let query = supabase.from('photos').select('*').eq('visible', true);
+                    let query = supabase.from('photos').select('*').eq('is_visible', true);
                     
                     if (filter && filter !== 'all') {
                         query = query.eq('categorie', filter);
                     }
                     
-                    const { data, error } = await query.order('date_creation', { ascending: false });
+                    const { data, error } = await query.order('created_at', { ascending: false });
                     
                     if (error) throw error;
                     return data || [];
@@ -66,8 +66,8 @@
                     const { data, error } = await supabase
                         .from('temoignages')
                         .select('*')
-                        .eq('visible', true)
-                        .order('date_creation', { ascending: false });
+                        .eq('is_visible', true)
+                        .order('created_at', { ascending: false });
                     
                     if (error) throw error;
                     return data || [];
@@ -85,7 +85,7 @@
                     const { data, error } = await supabase
                         .from('services')
                         .select('*')
-                        .eq('visible', true)
+                        .eq('is_visible', true)
                         .order('ordre', { ascending: true });
                     
                     if (error) throw error;
@@ -104,8 +104,8 @@
                     const { data, error } = await supabase
                         .from('articles')
                         .select('*')
-                        .eq('visible', true)
-                        .order('date_creation', { ascending: false })
+                        .eq('is_visible', true)
+                        .order('created_at', { ascending: false })
                         .limit(limit);
                     
                     if (error) throw error;
@@ -144,7 +144,7 @@
                 url_image: 'photo/hero.jpg',
                 categorie: 'portrait',
                 alt_text: 'Portrait studio professionnel',
-                date_creation: new Date().toISOString()
+                created_at: new Date().toISOString()
             },
             {
                 id: 'fallback-2',
@@ -153,7 +153,7 @@
                 url_image: 'photo/dfa1aef3-f3e5-49af-8837-7b2a9c9d08e4.jpg',
                 categorie: 'design',
                 alt_text: 'Design graphique moderne',
-                date_creation: new Date().toISOString()
+                created_at: new Date().toISOString()
             }
         ],
         temoignages: [
@@ -164,7 +164,7 @@
                 note: 5,
                 poste: 'Mariée',
                 entreprise: '',
-                date_creation: new Date().toISOString()
+                created_at: new Date().toISOString()
             },
             {
                 id: 'testimonial-2',
@@ -173,7 +173,7 @@
                 note: 5,
                 poste: 'Directeur Marketing',
                 entreprise: 'TechCorp Goma',
-                date_creation: new Date().toISOString()
+                created_at: new Date().toISOString()
             },
             {
                 id: 'testimonial-3',
@@ -182,7 +182,7 @@
                 note: 5,
                 poste: 'Professionnelle',
                 entreprise: '',
-                date_creation: new Date().toISOString()
+                created_at: new Date().toISOString()
             }
         ]
     };
