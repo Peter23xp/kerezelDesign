@@ -63,6 +63,43 @@
             @apply bg-gradient-to-br from-secondary-800/80 to-secondary-900/80 backdrop-blur-sm border border-secondary-600 rounded-card p-8 shadow-xl transition-all duration-300 hover:border-primary-500 hover:transform hover:-translate-y-1 hover:shadow-primary-500/20;
         }
         
+        /* Service cards avec filtrage */
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .service-card.hidden {
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+        }
+        
+        .service-card.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Boutons de catégorie */
+        .category-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .category-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .category-btn:hover::before {
+            left: 100%;
+        }
+        
         /* FAQ */
         .faq-item {
             @apply border-b border-secondary-700 py-6;
@@ -172,155 +209,293 @@
     </section>
 
     <!-- Services Grid -->
-    <section class="py-24 bg-secondary-900">
-        <div class="container mx-auto px-6">
+    <section class="py-24 bg-gradient-to-br from-secondary-900 via-secondary-800 to-secondary-900 relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,193,7,0.1),transparent_50%)]"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,193,7,0.05),transparent_50%)]"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
             <div class="text-center mb-20">
-                <h2 class="heading text-4xl md:text-5xl font-bold text-white mb-6" data-aos="fade-up">
-                    Nos <span class="text-primary-500">Expertises</span>
+                <div class="inline-flex items-center px-6 py-3 bg-primary-500/10 backdrop-blur-sm border border-primary-500/20 rounded-full text-primary-300 text-sm font-medium mb-8" data-aos="fade-up">
+                    <i class="ri-star-line mr-2"></i>
+                    Services Professionnels
+                </div>
+                <h2 class="heading text-4xl md:text-6xl font-bold text-white mb-6" data-aos="fade-up" data-aos-delay="100">
+                    Nos <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-primary-600">Expertises</span>
                 </h2>
-                <p class="text-neutral-400 max-w-3xl mx-auto text-lg" data-aos="fade-up" data-aos-delay="200">
+                <p class="text-neutral-300 max-w-4xl mx-auto text-xl leading-relaxed" data-aos="fade-up" data-aos-delay="200">
                     Chaque projet est unique. Découvrez notre gamme complète de services professionnels 
-                    adaptés à vos besoins spécifiques.
+                    adaptés à vos besoins spécifiques avec une approche créative et technique.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Services Categories -->
+            <div class="mb-16">
+                <div class="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up" data-aos-delay="300">
+                    <button class="category-btn active px-6 py-3 bg-primary-500 text-black font-semibold rounded-full transition-all duration-300 hover:scale-105" data-category="all">
+                        Tous les services
+                    </button>
+                    <button class="category-btn px-6 py-3 bg-secondary-800/50 text-neutral-300 border border-secondary-600 font-medium rounded-full transition-all duration-300 hover:bg-primary-500 hover:text-black hover:border-primary-500" data-category="photography">
+                        Photographie
+                    </button>
+                    <button class="category-btn px-6 py-3 bg-secondary-800/50 text-neutral-300 border border-secondary-600 font-medium rounded-full transition-all duration-300 hover:bg-primary-500 hover:text-black hover:border-primary-500" data-category="design">
+                        Design Graphique
+                    </button>
+                    <button class="category-btn px-6 py-3 bg-secondary-800/50 text-neutral-300 border border-secondary-600 font-medium rounded-full transition-all duration-300 hover:bg-primary-500 hover:text-black hover:border-primary-500" data-category="training">
+                        Formation
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="services-grid">
                 <!-- Service 1: Photographie d'événement -->
-                <div class="card-service group" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-16 h-16 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary-500 group-hover:text-black transition-all duration-300">
-                        <i class="ri-camera-line ri-2x text-primary-300 group-hover:text-black"></i>
+                <div class="card-service group service-card" data-category="photography" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative">
+                        <div class="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full flex items-center justify-center">
+                            <i class="ri-star-fill text-black text-sm"></i>
+                        </div>
+                        <div class="w-16 h-16 bg-gradient-to-br from-primary-500/20 to-primary-600/20 backdrop-blur-sm border border-primary-500/30 rounded-full flex items-center justify-center mb-6 group-hover:from-primary-500 group-hover:to-primary-600 group-hover:text-black transition-all duration-300 shadow-lg">
+                            <i class="ri-camera-line ri-2x text-primary-300 group-hover:text-black"></i>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-4">Photographie d'événement</h3>
-                    <p class="text-neutral-400 mb-6 leading-relaxed">
-                        Immortalisez vos moments précieux avec un service professionnel pour mariages, 
-                        conférences, galas et cérémonies. Captures authentiques et émotionnelles.
-                    </p>
-                    <ul class="text-neutral-400 space-y-2 mb-6">
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Mariages & cérémonies</li>
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Événements corporatifs</li>
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Galas & soirées</li>
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Livraison rapide</li>
-                    </ul>
-                    <div class="text-primary-400 font-semibold mb-4">À partir de 150$</div>
-                    <a href="#contact" class="btn-primary w-full text-center">
+                    <div class="mb-4">
+                        <span class="inline-block px-3 py-1 bg-primary-500/20 text-primary-300 text-xs font-medium rounded-full mb-3">Photographie</span>
+                        <h3 class="text-2xl font-bold text-white mb-3">Photographie d'événement</h3>
+                        <p class="text-neutral-400 leading-relaxed">
+                            Immortalisez vos moments précieux avec un service professionnel pour mariages, 
+                            conférences, galas et cérémonies. Captures authentiques et émotionnelles.
+                        </p>
+                    </div>
+                    <div class="mb-6">
+                        <ul class="text-neutral-400 space-y-2">
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Mariages & cérémonies</li>
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Événements corporatifs</li>
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Galas & soirées</li>
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Livraison rapide</li>
+                        </ul>
+                    </div>
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="text-primary-400 font-bold text-lg">À partir de 150$</div>
+                        <div class="text-neutral-500 text-sm">⭐ 4.9/5</div>
+                    </div>
+                    <a href="#contact" class="btn-primary w-full text-center group-hover:shadow-xl group-hover:shadow-primary-500/25">
                         <i class="ri-calendar-line mr-2"></i>
-                        Réserver
+                        Réserver maintenant
                     </a>
                 </div>
 
                 <!-- Service 2: Portrait Studio -->
-                <div class="card-service group" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-16 h-16 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary-500 group-hover:text-black transition-all duration-300">
-                        <i class="ri-user-smile-line ri-2x text-primary-300 group-hover:text-black"></i>
+                <div class="card-service group service-card" data-category="photography" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative">
+                        <div class="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full flex items-center justify-center">
+                            <i class="ri-star-fill text-black text-sm"></i>
+                        </div>
+                        <div class="w-16 h-16 bg-gradient-to-br from-primary-500/20 to-primary-600/20 backdrop-blur-sm border border-primary-500/30 rounded-full flex items-center justify-center mb-6 group-hover:from-primary-500 group-hover:to-primary-600 group-hover:text-black transition-all duration-300 shadow-lg">
+                            <i class="ri-user-smile-line ri-2x text-primary-300 group-hover:text-black"></i>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-4">Portrait Studio</h3>
-                    <p class="text-neutral-400 mb-6 leading-relaxed">
-                        Des séances photo personnalisées en studio ou en extérieur pour particuliers, 
-                        couples, familles ou professionnels. Mise en valeur de votre personnalité.
-                    </p>
-                    <ul class="text-neutral-400 space-y-2 mb-6">
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Portraits individuels</li>
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Séances couple/famille</li>
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Photos professionnelles</li>
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Retouches incluses</li>
-                    </ul>
-                    <div class="text-primary-400 font-semibold mb-4">À partir de 80$</div>
-                    <a href="#contact" class="btn-primary w-full text-center">
+                    <div class="mb-4">
+                        <span class="inline-block px-3 py-1 bg-primary-500/20 text-primary-300 text-xs font-medium rounded-full mb-3">Photographie</span>
+                        <h3 class="text-2xl font-bold text-white mb-3">Portrait Studio</h3>
+                        <p class="text-neutral-400 leading-relaxed">
+                            Des séances photo personnalisées en studio ou en extérieur pour particuliers, 
+                            couples, familles ou professionnels. Mise en valeur de votre personnalité.
+                        </p>
+                    </div>
+                    <div class="mb-6">
+                        <ul class="text-neutral-400 space-y-2">
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Portraits individuels</li>
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Séances couple/famille</li>
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Photos professionnelles</li>
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Retouches incluses</li>
+                        </ul>
+                    </div>
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="text-primary-400 font-bold text-lg">À partir de 80$</div>
+                        <div class="text-neutral-500 text-sm">⭐ 4.8/5</div>
+                    </div>
+                    <a href="#contact" class="btn-primary w-full text-center group-hover:shadow-xl group-hover:shadow-primary-500/25">
                         <i class="ri-calendar-line mr-2"></i>
-                        Réserver
+                        Réserver maintenant
                     </a>
                 </div>
 
                 <!-- Service 3: Design Graphique -->
-                <div class="card-service group" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-16 h-16 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary-500 group-hover:text-black transition-all duration-300">
-                        <i class="ri-palette-line ri-2x text-primary-300 group-hover:text-black"></i>
+                <div class="card-service group service-card" data-category="design" data-aos="fade-up" data-aos-delay="300">
+                    <div class="relative">
+                        <div class="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full flex items-center justify-center">
+                            <i class="ri-star-fill text-black text-sm"></i>
+                        </div>
+                        <div class="w-16 h-16 bg-gradient-to-br from-primary-500/20 to-primary-600/20 backdrop-blur-sm border border-primary-500/30 rounded-full flex items-center justify-center mb-6 group-hover:from-primary-500 group-hover:to-primary-600 group-hover:text-black transition-all duration-300 shadow-lg">
+                            <i class="ri-palette-line ri-2x text-primary-300 group-hover:text-black"></i>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-4">Design Graphique</h3>
-                    <p class="text-neutral-400 mb-6 leading-relaxed">
-                        Création de logos, affiches, flyers, cartes de visite et autres supports visuels 
-                        pour votre communication. Design moderne et impactant.
-                    </p>
-                    <ul class="text-neutral-400 space-y-2 mb-6">
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Logos & identité</li>
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Affiches & flyers</li>
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Cartes de visite</li>
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Fichiers print & web</li>
-                    </ul>
-                    <div class="text-primary-400 font-semibold mb-4">À partir de 50$</div>
-                    <a href="#contact" class="btn-primary w-full text-center">
+                    <div class="mb-4">
+                        <span class="inline-block px-3 py-1 bg-primary-500/20 text-primary-300 text-xs font-medium rounded-full mb-3">Design Graphique</span>
+                        <h3 class="text-2xl font-bold text-white mb-3">Design Graphique</h3>
+                        <p class="text-neutral-400 leading-relaxed">
+                            Création de logos, affiches, flyers, cartes de visite et autres supports visuels 
+                            pour votre communication. Design moderne et impactant.
+                        </p>
+                    </div>
+                    <div class="mb-6">
+                        <ul class="text-neutral-400 space-y-2">
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Logos & identité</li>
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Affiches & flyers</li>
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Cartes de visite</li>
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Fichiers print & web</li>
+                        </ul>
+                    </div>
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="text-primary-400 font-bold text-lg">À partir de 50$</div>
+                        <div class="text-neutral-500 text-sm">⭐ 4.9/5</div>
+                    </div>
+                    <a href="#contact" class="btn-primary w-full text-center group-hover:shadow-xl group-hover:shadow-primary-500/25">
                         <i class="ri-calendar-line mr-2"></i>
-                        Réserver
+                        Réserver maintenant
                     </a>
                 </div>
 
                 <!-- Service 4: Communication Visuelle -->
-                <div class="card-service group" data-aos="fade-up" data-aos-delay="400">
-                    <div class="w-16 h-16 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary-500 group-hover:text-black transition-all duration-300">
-                        <i class="ri-building-line ri-2x text-primary-300 group-hover:text-black"></i>
+                <div class="card-service group service-card" data-category="design" data-aos="fade-up" data-aos-delay="400">
+                    <div class="relative">
+                        <div class="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full flex items-center justify-center">
+                            <i class="ri-star-fill text-black text-sm"></i>
+                        </div>
+                        <div class="w-16 h-16 bg-gradient-to-br from-primary-500/20 to-primary-600/20 backdrop-blur-sm border border-primary-500/30 rounded-full flex items-center justify-center mb-6 group-hover:from-primary-500 group-hover:to-primary-600 group-hover:text-black transition-all duration-300 shadow-lg">
+                            <i class="ri-building-line ri-2x text-primary-300 group-hover:text-black"></i>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-4">Communication Visuelle</h3>
-                    <p class="text-neutral-400 mb-6 leading-relaxed">
-                        Stratégie et identité visuelle complète pour entreprises, incluant charte graphique 
-                        et supports de communication cohérents.
-                    </p>
-                    <ul class="text-neutral-400 space-y-2 mb-6">
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Charte graphique</li>
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Stratégie branding</li>
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Supports marketing</li>
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Accompagnement</li>
-                    </ul>
-                    <div class="text-primary-400 font-semibold mb-4">À partir de 200$</div>
-                    <a href="#contact" class="btn-primary w-full text-center">
+                    <div class="mb-4">
+                        <span class="inline-block px-3 py-1 bg-primary-500/20 text-primary-300 text-xs font-medium rounded-full mb-3">Design Graphique</span>
+                        <h3 class="text-2xl font-bold text-white mb-3">Communication Visuelle</h3>
+                        <p class="text-neutral-400 leading-relaxed">
+                            Stratégie et identité visuelle complète pour entreprises, incluant charte graphique 
+                            et supports de communication cohérents.
+                        </p>
+                    </div>
+                    <div class="mb-6">
+                        <ul class="text-neutral-400 space-y-2">
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Charte graphique</li>
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Stratégie branding</li>
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Supports marketing</li>
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Accompagnement</li>
+                        </ul>
+                    </div>
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="text-primary-400 font-bold text-lg">À partir de 200$</div>
+                        <div class="text-neutral-500 text-sm">⭐ 5.0/5</div>
+                    </div>
+                    <a href="#contact" class="btn-primary w-full text-center group-hover:shadow-xl group-hover:shadow-primary-500/25">
                         <i class="ri-calendar-line mr-2"></i>
-                        Réserver
+                        Réserver maintenant
                     </a>
                 </div>
 
                 <!-- Service 5: Retouche Photo -->
-                <div class="card-service group" data-aos="fade-up" data-aos-delay="500">
-                    <div class="w-16 h-16 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary-500 group-hover:text-black transition-all duration-300">
-                        <i class="ri-image-edit-line ri-2x text-primary-300 group-hover:text-black"></i>
+                <div class="card-service group service-card" data-category="photography" data-aos="fade-up" data-aos-delay="500">
+                    <div class="relative">
+                        <div class="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full flex items-center justify-center">
+                            <i class="ri-star-fill text-black text-sm"></i>
+                        </div>
+                        <div class="w-16 h-16 bg-gradient-to-br from-primary-500/20 to-primary-600/20 backdrop-blur-sm border border-primary-500/30 rounded-full flex items-center justify-center mb-6 group-hover:from-primary-500 group-hover:to-primary-600 group-hover:text-black transition-all duration-300 shadow-lg">
+                            <i class="ri-image-edit-line ri-2x text-primary-300 group-hover:text-black"></i>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-4">Retouche Photo</h3>
-                    <p class="text-neutral-400 mb-6 leading-relaxed">
-                        Perfectionnez vos images avec un service de retouche professionnelle. 
-                        Correction de couleurs, luminosité, retouche beauté ou montage créatif.
-                    </p>
-                    <ul class="text-neutral-400 space-y-2 mb-6">
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Correction couleurs</li>
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Retouche beauté</li>
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Montage créatif</li>
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Livraison HD</li>
-                    </ul>
-                    <div class="text-primary-400 font-semibold mb-4">À partir de 30$</div>
-                    <a href="#contact" class="btn-primary w-full text-center">
+                    <div class="mb-4">
+                        <span class="inline-block px-3 py-1 bg-primary-500/20 text-primary-300 text-xs font-medium rounded-full mb-3">Photographie</span>
+                        <h3 class="text-2xl font-bold text-white mb-3">Retouche Photo</h3>
+                        <p class="text-neutral-400 leading-relaxed">
+                            Perfectionnez vos images avec un service de retouche professionnelle. 
+                            Correction de couleurs, luminosité, retouche beauté ou montage créatif.
+                        </p>
+                    </div>
+                    <div class="mb-6">
+                        <ul class="text-neutral-400 space-y-2">
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Correction couleurs</li>
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Retouche beauté</li>
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Montage créatif</li>
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Livraison HD</li>
+                        </ul>
+                    </div>
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="text-primary-400 font-bold text-lg">À partir de 30$</div>
+                        <div class="text-neutral-500 text-sm">⭐ 4.7/5</div>
+                    </div>
+                    <a href="#contact" class="btn-primary w-full text-center group-hover:shadow-xl group-hover:shadow-primary-500/25">
                         <i class="ri-calendar-line mr-2"></i>
-                        Réserver
+                        Réserver maintenant
                     </a>
                 </div>
 
                 <!-- Service 6: Formation -->
-                <div class="card-service group" data-aos="fade-up" data-aos-delay="600">
-                    <div class="w-16 h-16 bg-primary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary-500 group-hover:text-black transition-all duration-300">
-                        <i class="ri-graduation-cap-line ri-2x text-primary-300 group-hover:text-black"></i>
+                <div class="card-service group service-card" data-category="training" data-aos="fade-up" data-aos-delay="600">
+                    <div class="relative">
+                        <div class="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full flex items-center justify-center">
+                            <i class="ri-star-fill text-black text-sm"></i>
+                        </div>
+                        <div class="w-16 h-16 bg-gradient-to-br from-primary-500/20 to-primary-600/20 backdrop-blur-sm border border-primary-500/30 rounded-full flex items-center justify-center mb-6 group-hover:from-primary-500 group-hover:to-primary-600 group-hover:text-black transition-all duration-300 shadow-lg">
+                            <i class="ri-graduation-cap-line ri-2x text-primary-300 group-hover:text-black"></i>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-4">Formation Photo</h3>
-                    <p class="text-neutral-400 mb-6 leading-relaxed">
-                        Apprenez les techniques de photographie professionnelle avec des cours 
-                        personnalisés adaptés à votre niveau et vos objectifs.
-                    </p>
-                    <ul class="text-neutral-400 space-y-2 mb-6">
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Cours individuels</li>
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Ateliers groupe</li>
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Pratique terrain</li>
-                        <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Certificat</li>
-                    </ul>
-                    <div class="text-primary-400 font-semibold mb-4">À partir de 100$</div>
-                    <a href="#contact" class="btn-primary w-full text-center">
+                    <div class="mb-4">
+                        <span class="inline-block px-3 py-1 bg-primary-500/20 text-primary-300 text-xs font-medium rounded-full mb-3">Formation</span>
+                        <h3 class="text-2xl font-bold text-white mb-3">Formation Photo</h3>
+                        <p class="text-neutral-400 leading-relaxed">
+                            Apprenez les techniques de photographie professionnelle avec des cours 
+                            personnalisés adaptés à votre niveau et vos objectifs.
+                        </p>
+                    </div>
+                    <div class="mb-6">
+                        <ul class="text-neutral-400 space-y-2">
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Cours individuels</li>
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Ateliers groupe</li>
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Pratique terrain</li>
+                            <li class="flex items-center"><i class="ri-check-line text-primary-500 mr-2"></i>Certificat</li>
+                        </ul>
+                    </div>
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="text-primary-400 font-bold text-lg">À partir de 100$</div>
+                        <div class="text-neutral-500 text-sm">⭐ 4.9/5</div>
+                    </div>
+                    <a href="#contact" class="btn-primary w-full text-center group-hover:shadow-xl group-hover:shadow-primary-500/25">
                         <i class="ri-calendar-line mr-2"></i>
-                        Réserver
+                        Réserver maintenant
                     </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="py-20 bg-gradient-to-r from-accent-900 to-secondary-900 relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/20"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="heading text-3xl md:text-4xl font-bold text-white mb-4" data-aos="fade-up">
+                    Nos <span class="text-primary-500">Réalisations</span>
+                </h2>
+                <p class="text-neutral-300 text-lg" data-aos="fade-up" data-aos-delay="200">
+                    Des chiffres qui témoignent de notre expertise et de la satisfaction de nos clients
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-4xl md:text-5xl font-bold text-primary-500 mb-2">500+</div>
+                    <div class="text-neutral-300 font-medium">Projets réalisés</div>
+                </div>
+                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-4xl md:text-5xl font-bold text-primary-500 mb-2">98%</div>
+                    <div class="text-neutral-300 font-medium">Clients satisfaits</div>
+                </div>
+                <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-4xl md:text-5xl font-bold text-primary-500 mb-2">5+</div>
+                    <div class="text-neutral-300 font-medium">Années d'expérience</div>
+                </div>
+                <div class="text-center" data-aos="fade-up" data-aos-delay="400">
+                    <div class="text-4xl md:text-5xl font-bold text-primary-500 mb-2">24h</div>
+                    <div class="text-neutral-300 font-medium">Délai de réponse</div>
                 </div>
             </div>
         </div>
@@ -540,6 +715,45 @@
         // Mobile menu
         document.getElementById('menu-toggle').addEventListener('click', function() {
             // Simple toggle pour mobile menu si nécessaire
+        });
+
+        // Service Category Filtering
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            const serviceCards = document.querySelectorAll('.service-card');
+            
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    
+                    // Mettre à jour l'état actif des boutons
+                    categoryButtons.forEach(btn => {
+                        btn.classList.remove('active', 'bg-primary-500', 'text-black');
+                        btn.classList.add('bg-secondary-800/50', 'text-neutral-300', 'border', 'border-secondary-600');
+                    });
+                    
+                    this.classList.add('active', 'bg-primary-500', 'text-black');
+                    this.classList.remove('bg-secondary-800/50', 'text-neutral-300', 'border', 'border-secondary-600');
+                    
+                    // Filtrer les cartes de service
+                    serviceCards.forEach(card => {
+                        const cardCategory = card.getAttribute('data-category');
+                        
+                        if (category === 'all' || cardCategory === category) {
+                            card.classList.remove('hidden');
+                            card.classList.add('visible');
+                        } else {
+                            card.classList.add('hidden');
+                            card.classList.remove('visible');
+                        }
+                    });
+                    
+                    // Réinitialiser les animations AOS pour les cartes visibles
+                    setTimeout(() => {
+                        AOS.refresh();
+                    }, 300);
+                });
+            });
         });
     </script>
 </body>
